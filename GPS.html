@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPS Text Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        #game {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .choices button {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .choices button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="game">
+        <h1>GPS Text Game</h1>
+        <p id="story">You are in a GPS lecture. What will you do!</p>
+        <div class="choices">
+            <button onclick="makeChoice('explore')">Listen to the lecture</button>
+            <button onclick="makeChoice('wait')">Do something interesting</button>
+        </div>
+    </div>
+
+    <script>
+        const story = document.getElementById('story');
+        const choices = document.querySelector('.choices');
+
+        function makeChoice(choice) {
+            if (choice === 'explore') {
+                story.textContent = "You listened and listened. Suddenly you captured a point.";
+                choices.innerHTML = `
+                    <button onclick="makeChoice('left')">Raise hands</button>
+                    <button onclick="makeChoice('right')">Take notes</button>
+                `;
+            } else if (choice === 'wait') {
+                story.textContent = "You are thinking what to do. Which action will you take?";
+                choices.innerHTML = `
+                    <button onclick="makeChoice('hide')">Play a mobile game</button>
+                    <button onclick="makeChoice('call')">Go out and play pool</button>
+                `;
+            } else if (choice === 'left') {
+                story.textContent = "You get A.";
+                choices.innerHTML = `<button onclick="restartGame()">Restart</button>`;
+            } else if (choice === 'right') {
+                story.textContent = "You get A.";
+                choices.innerHTML = `<button onclick="restartGame()">Restart</button>`;
+            } else if (choice === 'hide') {
+                story.textContent = "You fail.";
+                choices.innerHTML = `<button onclick="restartGame()">Restart</button>`;
+            } else if (choice === 'call') {
+                story.textContent = "You play pool well.";
+                choices.innerHTML = `<button onclick="restartGame()">Restart</button>`;
+            }
+        }
+
+        function restartGame() {
+            story.textContent = "You are in a GPS lecture. What will you do!";
+            choices.innerHTML = `
+                <button onclick="makeChoice('explore')">Listen to the lecture</button>
+                <button onclick="makeChoice('wait')">Do something interesting</button>
+            `;
+        }
+    </script>
+</body>
+
+</html>
