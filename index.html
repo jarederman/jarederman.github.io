@@ -112,6 +112,22 @@
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
       }
       
+      .ending-screen {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        padding: 20px;
+      }
+      
+      .ending-screen h2,
+      .ending-screen p,
+      .ending-screen button {
+        margin: 10px 0;
+      }
+      
 
     footer {
       text-align: center;
@@ -706,13 +722,26 @@ function loadNextTurn() {
 
 function showEnding() {
   const endingText = currentStory.endings[7-weight];
-  document.getElementById("story-title").innerText = currentStory.title + " Ending";
-  document.getElementById("story-description").innerText = endingText;
-  document.getElementById("story-options").innerHTML = "";
-  document.getElementById("evaluation").innerText = "";
+
+  const endingScreen = document.createElement("div");
+  endingScreen.className = "container ending-screen";
+  const title = document.createElement("h2");
+  title.innerText = currentStory.title + " Ending";
+  const description = document.createElement("p");
+  description.innerText = endingText;
   document.getElementById("evaluation").style.display = "none";
-  showRestartButton();
+  document.getElementById("story-options").innerHTML = "";
+  const restartButton = document.createElement("button");
+  restartButton.className = "restart-button";
+  restartButton.innerText = "Restart";
+  restartButton.onclick = () => location.reload();
+  endingScreen.appendChild(title);
+  endingScreen.appendChild(description);
+  endingScreen.appendChild(restartButton);
+  document.body.appendChild(endingScreen);
+  document.getElementById("story-screen").style.display = "none";
 }
+
 
 function showRestartButton() {
   const restartButton = document.createElement("button");
