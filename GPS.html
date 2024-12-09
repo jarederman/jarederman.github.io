@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPS Interactive Story Game</title>
+    <style>
+        /* 基本样式 */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(to bottom, #000428, #004e92);
+            background-size: cover;
+            background-attachment: fixed;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+            flex: 1;
+        }
+
+        h1,
+        h2 {
+            font-family: 'Georgia', serif;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+            gap: 20px;
+            /* 间距更大 */
+        }
+
+        .option-button {
+            background: linear-gradient(45deg, #0072ff, #00c6ff);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .option-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .evaluation {
+            margin: 20px;
+            font-size: 16px;
+            padding: 10px;
+            border: 2px dashed rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .next-button,
+        .restart-button {
+            background: linear-gradient(45deg, #8e44ad, #c0392b);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .next-button:hover,
+        .restart-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            background: rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="start-screen">
+        <h1>GPS Interactive Story Game</h1>
+        <p>Choose a story to begin your journey, while thinking about this question:</p>
+        <blockquote style="font-style: italic; color: rgba(255,255,255,0.8); font-size: 16px; margin-top: 10px;">
+            "What constraints does humanity face in its search for autonomy and meaning in life?"
+        </blockquote>
+        <div class="options">
+            <button class="option-button" onclick="startStory('The Great Gatsby')">The Great Gatsby</button>
+            <button class="option-button" onclick="startStory('Breaking Bad')">Breaking Bad</button>
+            <button class="option-button" onclick="startStory('The Hunger Games')">The Hunger Games</button>
+            <button class="option-button" onclick="startStory('Black Mirror')">Black Mirror</button>
+            <button class="option-button" onclick="startStory('Normal People')">Normal People</button>
+            <button class="option-button" onclick="startStory('1984')">1984</button>
+            <button class="option-button" onclick="startStory('The Kite Runner')">The Kite Runner</button>
+            <button class="option-button" onclick="startStory('The Road')">The Road</button>
+        </div>
+    </div>
+
+    <div class="container" id="story-screen" style="display:none;">
+        <h2 id="story-title"></h2>
+        <p id="story-description"></p>
+        <div class="options" id="story-options"></div>
+        <div id="evaluation" class="evaluation"></div>
+        <button class="restart-button" id="restart-button" style="display: none;"
+            onclick="restartGame()">Restart</button>
+    </div>
+
+    <footer>
+        &copy; 2024 GPS Fall | Created with passion and imagination.
+    </footer>
+</body>
+
+<script>
+    const stories = {
+        "The Great Gatsby": {
+            title: "The Great Gatsby",
+            description: "Choices and dilemmas surrounding Gatsby's love for Daisy.",
+            turningPoints: [
+                {
+                    question: "Whether to reconnect with Daisy?",
+                    options: [
+                        {
+                            text: "Reconnect with Daisy, rekindle feelings, and enter a dangerous emotional entanglement.",
+                            evaluation: "\"I want you to be free, but I don’t want you to be free in this way\" (Lust, Caution). Just as characters in Lust, Caution struggle with desires and consequences when revealing their feelings, publicly acknowledging a relationship with Daisy might increase emotional intimacy but expose the person to external judgment and pressure"
+                        },
+                        {
+                            text: "Give up on Daisy, pursue a new life, and accept the irreversibility of the past.",
+                            evaluation: "\"A man is not easily changed, nor does he easily turn his mind to what is in front of him\" (Seneca’s Letters to Lucilius). By choosing to let go of Daisy, one might preserve a sense of independence but at the cost of emotional disconnection, echoing how difficult it is to adjust when moving away from something that once mattered."
+                        }
+                    ]
+                },
+                {
+                    question: "Whether to face Tom’s questioning?",
+                    options: [
+                        {
+                            text: "Face the conflict, try to prove that the love is real, but risk exposing the fake source of wealth.",
+                            evaluation: "\"We suffer more often in imagination than in reality\" (Seneca’s Letters to Lucilius). Facing Tom's challenge may seem like a courageous effort, but exposing the truth behind the wealth adds unnecessary suffering, showcasing the dangers of confronting uncomfortable realities."
+                        },
+                        {
+                            text: "Avoid the confrontation, causing Daisy to question the future of their relationship.",
+                            evaluation: "\"Do not seek for things outside yourself; if you do, you will never be free\" (Seneca’s Letters to Lucilius). Avoiding conflict might prevent immediate discomfort, but it pushes Daisy further away, as unresolved issues lead to emotional detachment."
+                        }
+                    ]
+                },
+                {
+                    question: "Whether to take the blame for Daisy?",
+                    options: [
+                        {
+                            text: "Take the blame, meet a tragic death, and have Daisy leave everything behind.",
+                            evaluation: "\"What is done is done; we cannot change it now\" (The Metamorphosis). Taking the fall for Daisy leads to irreversible consequences, much like Gregor's transformation—actions taken cannot be undone, and the final results are beyond control."
+                        },
+                        {
+                            text: "Refuse to take the blame, reveal the truth but lose Daisy’s love forever.",
+                            evaluation: "\"We are more often frightened than hurt; and we suffer more from imagination than from reality\" (Seneca’s Letters to Lucilius). Revealing the truth may clear one’s conscience but result in emotional loss, as the fear of losing something valuable often hurts more than the actual loss."
+                        }
+                    ]
+                }
+            ]
+        },
+        "Breaking Bad": {
+            title: "Breaking Bad",
+            description: "Choices and dilemmas surrounding Walter White’s transformation into a drug kingpin.",
+            turningPoints: [
+                {
+                    question: "Whether to continue making drugs?",
+                    options: [
+                        {
+                            text: "Continue producing meth, expand power, but increase danger.",
+                            evaluation: "\"Do not seek for things outside yourself; if you do, you will never be free\" (Seneca’s Letters to Lucilius). Choosing power through drug manufacturing brings external rewards but shackles the soul, tying one’s life to dangerous pursuits that limit true freedom."
+                        },
+                        {
+                            text: "Quit the business, look for legal but uncertain income.",
+                            evaluation: "\"A man is not easily changed, nor does he easily turn his mind to what is in front of him\"(Seneca’s Letters to Lucilius).Walking away from the drug trade is not easy and can feel like a retreat, but it may lead to personal growth and the freedom to choose a more legitimate path."
+                        }
+                    ]
+                },
+                {
+                    question: "Whether to sacrifice family relationships?",
+                    options: [
+                        {
+                            text: "Distance from family, focus on business, fall into loneliness.",
+                            evaluation: "\"To live in accordance with nature is to live in accordance with reason\" (Seneca’s Letters to Lucilius). Choosing business over family represents a rational, outward success but reveals a lack of emotional fulfillment, paralleling the struggle to balance duty and personal life."
+                        },
+                        {
+                            text: "Try to maintain family ties, increase risks but preserve humanity.",
+                            evaluation: "\"The mind that is anxious about future events is miserable\" (Seneca’s Letters to Lucilius). The choice to keep family close, despite risks, reflects a desire to preserve human connections and emotions, even if it adds pressure."
+                        }
+                    ]
+                },
+                {
+                    question: "Whether to confront Gus?",
+                    options: [
+                        {
+                            text: "Fight Gus, seek greater power, but risk losing control.",
+                            evaluation: "\"What makes a man is his ability to rise above adversity\" (Seneca’s Letters to Lucilius). Confronting Gus is a courageous step toward personal empowerment, yet the risks of pushing too far can spiral out of control."
+                        },
+                        {
+                            text: "Submit to Gus, protect family, but become subjugated.",
+                            evaluation: "\"He who is brave is free\" (Seneca’s Letters to Lucilius). Choosing to submit may preserve the family, but it strips away personal autonomy, making one a pawn in someone else’s game."
+                        }
+                    ]
+                }
+            ]
+        },
+        "The Hunger Games": {
+            title: "The Hunger Games",
+            description: "Choices and dilemmas faced by Katniss Everdeen in the brutal arena and her rebellion against the Capitol.",
+            turningPoints: [
+                {
+                    question: "Whether to form an alliance?",
+                    options: [
+                        {
+                            text: "Form an alliance, fight enemies together, but increase internal conflict.",
+                            evaluation: "\"What is done is done; we cannot change it now\" (The Metamorphosis). While forming alliances can help face external threats, the complexities of cooperation often breed tension and unresolvable conflicts, making future outcomes unpredictable."
+                        },
+                        {
+                            text: "Fight alone, more challenging but independent.",
+                            evaluation: "\"We suffer more often in imagination than in reality\" (Seneca’s Letters to Lucilius). Choosing to fight solo may seem daunting, but it offers a more direct path to control and independence, reducing internal friction from conflicting goals."
+                        }
+                    ]
+                },
+                {
+                    question: "Whether to kill innocents?",
+                    options: [
+                        {
+                            text: "Succumb to pressure, kill for survival, but suffer emotional collapse.",
+                            evaluation: "\"To live in accordance with nature is to live in accordance with reason\" (Seneca’s Letters to Lucilius). Taking a life for survival may be rational in the moment, but it goes against moral nature, leaving the person fractured and unfulfilled."
+                        },
+                        {
+                            text: "Hold to moral standards, increase enemies but maintain humanity.",
+                            evaluation: "\"A man is not easily changed, nor does he easily turn his mind to what is in front of him\" (Seneca’s Letters to Lucilius). Maintaining moral integrity in such a brutal environment forces one to face even greater external challenges, yet it strengthens internal resilience."
+                        }
+                    ]
+                },
+                {
+                    question: "Whether to join the rebellion?",
+                    options: [
+                        {
+                            text: "Join the rebellion, change society, but risk life.",
+                            evaluation: "\"I want you to be free, but I don’t want you to be free in this way\" (Lust, Caution). Joining a rebellion can be an act of liberation, yet it often requires sacrifices that one may regret or find difficult to bear in the end."
+                        },
+                        {
+                            text: "Reject the rebellion, live for oneself, but face moral dilemmas.",
+                            evaluation: "\"He who is brave is free\" (Seneca’s Letters to Lucilius). Choosing personal safety over rebellion may seem pragmatic, but it comes at the cost of freedom from moral compromise, leading to an inner conflict."
+                        }
+                    ]
+                }
+            ]
+        },
+        "Black Mirror": {
+            title: "Black Mirror",
+            description: "Choices that explore the dark side of technology and its effects on society and personal relationships.",
+            turningPoints: [
+                {
+                    question: "Whether to implant a surveillance chip?",
+                    options: [
+                        {
+                            text: "Accept the chip, gain short-term convenience, but lose privacy.",
+                            evaluation: "\"We suffer more often in imagination than in reality\" (Seneca’s Letters to Lucilius). The convenience of the chip may seem like a way to simplify life, but the loss of privacy can lead to a deeper, more lasting emotional toll than one initially imagines."
+                        },
+                        {
+                            text: "Reject the chip, preserve privacy, but face societal exclusion.",
+                            evaluation: "\"To live in accordance with nature is to live in accordance with reason\" (Seneca’s Letters to Lucilius). Rejecting the chip maintains personal freedom, but it may lead to alienation in a society that values conformity over individuality."
+                        }
+                    ]
+                },
+                {
+                    question: "Whether to publicly release private data?",
+                    options: [
+                        {
+                            text: "Release data, attempt to gain societal trust, but risk greater problems.",
+                            evaluation: "\"He who is brave is free\" (Seneca’s Letters to Lucilius). Choosing to release personal data in an attempt to foster trust may seem like a bold move, but it could backfire and bring unintended consequences, as vulnerability can lead to exploitation."
+                        },
+                        {
+                            text: "Conceal the data, protect oneself, but invite more suspicion.",
+                            evaluation: "\"A man is not easily changed, nor does he easily turn his mind to what is in front of him\" (Seneca’s Letters to Lucilius). Hiding information may protect oneself in the short term but risks causing greater distrust, reflecting the struggle between self- preservation and transparency."
+                        }
+                    ]
+                },
+                {
+                    question: "Whether to expose the truth?",
+                    options: [
+                        {
+                            text: "Expose the truth, instigate social change, but risk retaliation.",
+                            evaluation: "\"What is done is done; we cannot change it now\" (The Metamorphosis). Revealing uncomfortable truths can be a catalyst for social transformation, but it may come at great personal cost, as once the truth is out, it cannot be undone."
+                        },
+                        {
+                            text: "Stay silent, protect oneself, but abandon the fight for justice.",
+                            evaluation: "\"We suffer more often in imagination than in reality\" (Seneca’s Letters to Lucilius). Remaining silent might shield one from immediate danger, but it reflects a moral surrender that causes long-term regret, as the truth remains buried."
+                        }
+                    ]
+                }
+            ]
+        },
+        "Normal People": {
+            title: "Normal People",
+            description: "Choices and dilemmas in the complex relationship between Connell and Marianne as they navigate love, identity, and societal expectations.",
+            turningPoints: [
+                {
+                    question: "Whether to publicize the relationship?",
+                    options: [
+                        {
+                            text: "Go public, advance the relationship, but face societal pressure.",
+                            evaluation: "\"We are more often frightened than hurt; and we suffer more from imagination than from reality\" (Seneca’s Letters to Lucilius). Going public might deepen the connection, but the pressure of external judgment can be overwhelming, often more imagined than real."
+                        },
+                        {
+                            text: "Keep the relationship secret, maintain privacy, but risk growing apart.",
+                            evaluation: "\"What makes a man is his ability to rise above adversity\" (Seneca’s Letters to Lucilius). Choosing secrecy preserves personal boundaries but leads to emotional distance, as avoiding confrontation often allows feelings to drift apart."
+                        }
+                    ]
+                },
+                {
+                    question: "Whether to forgive the other’s mistakes?",
+                    options: [
+                        {
+                            text: "Forgive, continue the relationship, but carry emotional scars.",
+                            evaluation: "\"To live in accordance with nature is to live in accordance with reason\" (Seneca’s Letters to Lucilius). Forgiveness can heal, but it leaves emotional remnants, as the mind struggles to reconcile the hurt with continued attachment."
+                        },
+                        {
+                            text: "Refuse to forgive, end the relationship, but risk future regret.",
+                            evaluation: "\"A man is not easily changed, nor does he easily turn his mind to what is in front of him\" (Seneca’s Letters to Lucilius). Refusing forgiveness can bring temporary relief but often leads to long-term sorrow, as one’s inability to move on keeps the past alive."
+                        }
+                    ]
+                },
+                {
+                    question: "Whether to accept a career opportunity?",
+                    options: [
+                        {
+                            text: "Accept the opportunity, pursue personal growth, but sacrifice time for the relationship.",
+                            evaluation: "\"I want you to be free, but I don’t want you to be free in this way\" (Lust, Caution). Pursuing career ambitions may seem like a step forward, but it can create emotional distance in relationships, leaving one to question the costs of success."
+                        },
+                        {
+                            text: "Reject the opportunity, focus on the relationship, but give up career prospects.",
+                            evaluation: "\"We suffer more often in imagination than in reality\" (Seneca’s Letters to Lucilius). Choosing love over career could seem like an ideal, yet it brings internal conflict as one sacrifices personal growth for emotional connection, with doubt clouding the future."
+                        }
+                    ]
+                }
+            ]
+        },
+        "1984": {
+            title: "1984",
+            description: "Choices in a totalitarian society, exploring the conflict between personal freedom and submission to the Party.",
+            turningPoints: [
+                {
+                    question: "Whether to accept the Party’s thought control?",
+                    options: [
+                        {
+                            text: "Accept the thought control, find false security, but lose identity.",
+                            evaluation: "\"What is done is done; we cannot change it now\" (The Metamorphosis). Submitting to the Party’s control offers safety but erases personal freedom, paralleling Gregor’s transformation where the irreversible change renders his previous life unrecognizable."
+                        },
+                        {
+                            text: "Reject the thought control, face danger, but preserve freedom.",
+                            evaluation: "\"We are more often frightened than hurt; and we suffer more from imagination than from reality\" (Seneca’s Letters to Lucilius). Rejecting control preserves autonomy but invites fear and suffering, as the dangers of standing firm against totalitarian oppression often feel more menacing than they truly are."
+                        }
+                    ]
+                },
+                {
+                    question: "Whether to publicly reveal the relationship with Julia?",
+                    options: [
+                        {
+                            text: "Reveal the relationship, enjoy temporary freedom, but expose oneself to danger.",
+                            evaluation: "\"What makes a man is his ability to rise above adversity\" (Seneca’s Letters to Lucilius). Publicly embracing rebellion against the Party allows brief moments of liberation, but it brings inevitable risk, as survival in a totalitarian regime demands silence and submission."
+                        },
+                        {
+                            text: "Hide the relationship, protect oneself, but bear increasing psychological strain.",
+                            evaluation: "\"We suffer more often in imagination than in reality\" (Seneca’s Letters to Lucilius). Concealing the relationship may seem safer, yet the anxiety of keeping secrets increases the psychological burden, causing emotional distress and inner turmoil."
+                        }
+                    ]
+                },
+                {
+                    question: "Whether to join the resistance movement?",
+                    options: [
+                        {
+                            text: "Join the resistance, fight for change, but risk imprisonment or death.",
+                            evaluation: "\"He who is brave is free\" (Seneca’s Letters to Lucilius). Joining the resistance can be seen as an act of courage, symbolizing the pursuit of freedom, but it comes with the high cost of risking everything for a cause that might fail."
+                        },
+                        {
+                            text: "Remain obedient, preserve personal safety, but become a tool of the regime.",
+                            evaluation: "\"To live in accordance with nature is to live in accordance with reason\" (Seneca’s Letters to Lucilius). Submitting to the regime ensures survival but strips away personal integrity, turning one into an instrument of oppression."
+                        }
+                    ]
+                }
+            ]
+        },
+        "The Kite Runner": {
+            title: "The Kite Runner",
+            description: "Choices and dilemmas involving Amir's guilt, redemption, and loyalty in a complex relationship with Hassan.",
+            turningPoints: [
+                {
+                    question: "Whether to defend Hassan?",
+                    options: [
+                        {
+                            text: "Defend Hassan, risk social exclusion, but stand for what's right.",
+                            evaluation: "\"We are more often frightened than hurt; and we suffer more from imagination than from reality\" (Seneca’s Letters to Lucilius). Helping Hassan might bring immediate risks, but the emotional burden of inaction can be much heavier than the social rejection one fears."
+                        },
+                        {
+                            text: "Avoid defending Hassan, secure personal safety but live with guilt.",
+                            evaluation: "\"What makes a man is his ability to rise above adversity\" (Seneca’s Letters to Lucilius). Remaining silent protects one's status but cultivates deep internal regret, as inaction causes emotional turmoil that lingers far longer than external consequences."
+                        }
+                    ]
+                },
+                {
+                    question: "Whether to tell the truth to the father?",
+                    options: [
+                        {
+                            text: "Reveal the truth, relieve guilt, but risk family fracture.",
+                            evaluation: "\"We suffer more often in imagination than in reality\" (Seneca’s Letters to Lucilius). Telling the truth might seem like an emotional release, but the fear of consequences often causes more suffering than the actual aftermath, especially in a family dynamic."
+                        },
+                        {
+                            text: "Conceal the truth, protect the father, but carry the burden of guilt.",
+                            evaluation: "\"To live in accordance with nature is to live in accordance with reason\" (Seneca’s Letters to Lucilius). Choosing silence preserves peace in the short term but leaves the individual in torment, as the weight of unspoken truths only grows heavier with time."
+                        }
+                    ]
+                },
+                {
+                    question: "Whether to redeem oneself by helping Hassan’s son?",
+                    options: [
+                        {
+                            text: "Help Hassan’s son, seek redemption, but risk personal safety.",
+                            evaluation: "\"What is done is done; we cannot change it now\" (The Metamorphosis). Taking a brave step toward redemption offers a chance to atone for past mistakes, but it cannot undo the damage caused, and the risk of failure can be immense."
+                        },
+                        {
+                            text: "Reject the opportunity, preserve personal safety but remain in guilt.",
+                            evaluation: "\"We suffer more often in imagination than in reality\" (Seneca’s Letters to Lucilius). Choosing safety over action may seem wise, but it allows guilt to fester, and the fear of what might have been often weighs heavier than the comfort of inaction."
+                        }
+                    ]
+                }
+            ]
+        },
+        "The Road": {
+            title: "The Road",
+            description: "Choices in a post-apocalyptic world, navigating survival, hope, and the bond between father and son.",
+            turningPoints: [
+                {
+                    question: "Whether to trust strangers?",
+                    options: [
+                        {
+                            text: "Trust the strangers, risk survival for a chance at kindness.",
+                            evaluation: "\"We are more often frightened than hurt; and we suffer more from imagination than from reality\" (Seneca’s Letters to Lucilius). Trusting others in a desolate world may seem like an act of hope, but the imagined fear of betrayal can often be more painful than the actual risk."
+                        },
+                        {
+                            text: "Avoid the strangers, protect survival but remain isolated.",
+                            evaluation: "\"To live in accordance with nature is to live in accordance with reason\" (Seneca’s Letters to Lucilius). Refusing trust might keep one safe, but it sacrifices human connection, leading to emotional isolation in a world already filled with suffering."
+                        }
+                    ]
+                },
+                {
+                    question: "Whether to continue south?",
+                    options: [
+                        {
+                            text: "Continue traveling south, hope for a better future, but risk greater danger.",
+                            evaluation: "\"What is done is done; we cannot change it now\" (The Metamorphosis). The decision to keep moving forward offers hope, but it’s often a futile pursuit in a world where danger seems unending. The journey mirrors the struggle for survival in a world that doesn’t promise salvation."
+                        },
+                        {
+                            text: "Stop traveling, seek refuge, but abandon hope for a better future.",
+                            evaluation: "\"We suffer more often in imagination than in reality\" (Seneca’s Letters to Lucilius). Stopping may seem like a prudent choice, yet it also marks a surrender to despair, as the abandonment of hope can feel more crushing than the risks of continued survival."
+                        }
+                    ]
+                },
+                {
+                    question: "Whether to instill optimism in the son?",
+                    options: [
+                        {
+                            text: "Teach optimism, pass on hope, but risk further disappointment.",
+                            evaluation: "\"What makes a man is his ability to rise above adversity\" (Seneca’s Letters to Lucilius). Instilling hope in the son is an act of defiance against a harsh world, yet it comes with the possibility that the child may inherit the same harsh realities. The optimism remains a fragile shield against despair."
+                        },
+                        {
+                            text: "Deny hope, teach caution, but extinguish any remaining light.",
+                            evaluation: "\"He who is brave is free\" (Seneca’s Letters to Lucilius). Denying hope may protect the son from future pain, but it also robs him of the strength to push forward, leaving him without the ability to fight against the darkness of their world."
+                        }
+                    ]
+                }
+            ]
+        }
+    };
+
+    let currentStory = null;
+    let currentTurn = 0;
+    let optionClicked = false;
+
+    function startStory(storyName) {
+        currentStory = stories[storyName];
+        currentTurn = 0;
+        optionClicked = false;
+        document.getElementById("start-screen").style.display = "none";
+        document.getElementById("story-screen").style.display = "block";
+        loadTurn();
+    }
+
+    function loadTurn() {
+        if (currentTurn >= currentStory.turningPoints.length) {
+            showRestartButton();
+            return;
+        }
+
+        const turningPoint = currentStory.turningPoints[currentTurn];
+        document.getElementById("story-title").innerText = currentStory.title;
+        document.getElementById("story-description").innerText = currentStory.description;
+        document.getElementById("evaluation").innerText = "";
+
+        const optionsDiv = document.getElementById("story-options");
+        optionsDiv.innerHTML = "";
+
+        const question = document.createElement("p");
+        question.innerText = turningPoint.question;
+        optionsDiv.appendChild(question);
+
+        turningPoint.options.forEach((option, index) => {
+            const button = document.createElement("button");
+            button.className = "option-button";
+            button.innerText = option.text;
+            button.addEventListener('click', () => handleOptionSelection(option.evaluation, button));
+            button.addEventListener('touchstart', () => handleOptionSelection(option.evaluation, button));
+
+            optionsDiv.appendChild(button);
+        });
+    }
+
+
+    function handleOptionSelection(evaluation, button) {
+        if (optionClicked) return;
+
+        document.getElementById("evaluation").innerText = evaluation;
+        optionClicked = true;
+
+        const buttons = document.querySelectorAll('.option-button');
+        buttons.forEach(btn => btn.disabled = true);
+
+        if (currentTurn >= currentStory.turningPoints.length - 1) {
+            showRestartButton();
+        } else {
+            const nextButton = document.createElement("button");
+            nextButton.className = "next-button";
+            nextButton.innerText = "Next";
+            nextButton.onclick = loadNextTurn;
+            document.getElementById("story-options").appendChild(nextButton);
+        }
+    }
+
+    function loadNextTurn() {
+        currentTurn++;
+        optionClicked = false;
+        loadTurn();
+    }
+
+    function showRestartButton() {
+        const restartButton = document.createElement("button");
+        restartButton.className = "restart-button";
+        restartButton.innerText = "Restart";
+        restartButton.onclick = () => location.reload();
+        document.getElementById("story-options").appendChild(restartButton);
+    }
+</script>
+
+</body>
+
+</html>
