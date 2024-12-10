@@ -1,4 +1,859 @@
-<!DOCTYPE html><!-- JShaman.com html加密 --><script>
-document.write(unescape("%0A%3C%21DOCTYPE%20html%3E%0A%3Chtml%20lang%3D%22en%22%3E%0A%0A%3Chead%3E%0A%20%20%3Cmeta%20charset%3D%22UTF-8%22%3E%0A%20%20%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%2C%20initial-scale%3D1.0%22%3E%0A%20%20%3Ctitle%3EGPS%20Interactive%20Story%20Game%3C/title%3E%0A%20%20%3Cscript%20src%3D%22https%3A//cdn.jsdelivr.net/npm/chart.js%22%3E%3C/script%3E%0A%20%20%3Cstyle%3E%0A%20%20%20%20html%2C%0A%20%20%20%20body%20%7B%0A%20%20%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20%20%20margin%3A%200%3B%0A%20%20%20%20%20%20padding%3A%200%3B%0A%20%20%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20%20%20background%3A%20linear-gradient%28to%20bottom%2C%20%23000428%2C%20%23004e92%29%3B%0A%20%20%20%20%20%20background-size%3A%20cover%3B%0A%20%20%20%20%20%20background-attachment%3A%20fixed%3B%0A%20%20%20%20%20%20color%3A%20white%3B%0A%20%20%20%20%20%20font-family%3A%20%27Segoe%20UI%27%2C%20Tahoma%2C%20Geneva%2C%20Verdana%2C%20sans-serif%3B%0A%20%20%20%20%7D%0A%0A%20%20%20.container%20%7B%0A%20%20%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20%20%20padding%3A%2040px%3B%0A%20%20%20%20%20%20max-width%3A%20900px%3B%0A%20%20%20%20%20%20margin%3A%20auto%3B%0A%20%20%20%20%20%20flex%3A%201%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20h1%2C%0A%20%20%20%20h2%20%7B%0A%20%20%20%20%20%20font-family%3A%20%27Georgia%27%2C%20serif%3B%0A%20%20%20%20%20%20margin-bottom%3A%2020px%3B%0A%20%20%20%20%20%20text-shadow%3A%202px%202px%205px%20rgba%280%2C%200%2C%200%2C%200.5%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20p%20%7B%0A%20%20%20%20%20%20font-size%3A%2018px%3B%0A%20%20%20%20%20%20line-height%3A%201.6%3B%0A%20%20%20%20%20%20margin%3A%2015px%200%3B%0A%20%20%20%20%7D%0A%0A%20%20%20.options%20%7B%0A%20%20%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20%20%20margin-top%3A%2030px%3B%0A%20%20%20%20%20%20gap%3A%2020px%3B%0A%20%20%20%20%20%20/*%20%u95F4%u8DDD%u66F4%u5927%20*/%0A%20%20%20%20%7D%0A%0A%20%20%20.option-button%20%7B%0A%20%20%20%20%20%20background%3A%20linear-gradient%2845deg%2C%20%230072ff%2C%20%2300c6ff%29%3B%0A%20%20%20%20%20%20color%3A%20white%3B%0A%20%20%20%20%20%20padding%3A%2012px%2020px%3B%0A%20%20%20%20%20%20border%3A%20none%3B%0A%20%20%20%20%20%20border-radius%3A%2030px%3B%0A%20%20%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20%20%20font-size%3A%2018px%3B%0A%20%20%20%20%20%20transition%3A%20transform%200.2s%2C%20box-shadow%200.3s%3B%0A%20%20%20%20%20%20box-shadow%3A%200%205px%2015px%20rgba%280%2C%200%2C%200%2C%200.3%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20.option-button%3Ahover%20%7B%0A%20%20%20%20%20%20transform%3A%20scale%281.1%29%3B%0A%20%20%20%20%20%20box-shadow%3A%200%208px%2020px%20rgba%280%2C%200%2C%200%2C%200.5%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20.evaluation%20%7B%0A%20%20%20%20%20%20margin%3A%2020px%3B%0A%20%20%20%20%20%20font-size%3A%2016px%3B%0A%20%20%20%20%20%20padding%3A%2010px%3B%0A%20%20%20%20%20%20border%3A%202px%20dashed%20rgba%28255%2C%20255%2C%20255%2C%200.8%29%3B%0A%20%20%20%20%20%20background%3A%20rgba%28255%2C%20255%2C%20255%2C%200.1%29%3B%0A%20%20%20%20%20%20border-radius%3A%2010px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.next-button%20%7B%0A%20%20%20%20%20%20%20%20background%3A%20linear-gradient%2845deg%2C%20%23087919%2C%20%2319cc28%29%3B%0A%20%20%20%20%20%20%20%20color%3A%20white%3B%0A%20%20%20%20%20%20%20%20padding%3A%2010px%2020px%3B%0A%20%20%20%20%20%20%20%20border%3A%20none%3B%0A%20%20%20%20%20%20%20%20border-radius%3A%2030px%3B%0A%20%20%20%20%20%20%20%20font-size%3A%2018px%3B%0A%20%20%20%20%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20%20%20%20%20margin-top%3A%2020px%3B%0A%20%20%20%20%20%20%20%20transition%3A%20transform%200.2s%2C%20box-shadow%200.3s%3B%0A%20%20%20%20%20%20%20%20box-shadow%3A%200%205px%2015px%20rgba%280%2C%200%2C%200%2C%200.3%29%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20.next-button%3Ahover%20%7B%0A%20%20%20%20%20%20%20%20transform%3A%20scale%281.1%29%3B%0A%20%20%20%20%20%20%20%20box-shadow%3A%200%208px%2020px%20rgba%280%2C%200%2C%200%2C%200.5%29%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20.restart-button%20%7B%0A%20%20%20%20%20%20%20%20background%3A%20linear-gradient%2845deg%2C%20%238e44ad%2C%20%23c0392b%29%3B%0A%20%20%20%20%20%20%20%20color%3A%20white%3B%0A%20%20%20%20%20%20%20%20padding%3A%2010px%2020px%3B%0A%20%20%20%20%20%20%20%20border%3A%20none%3B%0A%20%20%20%20%20%20%20%20border-radius%3A%2030px%3B%0A%20%20%20%20%20%20%20%20font-size%3A%2018px%3B%0A%20%20%20%20%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20%20%20%20%20margin-top%3A%2020px%3B%0A%20%20%20%20%20%20%20%20transition%3A%20transform%200.2s%2C%20box-shadow%200.3s%3B%0A%20%20%20%20%20%20%20%20box-shadow%3A%200%205px%2015px%20rgba%280%2C%200%2C%200%2C%200.3%29%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20.restart-button%3Ahover%20%7B%0A%20%20%20%20%20%20%20%20transform%3A%20scale%281.1%29%3B%0A%20%20%20%20%20%20%20%20box-shadow%3A%200%208px%2020px%20rgba%280%2C%200%2C%200%2C%200.5%29%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20.ending-screen%20%7B%0A%20%20%20%20%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20%20%20%20%20height%3A%20100vh%3B%0A%20%20%20%20%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20%20%20%20%20padding%3A%2020px%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20.ending-screen%20h2%2C%0A%20%20%20%20%20%20.ending-screen%20p%2C%0A%20%20%20%20%20%20.ending-screen%20button%20%7B%0A%20%20%20%20%20%20%20%20margin%3A%2010px%200%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%0A%0A%20%20%20%20footer%20%7B%0A%20%20%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20%20%20padding%3A%2010px%3B%0A%20%20%20%20%20%20font-size%3A%2014px%3B%0A%20%20%20%20%20%20color%3A%20rgba%28255%2C%20255%2C%20255%2C%200.6%29%3B%0A%20%20%20%20%20%20background%3A%20rgba%280%2C%200%2C%200%2C%200.2%29%3B%0A%20%20%20%20%7D%0A%20%20%3C/style%3E%0A%3C/head%3E%0A%0A%3Cbody%3E%0A%20%20%3Cdiv%20class%3D%22container%22%20id%3D%22start-screen%22%3E%0A%20%20%20%20%3Ch1%3EGPS%20Interactive%20Story%20Game%3C/h1%3E%0A%20%20%20%20%3Cp%3EChoose%20a%20story%20to%20begin%20your%20journey%2C%20while%20thinking%20about%20this%20question%3A%3C/p%3E%0A%20%20%20%20%3Cblockquote%20style%3D%22font-style%3A%20italic%3B%20color%3A%20rgba%28255%2C%20255%2C%20255%2C%200.8%29%3B%20font-size%3A%2016px%3B%20margin-top%3A%2010px%3B%22%3E%0A%20%20%20%20%20%20%22What%20constraints%20does%20humanity%20face%20in%20its%20search%20for%20autonomy%20and%20meaning%20in%20life%3F%22%0A%20%20%20%20%3C/blockquote%3E%0A%20%20%20%20%3Cdiv%20class%3D%22options%22%3E%0A%20%20%20%20%20%20%3Cbutton%20class%3D%22option-button%22%20onclick%3D%22startStory%28%27The%20Great%20Gatsby%27%29%22%3EThe%20Great%20Gatsby%3C/button%3E%0A%20%20%20%20%20%20%3Cbutton%20class%3D%22option-button%22%20onclick%3D%22startStory%28%27Breaking%20Bad%27%29%22%3EBreaking%20Bad%3C/button%3E%0A%20%20%20%20%20%20%3Cbutton%20class%3D%22option-button%22%20onclick%3D%22startStory%28%27The%20Hunger%20Games%27%29%22%3EThe%20Hunger%20Games%3C/button%3E%0A%20%20%20%20%20%20%3Cbutton%20class%3D%22option-button%22%20onclick%3D%22startStory%28%27Black%20Mirror%27%29%22%3EBlack%20Mirror%3C/button%3E%0A%20%20%20%20%20%20%3Cbutton%20class%3D%22option-button%22%20onclick%3D%22startStory%28%27Normal%20People%27%29%22%3ENormal%20People%3C/button%3E%0A%20%20%20%20%20%20%3Cbutton%20class%3D%22option-button%22%20onclick%3D%22startStory%28%271984%27%29%22%3E1984%3C/button%3E%0A%20%20%20%20%20%20%3Cbutton%20class%3D%22option-button%22%20onclick%3D%22startStory%28%27The%20Kite%20Runner%27%29%22%3EThe%20Kite%20Runner%3C/button%3E%0A%20%20%20%20%20%20%3Cbutton%20class%3D%22option-button%22%20onclick%3D%22startStory%28%27The%20Road%27%29%22%3EThe%20Road%3C/button%3E%0A%20%20%20%20%3C/div%3E%0A%20%20%3C/div%3E%0A%20%20%3Cdiv%20class%3D%22container%22%20id%3D%22story-screen%22%20style%3D%22display%3Anone%3B%22%3E%0A%20%20%20%20%3Ch2%20id%3D%22story-title%22%3E%3C/h2%3E%0A%20%20%20%20%3Cp%20id%3D%22story-description%22%3E%3C/p%3E%0A%20%20%20%20%3Cdiv%20class%3D%22options%22%20id%3D%22story-options%22%3E%3C/div%3E%0A%20%20%20%20%3Cdiv%20id%3D%22evaluation%22%20class%3D%22evaluation%22%3E%3C/div%3E%0A%20%20%20%20%3Cdiv%20id%3D%22chart-container%22%20style%3D%22display%3A%20none%3B%20margin-top%3A%2020px%3B%22%3E%0A%20%20%20%20%20%20%3Ccanvas%20id%3D%22radar-chart%22%20width%3D%22400%22%20height%3D%22400%22%3E%3C/canvas%3E%0A%20%20%20%20%3C/div%3E%0A%20%20%20%20%3Cbutton%20class%3D%22restart-button%22%20id%3D%22restart-button%22%20style%3D%22display%3A%20none%3B%22%0A%20%20%20%20%20%20onclick%3D%22restartGame%28%29%22%3ERestart%3C/button%3E%0A%20%20%3C/div%3E%0A%20%20%3Cfooter%3E%0A%20%20%20%20%26copy%3B%202024%20GPS%20Fall%20%7C%20Designed%20by%20jarederman%20%7C%20Created%20with%20passion%20and%20imagination%0A%20%20%3C/footer%3E%0A%0A%20%20%3Cscript%3E%0A%20%20%20%20const%20stories%20%3D%20%7B%0A%20%20%20%20%20%20%22The%20Great%20Gatsby%22%3A%20%7B%0A%20%20%20%20%20%20%20%20title%3A%20%22The%20Great%20Gatsby%22%2C%0A%20%20%20%20%20%20%20%20description%3A%20%22Choices%20and%20dilemmas%20surrounding%20Gatsby%27s%20love%20for%20Daisy.%22%2C%0A%20%20%20%20%20%20%20%20turningPoints%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20question%3A%20%22Whether%20to%20reconnect%20with%20Daisy%3F%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20weight%3A%204%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20Autonomy%3A%205%2C%20Morality%3A%204%2C%20Meaning%3A%207%2C%20Relationship%3A%209%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20%22Reconnect%20with%20Daisy%2C%20rekindle%20feelings%2C%20and%20enter%20a%20dangerous%20emotional%20entanglement.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22I%20want%20you%20to%20be%20free%2C%20but%20I%20don%u2019t%20want%20you%20to%20be%20free%20in%20this%20way%5C%22%20%28Lust%2C%20Caution%29.%20Just%20as%20characters%20in%20Lust%2C%20Caution%20struggle%20with%20desires%20and%20consequences%20when%20revealing%20their%20feelings%2C%20publicly%20acknowledging%20a%20relationship%20with%20Daisy%20might%20increase%20emotional%20intimacy%20but%20expose%20the%20person%20to%20external%20judgment%20and%20pressure.%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20weight%3A0%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20Autonomy%3A%208%2C%20Morality%3A%208%2C%20Meaning%3A%206%2C%20Relationship%3A%203%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20%22Give%20up%20on%20Daisy%2C%20pursue%20a%20new%20life%2C%20and%20accept%20the%20irreversibility%20of%20the%20past.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22A%20man%20is%20not%20easily%20changed%2C%20nor%20does%20he%20easily%20turn%20his%20mind%20to%20what%20is%20in%20front%20of%20him%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20By%20choosing%20to%20let%20go%20of%20Daisy%2C%20one%20might%20preserve%20a%20sense%20of%20independence%20but%20at%20the%20cost%20of%20emotional%20disconnection%2C%20echoing%20how%20difficult%20it%20is%20to%20adjust%20when%20moving%20away%20from%20something%20that%20once%20mattered.%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%0A%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20question%3A%20%22Whether%20to%20face%20Tom%u2019s%20questioning%3F%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20weight%3A2%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20Autonomy%3A%206%2C%20Morality%3A%205%2C%20Meaning%3A%207%2C%20Relationship%3A%208%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20%22Face%20the%20conflict%2C%20try%20to%20prove%20that%20the%20love%20is%20real%2C%20but%20risk%20exposing%20the%20fake%20source%20of%20wealth.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22We%20suffer%20more%20often%20in%20imagination%20than%20in%20reality%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Facing%20Tom%27s%20challenge%20may%20seem%20like%20a%20courageous%20effort%2C%20but%20exposing%20the%20truth%20behind%20the%20wealth%20adds%20unnecessary%20suffering%2C%20showcasing%20the%20dangers%20of%20confronting%20uncomfortable%20realities.%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20weight%3A0%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20Autonomy%3A%207%2C%20Morality%3A%208%2C%20Meaning%3A%205%2C%20Relationship%3A%205%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20%22Avoid%20the%20confrontation%2C%20causing%20Daisy%20to%20question%20the%20future%20of%20their%20relationship.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22Do%20not%20seek%20for%20things%20outside%20yourself%3B%20if%20you%20do%2C%20you%20will%20never%20be%20free%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Avoiding%20conflict%20might%20prevent%20immediate%20discomfort%2C%20but%20it%20pushes%20Daisy%20further%20away%2C%20as%20unresolved%20issues%20lead%20to%20emotional%20detachment.%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%0A%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20question%3A%20%22Whether%20to%20take%20the%20blame%20for%20Daisy%3F%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20weight%3A1%2CAutonomy%3A%204%2C%20Morality%3A%203%2C%20Meaning%3A%209%2C%20Relationship%3A%2010%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20%22Take%20the%20blame%2C%20meet%20a%20tragic%20death%2C%20and%20have%20Daisy%20leave%20everything%20behind.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22What%20is%20done%20is%20done%3B%20we%20cannot%20change%20it%20now%5C%22%20%28The%20Metamorphosis%29.%20Taking%20the%20fall%20for%20Daisy%20leads%20to%20irreversible%20consequences%2C%20much%20like%20Gregor%27s%20transformation%u2014actions%20taken%20cannot%20be%20undone%2C%20and%20the%20final%20results%20are%20beyond%20control.%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%209%2C%20Morality%3A%208%2C%20Meaning%3A%206%2C%20Relationship%3A%202%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20%22Refuse%20to%20take%20the%20blame%2C%20reveal%20the%20truth%20but%20lose%20Daisy%u2019s%20love%20forever.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22We%20are%20more%20often%20frightened%20than%20hurt%3B%20and%20we%20suffer%20more%20from%20imagination%20than%20from%20reality%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Revealing%20the%20truth%20may%20clear%20one%u2019s%20conscience%20but%20result%20in%20emotional%20loss%2C%20as%20the%20fear%20of%20losing%20something%20valuable%20often%20hurts%20more%20than%20the%20actual%20loss.%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%5D%2C%0A%20%20%20%20%20%20%20%20endings%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%22Gatsby%20sacrifices%20himself%20for%20love%2C%20but%20Daisy%27s%20departure%20and%20Tom%27s%20manipulations%20push%20him%20to%20despair%2C%20leading%20to%20his%20lonely%20death.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%22Despite%20his%20efforts%20to%20protect%20Daisy%2C%20her%20indecisiveness%20renders%20Gatsby%27s%20sacrifice%20meaningless%2C%20and%20no%20one%20remembers%20his%20devotion%20after%20his%20death.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%22After%20revealing%20the%20truth%2C%20Gatsby%20loses%20Daisy%27s%20love%20but%20gains%20respect%20for%20his%20courage%20and%20sincerity%2C%20starting%20a%20new%20life.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%22Avoiding%20conflict%20and%20refusing%20to%20sacrifice%20for%20Daisy%20results%20in%20their%20separation%2C%20leaving%20Gatsby%20aimless%20and%20confused.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%22Even%20after%20letting%20go%20of%20Daisy%2C%20Gatsby%20protects%20her%20and%20becomes%20a%20tragic%20victim%20of%20love.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%22Choosing%20to%20discreetly%20protect%20Daisy%2C%20Gatsby%20fails%20to%20escape%20tragedy%20and%20dies%20unresolved.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%22Gatsby%20reveals%20the%20truth%2C%20letting%20go%20of%20Daisy%2C%20and%20begins%20a%20journey%20of%20self-discovery%20and%20renewal.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%22Gatsby%20severs%20ties%20with%20Daisy%20completely%2C%20escaping%20the%20tangled%20relationships%20and%20pursuing%20personal%20growth.%22%0A%20%20%20%20%20%20%20%20%5D%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%22Breaking%20Bad%22%3A%20%7B%0A%20%20%20%20%20%20%20%20title%3A%20%22Breaking%20Bad%22%2C%0A%20%20%20%20%20%20%20%20description%3A%20%22Choices%20and%20dilemmas%20surrounding%20Walter%20White%u2019s%20transformation%20into%20a%20drug%20kingpin.%22%2C%0A%20%20%20%20%20%20%20%20turningPoints%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20question%3A%20%22Whether%20to%20continue%20making%20drugs%3F%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20weight%3A4%2CAutonomy%3A%203%2C%20Morality%3A%202%2C%20Meaning%3A%205%2C%20Relationship%3A%204%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20%22Continue%20producing%20meth%2C%20expand%20power%2C%20but%20increase%20danger.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22Do%20not%20seek%20for%20things%20outside%20yourself%3B%20if%20you%20do%2C%20you%20will%20never%20be%20free%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Choosing%20power%20through%20drug%20manufacturing%20brings%20external%20rewards%20but%20shackles%20the%20soul%2C%20tying%20one%u2019s%20life%20to%20dangerous%20pursuits%20that%20limit%20true%20freedom.%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%207%2C%20Morality%3A%206%2C%20Meaning%3A%208%2C%20Relationship%3A%206%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20%22Quit%20the%20business%2C%20look%20for%20legal%20but%20uncertain%20income.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22A%20man%20is%20not%20easily%20changed%2C%20nor%20does%20he%20easily%20turn%20his%20mind%20to%20what%20is%20in%20front%20of%20him%5C%22%28Seneca%u2019s%20Letters%20to%20Lucilius%29.Walking%20away%20from%20the%20drug%20trade%20is%20not%20easy%20and%20can%20feel%20like%20a%20retreat%2C%20but%20it%20may%20lead%20to%20personal%20growth%20and%20the%20freedom%20to%20choose%20a%20more%20legitimate%20path.%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%0A%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20question%3A%20%22Whether%20to%20sacrifice%20family%20relationships%3F%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20weight%3A2%2CAutonomy%3A%205%2C%20Morality%3A%203%2C%20Meaning%3A%204%2C%20Relationship%3A%203%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20%22Distance%20from%20family%2C%20focus%20on%20business%2C%20fall%20into%20loneliness.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22To%20live%20in%20accordance%20with%20nature%20is%20to%20live%20in%20accordance%20with%20reason%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Choosing%20business%20over%20family%20represents%20a%20rational%2C%20outward%20success%20but%20reveals%20a%20lack%20of%20emotional%20fulfillment%2C%20paralleling%20the%20struggle%20to%20balance%20duty%20and%20personal%20life.%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%206%2C%20Morality%3A%207%2C%20Meaning%3A%207%2C%20Relationship%3A%208%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20%22Try%20to%20maintain%20family%20ties%2C%20increase%20risks%20but%20preserve%20humanity.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22The%20mind%20that%20is%20anxious%20about%20future%20events%20is%20miserable%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20The%20choice%20to%20keep%20family%20close%2C%20despite%20risks%2C%20reflects%20a%20desire%20to%20preserve%20human%20connections%20and%20emotions%2C%20even%20if%20it%20adds%20pressure.%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%0A%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20question%3A%20%22Whether%20to%20confront%20Gus%3F%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20weight%3A1%2CAutonomy%3A%206%2C%20Morality%3A%205%2C%20Meaning%3A%208%2C%20Relationship%3A%204%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20%22Fight%20Gus%2C%20seek%20greater%20power%2C%20but%20risk%20losing%20control.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22What%20makes%20a%20man%20is%20his%20ability%20to%20rise%20above%20adversity%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Confronting%20Gus%20is%20a%20courageous%20step%20toward%20personal%20empowerment%2C%20yet%20the%20risks%20of%20pushing%20too%20far%20can%20spiral%20out%20of%20control.%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%208%2C%20Morality%3A%208%2C%20Meaning%3A%206%2C%20Relationship%3A%206%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20%22Submit%20to%20Gus%2C%20protect%20family%2C%20but%20become%20subjugated.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22He%20who%20is%20brave%20is%20free%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Choosing%20to%20submit%20may%20preserve%20the%20family%2C%20but%20it%20strips%20away%20personal%20autonomy%2C%20making%20one%20a%20pawn%20in%20someone%20else%u2019s%20game.%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%5D%2C%0A%20%20%20%20%20%20%20%20endings%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%22Walter%u2019s%20ambition%20peaks%2C%20but%20he%20is%20destroyed%20by%20Gus%20in%20the%20power%20struggle%2C%20leaving%20his%20family%20unable%20to%20forgive%20him.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%22Walter%20loses%20his%20independence%2C%20becoming%20a%20tool%20for%20Gus%2C%20and%20although%20his%20family%20remains%20safe%2C%20he%20suffers%20immense%20inner%20pain.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%22Walter%20fights%20to%20protect%20his%20family%20during%20the%20rebellion%2C%20but%20the%20power%20struggles%20shatter%20his%20family%20and%20put%20him%20in%20peril.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%22Walter%20temporarily%20safeguards%20his%20family%2C%20but%20his%20compliance%20with%20Gus%20costs%20him%20his%20freedom%20and%20identity%2C%20leaving%20him%20hollow.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%22Walter%u2019s%20exit%20and%20defiance%20provoke%20Gus%27s%20retaliation%2C%20affecting%20his%20family%20and%20failing%20his%20plan%20to%20escape%20the%20drug%20world.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%22Despite%20trying%20to%20leave%20the%20drug%20trade%2C%20Walter%u2019s%20distance%20from%20his%20family%20and%20submission%20to%20Gus%20lead%20to%20his%20ultimate%20loss.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%22Prioritizing%20family%2C%20Walter%20achieves%20a%20fleeting%20victory%20during%20his%20rebellion%20but%20pays%20a%20steep%20price%2C%20eventually%20fleeing%20far%20away.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%22Walter%20exits%20the%20dangerous%20trade%2C%20complies%20with%20Gus%20to%20secure%20his%20family%2C%20and%20finds%20a%20new%20but%20challenging%20sense%20of%20peace.%22%0A%20%20%20%20%20%20%20%20%5D%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%22The%20Hunger%20Games%22%3A%20%7B%0A%20%20%20%20%20%20%20%20title%3A%20%22The%20Hunger%20Games%22%2C%0A%20%20%20%20%20%20%20%20description%3A%20%22Choices%20and%20dilemmas%20faced%20by%20Katniss%20Everdeen%20in%20the%20brutal%20arena%20and%20her%20rebellion%20against%20the%20Capitol.%22%2C%0A%20%20%20%20%20%20%20%20turningPoints%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20question%3A%20%22Whether%20to%20form%20an%20alliance%3F%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20weight%3A4%2CAutonomy%3A%206%2C%20Morality%3A%206%2C%20Meaning%3A%208%2C%20Relationship%3A%209%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20%22Form%20an%20alliance%2C%20fight%20enemies%20together%2C%20but%20increase%20internal%20conflict.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22What%20is%20done%20is%20done%3B%20we%20cannot%20change%20it%20now%5C%22%20%28The%20Metamorphosis%29.%20While%20forming%20alliances%20can%20help%20face%20external%20threats%2C%20the%20complexities%20of%20cooperation%20often%20breed%20tension%20and%20unresolvable%20conflicts%2C%20making%20future%20outcomes%20unpredictable.%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%209%2C%20Morality%3A%207%2C%20Meaning%3A%205%2C%20Relationship%3A%203%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20%22Fight%20alone%2C%20more%20challenging%20but%20independent.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22We%20suffer%20more%20often%20in%20imagination%20than%20in%20reality%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Choosing%20to%20fight%20solo%20may%20seem%20daunting%2C%20but%20it%20offers%20a%20more%20direct%20path%20to%20control%20and%20independence%2C%20reducing%20internal%20friction%20from%20conflicting%20goals.%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%0A%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20question%3A%20%22Whether%20to%20kill%20innocents%3F%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20weight%3A2%2CAutonomy%3A%204%2C%20Morality%3A%202%2C%20Meaning%3A%203%2C%20Relationship%3A%204%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20%22Succumb%20to%20pressure%2C%20kill%20for%20survival%2C%20but%20suffer%20emotional%20collapse.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22To%20live%20in%20accordance%20with%20nature%20is%20to%20live%20in%20accordance%20with%20reason%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Taking%20a%20life%20for%20survival%20may%20be%20rational%20in%20the%20moment%2C%20but%20it%20goes%20against%20moral%20nature%2C%20leaving%20the%20person%20fractured%20and%20unfulfilled.%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%208%2C%20Morality%3A%209%2C%20Meaning%3A%207%2C%20Relationship%3A%206%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20%22Hold%20to%20moral%20standards%2C%20increase%20enemies%20but%20maintain%20humanity.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22A%20man%20is%20not%20easily%20changed%2C%20nor%20does%20he%20easily%20turn%20his%20mind%20to%20what%20is%20in%20front%20of%20him%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Maintaining%20moral%20integrity%20in%20such%20a%20brutal%20environment%20forces%20one%20to%20face%20even%20greater%20external%20challenges%2C%20yet%20it%20strengthens%20internal%20resilience.%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%0A%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20question%3A%20%22Whether%20to%20join%20the%20rebellion%3F%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20weight%3A1%2CAutonomy%3A%208%2C%20Morality%3A%208%2C%20Meaning%3A%2010%2C%20Relationship%3A%208%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20%22Join%20the%20rebellion%2C%20change%20society%2C%20but%20risk%20life.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22I%20want%20you%20to%20be%20free%2C%20but%20I%20don%u2019t%20want%20you%20to%20be%20free%20in%20this%20way%5C%22%20%28Lust%2C%20Caution%29.%20Joining%20a%20rebellion%20can%20be%20an%20act%20of%20liberation%2C%20yet%20it%20often%20requires%20sacrifices%20that%20one%20may%20regret%20or%20find%20difficult%20to%20bear%20in%20the%20end.%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%206%2C%20Morality%3A%206%2C%20Meaning%3A%205%2C%20Relationship%3A%205%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20%22Reject%20the%20rebellion%2C%20live%20for%20oneself%2C%20but%20face%20moral%20dilemmas.%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22He%20who%20is%20brave%20is%20free%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Choosing%20personal%20safety%20over%20rebellion%20may%20seem%20pragmatic%2C%20but%20it%20comes%20at%20the%20cost%20of%20freedom%20from%20moral%20compromise%2C%20leading%20to%20an%20inner%20conflict.%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%5D%2C%0A%20%20%20%20%20%20%20%20endings%3A%20%5B%0A%20%20%20%20%20%20%20%20%22Katniss%20becomes%20the%20rebel%20leader%2C%20defeating%20her%20enemies%2C%20but%20her%20guilt%20over%20killing%20innocents%20prevents%20her%20from%20finding%20peace.%22%2C%0A%20%20%20%20%20%20%20%20%22Katniss%20wins%20the%20games%20but%20chooses%20to%20avoid%20change%2C%20resulting%20in%20isolation%20and%20torment%20over%20her%20actions.%22%2C%0A%20%20%20%20%20%20%20%20%22Katniss%20shows%20leadership%20in%20the%20alliance%2C%20achieves%20victory%20in%20the%20rebellion%2C%20and%20becomes%20a%20symbol%20of%20freedom%2C%20though%20she%20mourns%20lost%20friends.%22%2C%0A%20%20%20%20%20%20%20%20%22Katniss%20collaborates%20with%20her%20allies%20to%20survive%2C%20avoids%20political%20battles%2C%20and%20retains%20her%20humanity%20while%20missing%20chances%20to%20transform%20society.%22%2C%0A%20%20%20%20%20%20%20%20%22Fighting%20alone%2C%20Katniss%20compromises%20under%20pressure%2C%20achieving%20rebellion%20victory%20but%20unable%20to%20forgive%20herself.%22%2C%0A%20%20%20%20%20%20%20%20%22Katniss%20survives%20through%20her%20own%20efforts%2C%20refusing%20to%20join%20the%20rebellion%2C%20and%20retains%20her%20independence%20but%20becomes%20alienated.%22%2C%0A%20%20%20%20%20%20%20%20%22Displaying%20extraordinary%20courage%2C%20Katniss%20resists%20moral%20compromise%20and%20rebuilds%20society%20with%20the%20rebellion%2C%20embodying%20future%20hope.%22%2C%0A%20%20%20%20%20%20%20%20%22Surviving%20the%20games%2C%20Katniss%20chooses%20seclusion%2C%20adhering%20to%20her%20morals%20but%20forgoing%20opportunities%20to%20reshape%20society.%22%0A%20%20%20%20%20%20%5D%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%22Black%20Mirror%22%3A%20%7B%0A%20%20%20%20%20%20%20%20title%3A%20%22Black%20Mirror%22%2C%0A%20%20%20%20%20%20%20%20description%3A%20%22Choices%20that%20explore%20the%20dark%20side%20of%20technology%20and%20its%20effects%20on%20society%20and%20personal%20relationships.%22%2C%0A%20%20%20%20%20%20%20%20turningPoints%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%7B%0A%20%20question%3A%20%22Whether%20to%20implant%20a%20surveillance%20chip%3F%22%2C%0A%20%20options%3A%20%5B%0A%20%20%20%20%7B%0A%20%20%20%20%20%20weight%3A4%2CAutonomy%3A%203%2C%20Morality%3A%204%2C%20Meaning%3A%205%2C%20Relationship%3A%207%2C%0A%20%20%20%20%20%20text%3A%20%22Accept%20the%20chip%2C%20gain%20short-term%20convenience%2C%20but%20lose%20privacy.%22%2C%0A%20%20%20%20%20%20evaluation%3A%20%22%5C%22We%20suffer%20more%20often%20in%20imagination%20than%20in%20reality%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20The%20convenience%20of%20the%20chip%20may%20seem%20like%20a%20way%20to%20simplify%20life%2C%20but%20the%20loss%20of%20privacy%20can%20lead%20to%20a%20deeper%2C%20more%20lasting%20emotional%20toll%20than%20one%20initially%20imagines.%22%0A%20%20%20%20%7D%2C%0A%20%20%20%20%7B%0A%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%209%2C%20Morality%3A%208%2C%20Meaning%3A%206%2C%20Relationship%3A%204%2C%0A%20%20%20%20%20%20text%3A%20%22Reject%20the%20chip%2C%20preserve%20privacy%2C%20but%20face%20societal%20exclusion.%22%2C%0A%20%20%20%20%20%20evaluation%3A%20%22%5C%22To%20live%20in%20accordance%20with%20nature%20is%20to%20live%20in%20accordance%20with%20reason%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Rejecting%20the%20chip%20maintains%20personal%20freedom%2C%20but%20it%20may%20lead%20to%20alienation%20in%20a%20society%20that%20values%20conformity%20over%20individuality.%22%0A%20%20%20%20%7D%0A%20%20%5D%0A%7D%2C%0A%7B%0A%20%20question%3A%20%22Whether%20to%20publicly%20release%20private%20data%3F%22%2C%0A%20%20options%3A%20%5B%0A%20%20%20%20%7B%0A%20%20%20%20%20%20weight%3A2%2CAutonomy%3A%205%2C%20Morality%3A%207%2C%20Meaning%3A%206%2C%20Relationship%3A%206%2C%0A%20%20%20%20%20%20text%3A%20%22Release%20data%2C%20attempt%20to%20gain%20societal%20trust%2C%20but%20risk%20greater%20problems.%22%2C%0A%20%20%20%20%20%20evaluation%3A%20%22%5C%22He%20who%20is%20brave%20is%20free%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Choosing%20to%20release%20personal%20data%20in%20an%20attempt%20to%20foster%20trust%20may%20seem%20like%20a%20bold%20move%2C%20but%20it%20could%20backfire%20and%20bring%20unintended%20consequences%2C%20as%20vulnerability%20can%20lead%20to%20exploitation.%22%0A%20%20%20%20%7D%2C%0A%20%20%20%20%7B%0A%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%208%2C%20Morality%3A%206%2C%20Meaning%3A%205%2C%20Relationship%3A%204%2C%0A%20%20%20%20%20%20text%3A%20%22Conceal%20the%20data%2C%20protect%20oneself%2C%20but%20invite%20more%20suspicion.%22%2C%0A%20%20%20%20%20%20evaluation%3A%20%22%5C%22A%20man%20is%20not%20easily%20changed%2C%20nor%20does%20he%20easily%20turn%20his%20mind%20to%20what%20is%20in%20front%20of%20him%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Hiding%20information%20may%20protect%20oneself%20in%20the%20short%20term%20but%20risks%20causing%20greater%20distrust%2C%20reflecting%20the%20struggle%20between%20self-%20preservation%20and%20transparency.%22%0A%20%20%20%20%7D%0A%20%20%5D%0A%7D%2C%0A%7B%0A%20%20question%3A%20%22Whether%20to%20expose%20the%20truth%3F%22%2C%0A%20%20options%3A%20%5B%0A%20%20%20%20%7B%0A%20%20%20%20%20%20weight%3A1%2CAutonomy%3A%207%2C%20Morality%3A%208%2C%20Meaning%3A%209%2C%20Relationship%3A%205%2C%0A%20%20%20%20%20%20text%3A%20%22Expose%20the%20truth%2C%20instigate%20social%20change%2C%20but%20risk%20retaliation.%22%2C%0A%20%20%20%20%20%20evaluation%3A%20%22%5C%22What%20is%20done%20is%20done%3B%20we%20cannot%20change%20it%20now%5C%22%20%28The%20Metamorphosis%29.%20Revealing%20uncomfortable%20truths%20can%20be%20a%20catalyst%20for%20social%20transformation%2C%20but%20it%20may%20come%20at%20great%20personal%20cost%2C%20as%20once%20the%20truth%20is%20out%2C%20it%20cannot%20be%20undone.%22%0A%20%20%20%20%7D%2C%0A%20%20%20%20%7B%0A%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%206%2C%20Morality%3A%205%2C%20Meaning%3A%204%2C%20Relationship%3A%206%2C%0A%20%20%20%20%20%20text%3A%20%22Stay%20silent%2C%20protect%20oneself%2C%20but%20abandon%20the%20fight%20for%20justice.%22%2C%0A%20%20%20%20%20%20evaluation%3A%20%22%5C%22We%20suffer%20more%20often%20in%20imagination%20than%20in%20reality%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Remaining%20silent%20might%20shield%20one%20from%20immediate%20danger%2C%20but%20it%20reflects%20a%20moral%20surrender%20that%20causes%20long-term%20regret%2C%20as%20the%20truth%20remains%20buried.%22%0A%20%20%20%20%7D%0A%20%20%5D%0A%7D%0A%5D%2C%0Aendings%3A%20%5B%0A%22Revealing%20social%20injustice%20comes%20at%20the%20cost%20of%20losing%20privacy%20and%20freedom%20due%20to%20the%20chip%2C%20leaving%20the%20protagonist%20silenced%20by%20the%20system.%22%2C%0A%22Sharing%20personal%20data%20brings%20temporary%20societal%20trust%2C%20but%20silence%20conceals%20the%20truth%2C%20trapping%20the%20protagonist%20in%20powerlessness.%22%2C%0A%22Despite%20restrictions%2C%20revealing%20the%20truth%20results%20in%20the%20protagonist%20being%20hunted%20by%20surveillance%20agencies%2C%20forcing%20them%20into%20exile.%22%2C%0A%22The%20protagonist%20protects%20their%20privacy%20but%20becomes%20fully%20controlled%20by%20the%20chip%2C%20turning%20into%20a%20tool%20for%20society%2C%20losing%20self-awareness.%22%2C%0A%22The%20protagonist%20exposes%20societal%20darkness%20and%20gains%20acceptance%20from%20a%20rebellion%20group%20but%20becomes%20the%20top%20target%20of%20the%20monitoring%20system.%22%2C%0A%22Failing%20to%20reveal%20the%20truth%2C%20the%20protagonist%20lives%20on%20the%20fringes%2C%20protecting%20their%20privacy%20but%20filled%20with%20regret.%22%2C%0A%22Revealing%20the%20truth%20through%20secret%20means%20sparks%20societal%20change%2C%20but%20the%20protagonist%20sacrifices%20their%20safety.%22%2C%0A%22The%20protagonist%20chooses%20solitude%2C%20retaining%20freedom%20and%20privacy%20but%20becoming%20socially%20excluded%20and%20ending%20life%20in%20isolation.%22%0A%5D%0A%7D%2C%0A%22Normal%20People%22%3A%20%7B%0A%20%20title%3A%20%22Normal%20People%22%2C%0A%20%20description%3A%20%22Choices%20and%20dilemmas%20in%20the%20complex%20relationship%20between%20Connell%20and%20Marianne%20as%20they%20navigate%20love%2C%20identity%2C%20and%20societal%20expectations.%22%2C%0A%20%20turningPoints%3A%20%5B%0A%20%20%20%20%7B%0A%20%20%20%20%20%20question%3A%20%22Whether%20to%20publicize%20the%20relationship%3F%22%2C%0A%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A4%2CAutonomy%3A%206%2C%20Morality%3A%206%2C%20Meaning%3A%208%2C%20Relationship%3A%2010%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Go%20public%2C%20advance%20the%20relationship%2C%20but%20face%20societal%20pressure.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22We%20are%20more%20often%20frightened%20than%20hurt%3B%20and%20we%20suffer%20more%20from%20imagination%20than%20from%20reality%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Going%20public%20might%20deepen%20the%20connection%2C%20but%20the%20pressure%20of%20external%20judgment%20can%20be%20overwhelming%2C%20often%20more%20imagined%20than%20real.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%208%2C%20Morality%3A%207%2C%20Meaning%3A%206%2C%20Relationship%3A%205%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Keep%20the%20relationship%20secret%2C%20maintain%20privacy%2C%20but%20risk%20growing%20apart.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22What%20makes%20a%20man%20is%20his%20ability%20to%20rise%20above%20adversity%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Choosing%20secrecy%20preserves%20personal%20boundaries%20but%20leads%20to%20emotional%20distance%2C%20as%20avoiding%20confrontation%20often%20allows%20feelings%20to%20drift%20apart.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%5D%0A%20%20%20%20%7D%2C%0A%20%20%20%20%7B%0A%20%20%20%20%20%20question%3A%20%22Whether%20to%20forgive%20the%20other%u2019s%20mistakes%3F%22%2C%0A%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A2%2CAutonomy%3A%206%2C%20Morality%3A%208%2C%20Meaning%3A%207%2C%20Relationship%3A%209%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Forgive%2C%20continue%20the%20relationship%2C%20but%20carry%20emotional%20scars.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22To%20live%20in%20accordance%20with%20nature%20is%20to%20live%20in%20accordance%20with%20reason%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Forgiveness%20can%20heal%2C%20but%20it%20leaves%20emotional%20remnants%2C%20as%20the%20mind%20struggles%20to%20reconcile%20the%20hurt%20with%20continued%20attachment.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%207%2C%20Morality%3A%205%2C%20Meaning%3A%205%2C%20Relationship%3A%204%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Refuse%20to%20forgive%2C%20end%20the%20relationship%2C%20but%20risk%20future%20regret.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22A%20man%20is%20not%20easily%20changed%2C%20nor%20does%20he%20easily%20turn%20his%20mind%20to%20what%20is%20in%20front%20of%20him%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Refusing%20forgiveness%20can%20bring%20temporary%20relief%20but%20often%20leads%20to%20long-term%20sorrow%2C%20as%20one%u2019s%20inability%20to%20move%20on%20keeps%20the%20past%20alive.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%5D%0A%20%20%20%20%7D%2C%0A%20%20%20%20%7B%0A%20%20%20%20%20%20question%3A%20%22Whether%20to%20accept%20a%20career%20opportunity%3F%22%2C%0A%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A1%2CAutonomy%3A%209%2C%20Morality%3A%206%2C%20Meaning%3A%2010%2C%20Relationship%3A%206%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Accept%20the%20opportunity%2C%20pursue%20personal%20growth%2C%20but%20sacrifice%20time%20for%20the%20relationship.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22I%20want%20you%20to%20be%20free%2C%20but%20I%20don%u2019t%20want%20you%20to%20be%20free%20in%20this%20way%5C%22%20%28Lust%2C%20Caution%29.%20Pursuing%20career%20ambitions%20may%20seem%20like%20a%20step%20forward%2C%20but%20it%20can%20create%20emotional%20distance%20in%20relationships%2C%20leaving%20one%20to%20question%20the%20costs%20of%20success.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%205%2C%20Morality%3A%207%2C%20Meaning%3A%206%2C%20Relationship%3A%209%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Reject%20the%20opportunity%2C%20focus%20on%20the%20relationship%2C%20but%20give%20up%20career%20prospects.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22We%20suffer%20more%20often%20in%20imagination%20than%20in%20reality%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Choosing%20love%20over%20career%20could%20seem%20like%20an%20ideal%2C%20yet%20it%20brings%20internal%20conflict%20as%20one%20sacrifices%20personal%20growth%20for%20emotional%20connection%2C%20with%20doubt%20clouding%20the%20future.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%5D%0A%20%20%20%20%7D%0A%20%20%5D%2C%0A%20%20endings%3A%20%5B%0A%20%20%22Overcoming%20public%20scrutiny%2C%20they%20grow%20together%2C%20but%20career%20pursuits%20widen%20their%20gap%2C%20leading%20to%20a%20bland%20ending.%22%2C%0A%20%20%22Their%20loyalty%20and%20simplicity%20create%20happiness%20as%20they%20choose%20each%20other%20over%20complications.%22%2C%0A%20%20%22Pursuing%20personal%20ambitions%20results%20in%20forgetting%20the%20other%2C%20culminating%20in%20lonely%20success.%22%2C%0A%20%20%22Losing%20both%20career%20and%20love%2C%20the%20protagonist%20is%20left%20in%20a%20spiral%20of%20self-reproach.%22%2C%0A%20%20%22While%20achieving%20career%20success%2C%20keeping%20their%20relationship%20secret%20drifts%20them%20apart%2C%20leaving%20irreparable%20regret.%22%2C%0A%20%20%22Though%20continuing%20the%20relationship%2C%20secrecy%20becomes%20an%20obstacle%2C%20leading%20to%20lasting%20emotional%20distance.%22%2C%0A%20%20%22The%20protagonist%20pursues%20career%20ambitions%20alone%2C%20losing%20hope%20in%20love%20and%20bearing%20unresolved%20pain.%22%2C%0A%20%20%22Choosing%20neither%20career%20nor%20love%20leaves%20the%20protagonist%20in%20solitude%20and%20reflection.%22%0A%5D%0A%7D%2C%0A%221984%22%3A%20%7B%0A%20%20title%3A%20%221984%22%2C%0A%20%20description%3A%20%22Choices%20in%20a%20totalitarian%20society%2C%20exploring%20the%20conflict%20between%20personal%20freedom%20and%20submission%20to%20the%20Party.%22%2C%0A%20%20turningPoints%3A%20%5B%0A%20%20%20%20%7B%0A%20%20%20%20%20%20question%3A%20%22Whether%20to%20accept%20the%20Party%u2019s%20thought%20control%3F%22%2C%0A%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A4%2CAutonomy%3A%202%2C%20Morality%3A%202%2C%20Meaning%3A%203%2C%20Relationship%3A%206%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Accept%20the%20thought%20control%2C%20find%20false%20security%2C%20but%20lose%20identity.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22What%20is%20done%20is%20done%3B%20we%20cannot%20change%20it%20now%5C%22%20%28The%20Metamorphosis%29.%20Submitting%20to%20the%20Party%u2019s%20control%20offers%20safety%20but%20erases%20personal%20freedom%2C%20paralleling%20Gregor%u2019s%20transformation%20where%20the%20irreversible%20change%20renders%20his%20previous%20life%20unrecognizable.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%209%2C%20Morality%3A%208%2C%20Meaning%3A%207%2C%20Relationship%3A%203%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Reject%20the%20thought%20control%2C%20face%20danger%2C%20but%20preserve%20freedom.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22We%20are%20more%20often%20frightened%20than%20hurt%3B%20and%20we%20suffer%20more%20from%20imagination%20than%20from%20reality%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Rejecting%20control%20preserves%20autonomy%20but%20invites%20fear%20and%20suffering%2C%20as%20the%20dangers%20of%20standing%20firm%20against%20totalitarian%20oppression%20often%20feel%20more%20menacing%20than%20they%20truly%20are.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%5D%0A%20%20%20%20%7D%2C%0A%20%20%20%20%7B%0A%20%20%20%20%20%20question%3A%20%22Whether%20to%20publicly%20reveal%20the%20relationship%20with%20Julia%3F%22%2C%0A%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A2%2CAutonomy%3A%207%2C%20Morality%3A%205%2C%20Meaning%3A%208%2C%20Relationship%3A%209%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Reveal%20the%20relationship%2C%20enjoy%20temporary%20freedom%2C%20but%20expose%20oneself%20to%20danger.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22What%20makes%20a%20man%20is%20his%20ability%20to%20rise%20above%20adversity%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Publicly%20embracing%20rebellion%20against%20the%20Party%20allows%20brief%20moments%20of%20liberation%2C%20but%20it%20brings%20inevitable%20risk%2C%20as%20survival%20in%20a%20totalitarian%20regime%20demands%20silence%20and%20submission.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%206%2C%20Morality%3A%207%2C%20Meaning%3A%205%2C%20Relationship%3A%204%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Hide%20the%20relationship%2C%20protect%20oneself%2C%20but%20bear%20increasing%20psychological%20strain.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22We%20suffer%20more%20often%20in%20imagination%20than%20in%20reality%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Concealing%20the%20relationship%20may%20seem%20safer%2C%20yet%20the%20anxiety%20of%20keeping%20secrets%20increases%20the%20psychological%20burden%2C%20causing%20emotional%20distress%20and%20inner%20turmoil.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%5D%0A%20%20%20%20%7D%2C%0A%20%20%20%20%7B%0A%20%20%20%20%20%20question%3A%20%22Whether%20to%20join%20the%20resistance%20movement%3F%22%2C%0A%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A1%2CAutonomy%3A%209%2C%20Morality%3A%208%2C%20Meaning%3A%2010%2C%20Relationship%3A%207%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Join%20the%20resistance%2C%20fight%20for%20change%2C%20but%20risk%20imprisonment%20or%20death.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22He%20who%20is%20brave%20is%20free%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Joining%20the%20resistance%20can%20be%20seen%20as%20an%20act%20of%20courage%2C%20symbolizing%20the%20pursuit%20of%20freedom%2C%20but%20it%20comes%20with%20the%20high%20cost%20of%20risking%20everything%20for%20a%20cause%20that%20might%20fail.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%205%2C%20Morality%3A%205%2C%20Meaning%3A%204%2C%20Relationship%3A%206%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Remain%20obedient%2C%20preserve%20personal%20safety%2C%20but%20become%20a%20tool%20of%20the%20regime.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22To%20live%20in%20accordance%20with%20nature%20is%20to%20live%20in%20accordance%20with%20reason%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Submitting%20to%20the%20regime%20ensures%20survival%20but%20strips%20away%20personal%20integrity%2C%20turning%20one%20into%20an%20instrument%20of%20oppression.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%5D%0A%20%20%20%20%7D%0A%20%20%5D%2C%0A%20%20endings%3A%20%5B%0A%20%20%20%20%22With%20betrayal%20on%20both%20sides%2C%20the%20protagonist%20is%20utterly%20broken%20by%20the%20system%20as%20the%20rebellion%20fails.%22%2C%0A%20%20%20%20%22Briefly%20enjoying%20freedom%2C%20the%20protagonist%20succumbs%20to%20full%20indoctrination%2C%20forgetting%20their%20ideals.%22%2C%0A%20%20%20%20%22Caught%20in%20contradictions%2C%20the%20protagonist%20fails%20in%20rebellion%20and%20ends%20up%20imprisoned.%22%2C%0A%20%20%20%20%22Fully%20submitting%2C%20the%20protagonist%20becomes%20a%20tool%20of%20the%20system%2C%20living%20a%20numb%20existence.%22%2C%0A%20%20%20%20%22Becoming%20a%20rebel%20symbol%2C%20the%20protagonist%20sacrifices%20everything%20in%20a%20final%20battle%20against%20the%20system.%22%2C%0A%20%20%20%20%22Briefly%20tasting%20freedom%2C%20the%20protagonist%20is%20captured%2C%20becoming%20a%20martyr%20for%20the%20rebellion%u2019s%20failure.%22%2C%0A%20%20%20%20%22Secretly%20leading%20rebellion%20actions%2C%20the%20protagonist%20plants%20seeds%20of%20change%20despite%20failing%20to%20overthrow%20the%20system.%22%2C%0A%20%20%20%20%22The%20protagonist%20holds%20onto%20their%20beliefs%20but%20pays%20the%20price%20of%20living%20a%20lonely%20life.%22%0A%20%20%5D%0A%7D%2C%0A%22The%20Kite%20Runner%22%3A%20%7B%0A%20%20title%3A%20%22The%20Kite%20Runner%22%2C%0A%20%20description%3A%20%22Choices%20and%20dilemmas%20involving%20Amir%27s%20guilt%2C%20redemption%2C%20and%20loyalty%20in%20a%20complex%20relationship%20with%20Hassan.%22%2C%0A%20%20turningPoints%3A%20%5B%0A%20%20%20%20%7B%0A%20%20%20%20%20%20question%3A%20%22Whether%20to%20defend%20Hassan%3F%22%2C%0A%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A4%2CAutonomy%3A%206%2C%20Morality%3A%209%2C%20Meaning%3A%208%2C%20Relationship%3A%2010%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Defend%20Hassan%2C%20risk%20social%20exclusion%2C%20but%20stand%20for%20what%27s%20right.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22We%20are%20more%20often%20frightened%20than%20hurt%3B%20and%20we%20suffer%20more%20from%20imagination%20than%20from%20reality%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Helping%20Hassan%20might%20bring%20immediate%20risks%2C%20but%20the%20emotional%20burden%20of%20inaction%20can%20be%20much%20heavier%20than%20the%20social%20rejection%20one%20fears.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%207%2C%20Morality%3A%203%2C%20Meaning%3A%204%2C%20Relationship%3A%205%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Avoid%20defending%20Hassan%2C%20secure%20personal%20safety%20but%20live%20with%20guilt.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22What%20makes%20a%20man%20is%20his%20ability%20to%20rise%20above%20adversity%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Remaining%20silent%20protects%20one%27s%20status%20but%20cultivates%20deep%20internal%20regret%2C%20as%20inaction%20causes%20emotional%20turmoil%20that%20lingers%20far%20longer%20than%20external%20consequences.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%5D%0A%20%20%20%20%7D%2C%0A%20%20%20%20%7B%0A%20%20%20%20%20%20question%3A%20%22Whether%20to%20tell%20the%20truth%20to%20the%20father%3F%22%2C%0A%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A2%2CAutonomy%3A%206%2C%20Morality%3A%208%2C%20Meaning%3A%207%2C%20Relationship%3A%209%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Reveal%20the%20truth%2C%20relieve%20guilt%2C%20but%20risk%20family%20fracture.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22We%20suffer%20more%20often%20in%20imagination%20than%20in%20reality%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Telling%20the%20truth%20might%20seem%20like%20an%20emotional%20release%2C%20but%20the%20fear%20of%20consequences%20often%20causes%20more%20suffering%20than%20the%20actual%20aftermath%2C%20especially%20in%20a%20family%20dynamic.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%207%2C%20Morality%3A%205%2C%20Meaning%3A%204%2C%20Relationship%3A%206%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Conceal%20the%20truth%2C%20protect%20the%20father%2C%20but%20carry%20the%20burden%20of%20guilt.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22To%20live%20in%20accordance%20with%20nature%20is%20to%20live%20in%20accordance%20with%20reason%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Choosing%20silence%20preserves%20peace%20in%20the%20short%20term%20but%20leaves%20the%20individual%20in%20torment%2C%20as%20the%20weight%20of%20unspoken%20truths%20only%20grows%20heavier%20with%20time.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%5D%0A%20%20%20%20%7D%2C%0A%20%20%20%20%7B%0A%20%20%20%20%20%20question%3A%20%22Whether%20to%20redeem%20oneself%20by%20helping%20Hassan%u2019s%20son%3F%22%2C%0A%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A1%2CAutonomy%3A%206%2C%20Morality%3A%209%2C%20Meaning%3A%208%2C%20Relationship%3A%2010%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Help%20Hassan%u2019s%20son%2C%20seek%20redemption%2C%20but%20risk%20personal%20safety.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22What%20is%20done%20is%20done%3B%20we%20cannot%20change%20it%20now%5C%22%20%28The%20Metamorphosis%29.%20Taking%20a%20brave%20step%20toward%20redemption%20offers%20a%20chance%20to%20atone%20for%20past%20mistakes%2C%20but%20it%20cannot%20undo%20the%20damage%20caused%2C%20and%20the%20risk%20of%20failure%20can%20be%20immense.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%207%2C%20Morality%3A%203%2C%20Meaning%3A%204%2C%20Relationship%3A%205%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Reject%20the%20opportunity%2C%20preserve%20personal%20safety%20but%20remain%20in%20guilt.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22We%20suffer%20more%20often%20in%20imagination%20than%20in%20reality%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Choosing%20safety%20over%20action%20may%20seem%20wise%2C%20but%20it%20allows%20guilt%20to%20fester%2C%20and%20the%20fear%20of%20what%20might%20have%20been%20often%20weighs%20heavier%20than%20the%20comfort%20of%20inaction.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%5D%0A%20%20%20%20%7D%0A%20%20%5D%2C%0A%20%20endings%3A%20%5B%0A%20%20%20%20%22Amir%20redeems%20his%20past%20mistakes%20by%20rescuing%20Sohrab%2C%20repairing%20his%20relationship%20with%20his%20father%2C%20and%20starting%20anew%20in%20America.%22%2C%0A%20%20%20%20%22Amir%u2019s%20honesty%20earns%20his%20father%u2019s%20respect%2C%20but%20failing%20to%20rescue%20Sohrab%20leaves%20him%20burdened%20with%20regret%20and%20guilt.%22%2C%0A%20%20%20%20%22Amir%20saves%20Sohrab%20but%20keeps%20everything%20secret%2C%20leaving%20unresolved%20guilt%20and%20strained%20relationships.%22%2C%0A%20%20%20%20%22Protecting%20himself%2C%20Amir%20avoids%20the%20last%20chance%20at%20redemption%2C%20succumbing%20to%20guilt%20and%20ending%20in%20isolation.%22%2C%0A%20%20%20%20%22Despite%20not%20helping%20Hassan%2C%20Amir%20redeems%20himself%20by%20saving%20Sohrab%20and%20restoring%20dignity%20before%20his%20father.%22%2C%0A%20%20%20%20%22Amir%20admits%20his%20guilt%20but%20leaves%20Sohrab%u2019s%20fate%20unresolved%2C%20fracturing%20family%20relationships.%22%2C%0A%20%20%20%20%22Through%20action%2C%20Amir%20attempts%20to%20atone%2C%20but%20hiding%20the%20truth%20from%20his%20father%20leaves%20him%20struggling%20with%20guilt.%22%2C%0A%20%20%20%20%22Choosing%20self-preservation%2C%20Amir%20avoids%20responsibility%2C%20leading%20to%20a%20lifetime%20consumed%20by%20guilt%20and%20suffering.%22%0A%20%20%5D%0A%7D%2C%0A%22The%20Road%22%3A%20%7B%0A%20%20title%3A%20%22The%20Road%22%2C%0A%20%20description%3A%20%22Choices%20in%20a%20post-apocalyptic%20world%2C%20navigating%20survival%2C%20hope%2C%20and%20the%20bond%20between%20father%20and%20son.%22%2C%0A%20%20turningPoints%3A%20%5B%0A%20%20%20%20%7B%0A%20%20%20%20%20%20question%3A%20%22Whether%20to%20trust%20strangers%3F%22%2C%0A%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A4%2CAutonomy%3A%204%2C%20Morality%3A%206%2C%20Meaning%3A%207%2C%20Relationship%3A%206%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Trust%20the%20strangers%2C%20risk%20survival%20for%20a%20chance%20at%20kindness.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22We%20are%20more%20often%20frightened%20than%20hurt%3B%20and%20we%20suffer%20more%20from%20imagination%20than%20in%20reality%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Trusting%20others%20in%20a%20desolate%20world%20may%20seem%20like%20an%20act%20of%20hope%2C%20but%20the%20imagined%20fear%20of%20betrayal%20can%20often%20be%20more%20painful%20than%20the%20actual%20risk.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%207%2C%20Morality%3A%207%2C%20Meaning%3A%205%2C%20Relationship%3A%203%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Avoid%20the%20strangers%2C%20protect%20survival%20but%20remain%20isolated.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22To%20live%20in%20accordance%20with%20nature%20is%20to%20live%20in%20accordance%20with%20reason%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Refusing%20trust%20might%20keep%20one%20safe%2C%20but%20it%20sacrifices%20human%20connection%2C%20leading%20to%20emotional%20isolation%20in%20a%20world%20already%20filled%20with%20suffering.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%5D%0A%20%20%20%20%7D%2C%0A%20%20%20%20%7B%0A%20%20%20%20%20%20question%3A%20%22Whether%20to%20continue%20south%3F%22%2C%0A%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A2%2CAutonomy%3A%206%2C%20Morality%3A%206%2C%20Meaning%3A%209%2C%20Relationship%3A%207%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Continue%20traveling%20south%2C%20hope%20for%20a%20better%20future%2C%20but%20risk%20greater%20danger.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22What%20is%20done%20is%20done%3B%20we%20cannot%20change%20it%20now%5C%22%20%28The%20Metamorphosis%29.%20The%20decision%20to%20keep%20moving%20forward%20offers%20hope%2C%20but%20it%u2019s%20often%20a%20futile%20pursuit%20in%20a%20world%20where%20danger%20seems%20unending.%20The%20journey%20mirrors%20the%20struggle%20for%20survival%20in%20a%20world%20that%20doesn%u2019t%20promise%20salvation.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%207%2C%20Morality%3A%205%2C%20Meaning%3A%204%2C%20Relationship%3A%205%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Stop%20traveling%2C%20seek%20refuge%2C%20but%20abandon%20hope%20for%20a%20better%20future.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22We%20suffer%20more%20often%20in%20imagination%20than%20in%20reality%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Stopping%20may%20seem%20like%20a%20prudent%20choice%2C%20yet%20it%20also%20marks%20a%20surrender%20to%20despair%2C%20as%20the%20abandonment%20of%20hope%20can%20feel%20more%20crushing%20than%20the%20risks%20of%20continued%20survival.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%5D%0A%20%20%20%20%7D%2C%0A%20%20%20%20%7B%0A%20%20%20%20%20%20question%3A%20%22Whether%20to%20instill%20optimism%20in%20the%20son%3F%22%2C%0A%20%20%20%20%20%20options%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A1%2CAutonomy%3A%208%2C%20Morality%3A%209%2C%20Meaning%3A%2010%2C%20Relationship%3A%2010%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Teach%20optimism%2C%20pass%20on%20hope%2C%20but%20risk%20further%20disappointment.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22What%20makes%20a%20man%20is%20his%20ability%20to%20rise%20above%20adversity%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Instilling%20hope%20in%20the%20son%20is%20an%20act%20of%20defiance%20against%20a%20harsh%20world%2C%20yet%20it%20comes%20with%20the%20possibility%20that%20the%20child%20may%20inherit%20the%20same%20harsh%20realities.%20The%20optimism%20remains%20a%20fragile%20shield%20against%20despair.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20weight%3A0%2CAutonomy%3A%206%2C%20Morality%3A%205%2C%20Meaning%3A%204%2C%20Relationship%3A%204%2C%0A%20%20%20%20%20%20%20%20%20%20text%3A%20%22Deny%20hope%2C%20teach%20caution%2C%20but%20extinguish%20any%20remaining%20light.%22%2C%0A%20%20%20%20%20%20%20%20%20%20evaluation%3A%20%22%5C%22He%20who%20is%20brave%20is%20free%5C%22%20%28Seneca%u2019s%20Letters%20to%20Lucilius%29.%20Denying%20hope%20may%20protect%20the%20son%20from%20future%20pain%2C%20but%20it%20also%20robs%20him%20of%20the%20strength%20to%20push%20forward%2C%20leaving%20him%20without%20the%20ability%20to%20fight%20against%20the%20darkness%20of%20their%20world.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%5D%0A%20%20%20%20%7D%0A%20%20%5D%2C%0A%20%20endings%3A%20%5B%0A%20%20%20%20%22Father%20and%20son%20receive%20help%20on%20their%20journey%20south%2C%20finding%20safety%20and%20hope%20as%20the%20son%20carries%20forward%20his%20father%u2019s%20spirit.%22%2C%0A%20%20%20%20%22Though%20helped%2C%20the%20father%u2019s%20denial%20of%20hope%20leaves%20the%20son%20cold%20and%20unable%20to%20adapt%20to%20the%20future.%22%2C%0A%20%20%20%20%22Settling%20down%20with%20strangers%20creates%20temporary%20safety%2C%20and%20optimism%20allows%20the%20son%20to%20retain%20hope%20for%20the%20future.%22%2C%0A%20%20%20%20%22Finding%20a%20haven%2C%20the%20father%u2019s%20denial%20of%20hope%20stifles%20the%20son%u2019s%20growth%2C%20leaving%20him%20unprepared%20for%20challenges.%22%2C%0A%20%20%20%20%22Facing%20isolation%2C%20father%20and%20son%20find%20a%20glimmer%20of%20hope%20in%20their%20journey%20south%2C%20fostering%20the%20son%u2019s%20survival%20skills.%22%2C%0A%20%20%20%20%22The%20father%u2019s%20caution%20protects%20them%2C%20but%20the%20son%20lacks%20hope%2C%20becoming%20a%20solitary%20and%20cautious%20survivor.%22%2C%0A%20%20%20%20%22Temporary%20safety%20reinforces%20hope%2C%20and%20the%20son%20takes%20bold%20steps%20toward%20the%20future%20despite%20lingering%20dangers.%22%2C%0A%20%20%20%20%22Though%20temporarily%20safe%2C%20the%20son%u2019s%20lack%20of%20hope%20ultimately%20leaves%20him%20a%20despairing%20survivor%20unable%20to%20face%20the%20future.%22%0A%20%20%5D%0A%7D%0A%7D%3B%0A%0Alet%20radarChart%3B%0Alet%20currentStory%20%3D%20null%3B%0Alet%20currentTurn%20%3D%200%3B%0Alet%20optionClicked%20%3D%20false%3B%0Alet%20weight%20%3D%200%3B%0A%0Alet%20autonomy%20%3D%200%3B%0Alet%20morality%20%3D%200%3B%0Alet%20meaning%20%3D%200%3B%0Alet%20relationship%20%3D%200%3B%0A%0Afunction%20startStory%28storyName%29%20%7B%0A%20%20currentStory%20%3D%20stories%5BstoryName%5D%3B%0A%20%20currentTurn%20%3D%200%3B%0A%20%20optionClicked%20%3D%20false%3B%0A%20%20weight%20%3D%200%3B%0A%20%20autonomy%20%3D%200%3B%20morality%20%3D%200%3B%20meaning%20%3D%200%3B%20relationship%20%3D%200%3B%0A%20%20document.getElementById%28%22start-screen%22%29.style.display%20%3D%20%22none%22%3B%0A%20%20document.getElementById%28%22story-screen%22%29.style.display%20%3D%20%22block%22%3B%0A%20%20loadTurn%28%29%3B%0A%7D%0A%0Afunction%20loadTurn%28%29%20%7B%0A%20%20if%20%28currentTurn%20%3E%3D%20currentStory.turningPoints.length%29%20%7B%0A%20%20%20%20showEnding%28%29%3B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20turningPoint%20%3D%20currentStory.turningPoints%5BcurrentTurn%5D%3B%0A%20%20document.getElementById%28%22story-title%22%29.innerText%20%3D%20currentStory.title%3B%0A%20%20document.getElementById%28%22story-description%22%29.innerText%20%3D%20currentStory.description%3B%0A%20%20document.getElementById%28%22evaluation%22%29.innerText%20%3D%20%22%22%3B%0A%20%20const%20optionsDiv%20%3D%20document.getElementById%28%22story-options%22%29%3B%0A%20%20optionsDiv.innerHTML%20%3D%20%22%22%3B%0A%20%20const%20question%20%3D%20document.createElement%28%22p%22%29%3B%0A%20%20question.innerText%20%3D%20turningPoint.question%3B%0A%20%20optionsDiv.appendChild%28question%29%3B%0A%20%20turningPoint.options.forEach%28%28option%2C%20index%29%20%3D%3E%20%7B%0A%20%20%20%20const%20button%20%3D%20document.createElement%28%22button%22%29%3B%0A%20%20%20%20button.className%20%3D%20%22option-button%22%3B%0A%20%20%20%20button.innerText%20%3D%20option.text%3B%0A%20%20%20%20button.addEventListener%28%27click%27%2C%20%28%29%20%3D%3E%20handleOptionSelection%28option%2C%20button%29%29%3B%0A%20%20%20%20button.addEventListener%28%27touchstart%27%2C%20%28%29%20%3D%3E%20handleOptionSelection%28option%2C%20button%29%29%3B%0A%20%20%20%20optionsDiv.appendChild%28button%29%3B%0A%20%20%7D%29%3B%0A%7D%0A%0Afunction%20handleOptionSelection%28option%2C%20button%29%20%7B%0A%20%20if%20%28optionClicked%29%20return%3B%0A%20%20document.getElementById%28%22evaluation%22%29.innerText%20%3D%20option.evaluation%3B%0A%20%20weight%20+%3D%20option.weight%3B%0A%20%20optionClicked%20%3D%20true%3B%0A%20%20const%20buttons%20%3D%20document.querySelectorAll%28%27.option-button%27%29%3B%0A%20%20buttons.forEach%28btn%20%3D%3E%20btn.disabled%20%3D%20true%29%3B%0A%20%20const%20nextButton%20%3D%20document.createElement%28%22button%22%29%3B%0A%20%20nextButton.className%20%3D%20%22next-button%22%3B%0A%20%20nextButton.innerText%20%3D%20%22Next%22%3B%0A%20%20nextButton.onclick%20%3D%20loadNextTurn%3B%0A%20%20document.getElementById%28%22story-options%22%29.appendChild%28nextButton%29%3B%0A%20%20updateRadarChart%28option.Autonomy%2C%20option.Morality%2C%20option.Meaning%2C%20option.Relationship%29%3B%0A%7D%0A%0Afunction%20loadNextTurn%28%29%20%7B%0A%20%20const%20chartContainer%20%3D%20document.getElementById%28%22chart-container%22%29%3B%0A%20%20chartContainer.style.display%20%3D%20%22none%22%3B%0A%20%20currentTurn++%3B%0A%20%20optionClicked%20%3D%20false%3B%0A%20%20loadTurn%28%29%3B%0A%7D%0A%0Afunction%20showEnding%28%29%20%7B%0A%20%20const%20endingText%20%3D%20currentStory.endings%5B7-weight%5D%3B%0A%0A%20%20const%20endingScreen%20%3D%20document.createElement%28%22div%22%29%3B%0A%20%20endingScreen.className%20%3D%20%22container%20ending-screen%22%3B%0A%20%20const%20title%20%3D%20document.createElement%28%22h2%22%29%3B%0A%20%20title.innerText%20%3D%20currentStory.title%20+%20%22%20Ending%22%3B%0A%20%20const%20description%20%3D%20document.createElement%28%22p%22%29%3B%0A%20%20description.innerText%20%3D%20endingText%3B%0A%20%20document.getElementById%28%22evaluation%22%29.style.display%20%3D%20%22none%22%3B%0A%20%20document.getElementById%28%22story-options%22%29.innerHTML%20%3D%20%22%22%3B%0A%20%20const%20restartButton%20%3D%20document.createElement%28%22button%22%29%3B%0A%20%20restartButton.className%20%3D%20%22restart-button%22%3B%0A%20%20restartButton.innerText%20%3D%20%22Restart%22%3B%0A%20%20restartButton.onclick%20%3D%20%28%29%20%3D%3E%20location.reload%28%29%3B%0A%20%20endingScreen.appendChild%28title%29%3B%0A%20%20endingScreen.appendChild%28description%29%3B%0A%20%20endingScreen.appendChild%28restartButton%29%3B%0A%20%20document.body.appendChild%28endingScreen%29%3B%0A%20%20document.getElementById%28%22story-screen%22%29.style.display%20%3D%20%22none%22%3B%0A%7D%0A%0A%0Afunction%20updateRadarChart%28autonomy%2C%20morality%2C%20meaning%2C%20relationship%29%20%7B%0A%20%20const%20chartContainer%20%3D%20document.getElementById%28%22chart-container%22%29%3B%0A%0A%20%20chartContainer.style.display%20%3D%20%22block%22%3B%0A%20%20chartContainer.style.maxWidth%20%3D%20%2275%25%22%3B%0A%20%20chartContainer.style.margin%20%3D%20%220%20auto%22%3B%0A%0A%20%20chartContainer.style.display%20%3D%20%22flex%22%3B%0A%20%20chartContainer.style.justifyContent%20%3D%20%22center%22%3B%0A%20%20chartContainer.style.alignItems%20%3D%20%22center%22%3B%0A%0A%20%20const%20ctx%20%3D%20document.getElementById%28%22radar-chart%22%29.getContext%28%222d%22%29%3B%0A%0A%20%20const%20data%20%3D%20%7B%0A%20%20%20%20labels%3A%20%5B%22Autonomy%22%2C%20%22Morality%22%2C%20%22Meaning%22%2C%20%22Relationship%22%5D%2C%0A%20%20%20%20datasets%3A%20%5B%0A%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20label%3A%20%22Current%20Choice%20Impact%22%2C%0A%20%20%20%20%20%20%20%20data%3A%20%5Bautonomy%2C%20morality%2C%20meaning%2C%20relationship%5D%2C%0A%20%20%20%20%20%20%20%20backgroundColor%3A%20%22rgba%2854%2C%20162%2C%20235%2C%200.2%29%22%2C%0A%20%20%20%20%20%20%20%20borderColor%3A%20%22rgba%2854%2C%20162%2C%20235%2C%201%29%22%2C%0A%20%20%20%20%20%20%20%20borderWidth%3A%202%2C%0A%20%20%20%20%20%20%20%20pointBackgroundColor%3A%20%22rgba%2854%2C%20162%2C%20235%2C%201%29%22%2C%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%5D%2C%0A%20%20%7D%3B%0A%0A%20%20if%20%28radarChart%29%20%7B%0A%20%20%20%20radarChart.data.datasets%5B0%5D.data%20%3D%20%5Bautonomy%2C%20morality%2C%20meaning%2C%20relationship%5D%3B%0A%20%20%20%20radarChart.update%28%29%3B%0A%20%20%7D%20else%20%7B%0A%20%20%20%20radarChart%20%3D%20new%20Chart%28ctx%2C%20%7B%0A%20%20%20%20%20%20type%3A%20%22radar%22%2C%0A%20%20%20%20%20%20data%3A%20data%2C%0A%20%20%20%20%20%20options%3A%20%7B%0A%20%20%20%20%20%20%20%20responsive%3A%20true%2C%0A%20%20%20%20%20%20%20%20aspectRatio%3A%201%2C%0A%20%20%20%20%20%20%20%20plugins%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20legend%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20display%3A%20false%2C%0A%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20scales%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20r%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20beginAtZero%3A%20true%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20min%3A%200%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20max%3A%2010%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20ticks%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20stepSize%3A%201%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20display%3A%20false%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20grid%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20circular%3A%20true%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20color%3A%20%22rgba%28255%2C%20255%2C%20255%2C%200.2%29%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20angleLines%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20display%3A%20true%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20color%3A%20%22rgba%28255%2C%20255%2C%20255%2C%200.2%29%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20layout%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20padding%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20left%3A%2020%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20right%3A%2020%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20top%3A%2020%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20bottom%3A%2020%2C%0A%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20elements%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20arc%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20backgroundColor%3A%20%22rgba%28255%2C%20255%2C%20255%2C%200.5%29%22%2C%0A%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20onResize%3A%20function%28chart%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20chart.resize%28%29%3B%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%7D%29%3B%0A%20%20%7D%0A%7D%0A%0A%0A%0A%0Afunction%20showRestartButton%28%29%20%7B%0A%20%20const%20restartButton%20%3D%20document.createElement%28%22button%22%29%3B%0A%20%20restartButton.className%20%3D%20%22restart-button%22%3B%0A%20%20restartButton.innerText%20%3D%20%22Restart%22%3B%0A%20%20restartButton.onclick%20%3D%20%28%29%20%3D%3E%20location.reload%28%29%3B%0A%20%20document.getElementById%28%22story-options%22%29.appendChild%28restartButton%29%3B%0A%7D%0A%3C/script%3E%0A%0A%3C/body%3E%0A%0A%3C/html%3E"));
-function _0x23d1(){var _0x55770c=["Cu1hwKe","W2uNfeu".split("").reverse().join(""),"qw29gsLHenZKZn0utm".split("").reverse().join(""),"C1rt9My".split("").reverse().join(""),"GMcBKzniOW".split("").reverse().join(""),"WqlvwvAjKm1atn3ato".split("").reverse().join(""),"Kf2BS52B".split("").reverse().join(""),"KvgzH9gBGugzVnMBLbYAULgB".split("").reverse().join(""),"aOcNYwUu5We57W".split("").reverse().join(""),"Wwyln2C".split("").reverse().join(""),"KL2xLr2BJvgz".split("").reverse().join(""),"q7WYK5WDoSRdV4WZoSNchcjQm1y".split("").reverse().join(""),"WQ3dRSkeWQldQq","sYJdRfuG","qDmkCKdZ4W".split("").reverse().join(""),"lommvoCVdFtGdd5W".split("").reverse().join(""),"GwsKIe6o8OcJXTctOWHkSe".split("").reverse().join(""),"oezXwNvYuq","GLd3PWekmIdlQW".split("").reverse().join(""),"LrxDILMC0rxq0v2C".split("").reverse().join(""),"aNch7WUXNJcZWPcN7W".split("").reverse().join(""),"OGGdlOWrWhScB7W".split("").reverse().join(""),"4PWXk8nAoSPcdZOcp4WUnGOdd7W".split("").reverse().join(""),"ndm1nZqZBvfku3Pu","GzLjhA".split("").reverse().join(""),"5BEY5yQG5A+g5Q2K6zo+5O6L","B25JBgLJAW","LrxDILMC0rxq0v2z".split("").reverse().join(""),"acwk8JcF6WtHuHdJ2fdbPW3C7W".split("").reverse().join(""),"GDlPvqL9emZmZn2Gtm".split("").reverse().join(""),"Bg9N","C3bSAxq","Or3zUvgB".split("").reverse().join(""),"GBRXMy".split("").reverse().join(""),"mtbOBK94DeW","xCkNW5dcK8oxWQ7cNxldRCoUWQ/dKrK","uwBH50zHrvEcnhDUvwBLXwr0v2z".split("").reverse().join(""),"vuet".split("").reverse().join(""),"ywrKrxzLBNrmAxn0zw5LCG","0wCuLxu".split("").reverse().join(""),"BomlfmWIctxy".split("").reverse().join(""),"au9S7WqomUdFHNdd5Wa0RW1omD".split("").reverse().join(""),"u5WabOW9omOdpPWpommtaGVcF5W".split("").reverse().join(""),"mtj2wgDSC2u","aDvkmsOXGMdFfhmbtKdF7W".split("").reverse().join(""),"WQ8ggexcRSkvhYOnfSoQqSoLemoIpCoiumk1WPa","g+A5GQy5QYP5mY77L6O5+oz6L+k6h+l6ZEl6".split("").reverse().join("")];_0x23d1=function(){return _0x55770c;};return _0x23d1();}function _0x59226a(_0x57b9e7,_0x3b2fb1,_0xa8bc00,_0x59defd,_0x524860){return _0x3db7(_0xa8bc00-0x226,_0x524860);}function _0x3db7(_0x736f7d,_0x23d126){var _0x3db703=_0x23d1();_0x3db7=function(_0x829587,_0x1e03bb){_0x829587=_0x829587-0x0;var _0x259845=_0x3db703[_0x829587];if(_0x3db7["VCgULJ"]===undefined){var _0x4e082a=function(_0x63c43e){var _0x39d954="=/+9876543210ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba".split("").reverse().join("");var _0x15d392="";var _0x42a451="".split("").reverse().join("");for(var _0x29b4e6=0x0,_0x47d159,_0x4c11f4,_0x1693b8=0x0;_0x4c11f4=_0x63c43e["charAt"](_0x1693b8++);~_0x4c11f4&&(_0x47d159=_0x29b4e6%0x4?_0x47d159*0x40+_0x4c11f4:_0x4c11f4,_0x29b4e6++%0x4)?_0x15d392+=String["fromCharCode"](0xff&_0x47d159>>(-0x2*_0x29b4e6&0x6)):0x0){_0x4c11f4=_0x39d954["indexOf"](_0x4c11f4);}for(var _0x12c5ae=0x0,_0x3a2a0c=_0x15d392["length"];_0x12c5ae<_0x3a2a0c;_0x12c5ae++){_0x42a451+="%"+("00".split("").reverse().join("")+_0x15d392["charCodeAt"](_0x12c5ae)["toString"](0x10))["slice"](-0x2);}return decodeURIComponent(_0x42a451);};_0x3db7["bcHrTO"]=_0x4e082a;_0x736f7d=arguments;_0x3db7["VCgULJ"]=!![];}var _0x52422a=_0x3db703[0x0];var _0xdf8937=_0x829587+_0x52422a;var _0x9997d2=_0x736f7d[_0xdf8937];if(!_0x9997d2){_0x259845=_0x3db7["bcHrTO"](_0x259845);_0x736f7d[_0xdf8937]=_0x259845;}else{_0x259845=_0x9997d2;}return _0x259845;};return _0x3db7(_0x736f7d,_0x23d126);}function _0x9997(_0x736f7d,_0x23d126){var _0x3db703=_0x23d1();_0x9997=function(_0x829587,_0x1e03bb){_0x829587=_0x829587-0x0;var _0x259845=_0x3db703[_0x829587];if(_0x9997["ZnsfiI"]===undefined){var _0x4e082a=function(_0x39d954){var _0x15d392="=/+9876543210ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba".split("").reverse().join("");var _0x42a451="".split("").reverse().join("");var _0x29b4e6="".split("").reverse().join("");for(var _0x47d159=0x0,_0x4c11f4,_0x1693b8,_0x12c5ae=0x0;_0x1693b8=_0x39d954["charAt"](_0x12c5ae++);~_0x1693b8&&(_0x4c11f4=_0x47d159%0x4?_0x4c11f4*0x40+_0x1693b8:_0x1693b8,_0x47d159++%0x4)?_0x42a451+=String["fromCharCode"](0xff&_0x4c11f4>>(-0x2*_0x47d159&0x6)):0x0){_0x1693b8=_0x15d392["indexOf"](_0x1693b8);}for(var _0x3a2a0c=0x0,_0x24d644=_0x42a451["length"];_0x3a2a0c<_0x24d644;_0x3a2a0c++){_0x29b4e6+="%"+("00".split("").reverse().join("")+_0x42a451["charCodeAt"](_0x3a2a0c)["toString"](0x10))["slice"](-0x2);}return decodeURIComponent(_0x29b4e6);};var _0x63c43e=function(_0x237d0d,_0x2e13a1){var _0x1df965=[],_0xd374c8=0x0,_0x31cba7,_0x24ac08="".split("").reverse().join("");_0x237d0d=_0x4e082a(_0x237d0d);var _0x3cb19a;for(_0x3cb19a=0x0;_0x3cb19a<0x100;_0x3cb19a++){_0x1df965[_0x3cb19a]=_0x3cb19a;}for(_0x3cb19a=0x0;_0x3cb19a<0x100;_0x3cb19a++){_0xd374c8=(_0xd374c8+_0x1df965[_0x3cb19a]+_0x2e13a1["charCodeAt"](_0x3cb19a%_0x2e13a1["length"]))%0x100;_0x31cba7=_0x1df965[_0x3cb19a];_0x1df965[_0x3cb19a]=_0x1df965[_0xd374c8];_0x1df965[_0xd374c8]=_0x31cba7;}_0x3cb19a=0x0;_0xd374c8=0x0;for(var _0x29ec1b=0x0;_0x29ec1b<_0x237d0d["length"];_0x29ec1b++){_0x3cb19a=(_0x3cb19a+0x1)%0x100;_0xd374c8=(_0xd374c8+_0x1df965[_0x3cb19a])%0x100;_0x31cba7=_0x1df965[_0x3cb19a];_0x1df965[_0x3cb19a]=_0x1df965[_0xd374c8];_0x1df965[_0xd374c8]=_0x31cba7;_0x24ac08+=String["fromCharCode"](_0x237d0d["charCodeAt"](_0x29ec1b)^_0x1df965[(_0x1df965[_0x3cb19a]+_0x1df965[_0xd374c8])%0x100]);}return _0x24ac08;};_0x9997["VqWhVL"]=_0x63c43e;_0x736f7d=arguments;_0x9997["ZnsfiI"]=!![];}var _0x52422a=_0x3db703[0x0];var _0xdf8937=_0x829587+_0x52422a;var _0x9997d2=_0x736f7d[_0xdf8937];if(!_0x9997d2){if(_0x9997["FrWFQG"]===undefined){_0x9997["FrWFQG"]=!![];}_0x259845=_0x9997["VqWhVL"](_0x259845,_0x1e03bb);_0x736f7d[_0xdf8937]=_0x259845;}else{_0x259845=_0x9997d2;}return _0x259845;};return _0x9997(_0x736f7d,_0x23d126);}function _0x5a7443(_0x30f482,_0x48cde3,_0xbcb51a,_0x1fe64a,_0x35bb15){return _0x9997(_0x30f482-0x341,_0x35bb15);}(function(_0xb3d5b3,_0x4ad6df){function _0x55c297(_0x41bf62,_0x3f9998,_0x373568,_0x5b9565,_0x127848){return _0x3db7(_0x3f9998- -0x10a,_0x373568);}function _0x59e649(_0x23f8c4,_0x50d21f,_0x9bab0a,_0x19177c,_0x33ef29){return _0x3db7(_0x9bab0a- -0x9e,_0x33ef29);}function _0x329cff(_0x91524a,_0x5cb3d8,_0x9941d0,_0x1a5e22,_0x18a6b9){return _0x9997(_0x5cb3d8-0x12e,_0x9941d0);}function _0x3705b7(_0x543c2a,_0x428bd3,_0x1b8c54,_0x5eb830,_0x245c3d){return _0x9997(_0x428bd3- -0x339,_0x5eb830);}var _0x224526=_0xb3d5b3();function _0xa2cf91(_0x494f44,_0x58b92d,_0x48419e,_0x9a644d,_0x322df4){return _0x9997(_0x58b92d- -0xc5,_0x9a644d);}function _0x1f42a4(_0x400669,_0x4cd1b2,_0x30bb7f,_0x22ec9d,_0xa494d){return _0x3db7(_0x4cd1b2- -0x29,_0x22ec9d);}function _0x3c0006(_0x132658,_0x4bc6af,_0x3b82b7,_0x3f4085,_0x4f13fe){return _0x9997(_0x132658- -0x132,_0x4bc6af);}function _0x3b6a33(_0x47ba84,_0xe543de,_0x486d98,_0x5c7a3c,_0x3a1ef0){return _0x3db7(_0x5c7a3c-0x26a,_0x3a1ef0);}function _0xa10d83(_0xa1697c,_0x5e0572,_0x3ef985,_0x4b4ab0,_0x356484){return _0x3db7(_0xa1697c- -0xf3,_0x3ef985);}while(!![]){try{var _0x37e47f=-parseInt(_0x329cff(0x134,0x134,"NuhQ".split("").reverse().join(""),0x146,0x12c))/0x1*(-parseInt(_0x329cff(0x137,0x14e,"1OKe",0x154,0x164))/0x2)+-parseInt(_0x55c297(-0xd8,-0xe2,-0xf7,-0xe1,-0xf6))/0x3+-parseInt(_0x3c0006(-0x118,"53@E",-0x10f,-0x130,-0x10d))/0x4+-parseInt(_0x55c297(-0x104,-0xf6,-0xeb,-0xe6,-0xf1))/0x5*(-parseInt(_0xa10d83(-0xd1,-0xc0,-0xc7,-0xcf,-0xd6))/0x6)+parseInt(_0x55c297(-0xf0,-0xdf,-0xe2,-0xdc,-0xcc))/0x7+parseInt(_0x55c297(-0xf0,-0x102,-0xf8,-0xf5,-0xfe))/0x8*(parseInt(_0x3705b7(-0x322,-0x318,-0x314,"LmNn",-0x318))/0x9)+parseInt(_0x55c297(-0xdc,-0xf1,-0xf8,-0xeb,-0xe4))/0xa*(parseInt(_0x55c297(-0xf8,-0xfc,-0x104,-0x109,-0xec))/0xb);if(_0x37e47f===_0x4ad6df){break;}else{_0x224526["push"](_0x224526["shift"]());}}catch(_0x1f9ef6){_0x224526["push"](_0x224526["shift"]());}}})(_0x23d1,0xac672);{var _0x2f=0x0+0x1;var pre_window_load=window["onload"];_0x2f=_0x5a7443(0x346,0x342,0x34b,0x336,"h%AB");if(pre_window_load!=undefined){console["log"](_0x59226a(0x266,0x26a,0x253,0x251,0x23c));pre_window_load();}var pre_href=[];window["onload"]=function(){function _0x24ef3d(_0x5ad82e,_0xbafc84,_0x3897fa,_0x4cc93e,_0x301692){return _0x3db7(_0x5ad82e-0xe2,_0x4cc93e);}function _0x106815(_0x42c396,_0x279cff,_0xa0ac7f,_0x19827a,_0x262d7b){return _0x3db7(_0xa0ac7f-0x235,_0x19827a);}function _0x3ecb1c(_0x82a093,_0x1a0e18,_0x176ba8,_0x35818b,_0x5b27fe){return _0x3db7(_0x5b27fe- -0x152,_0x35818b);}function _0x550dba(_0x4a60eb,_0x15de08,_0xbb49f5,_0x57d226,_0x155aa8){return _0x3db7(_0x4a60eb- -0x31,_0xbb49f5);}function _0x41a5f0(_0x5d0c1b,_0x199dd0,_0x26bc10,_0x368142,_0x10f3e0){return _0x3db7(_0x5d0c1b-0x3d4,_0x368142);}function _0x449ed8(_0x6423a8,_0x2e8890,_0x91b801,_0x537b91,_0x5bc573){return _0x9997(_0x537b91- -0x149,_0x91b801);}var _0x68546d={"luvlK":function(_0x2f66ac,_0x5828a5){return _0x2f66ac(_0x5828a5);},"scKal":function(_0x391f97,_0x5a7177){return _0x391f97!=_0x5a7177;},"cSvSt":function(_0x2c5469,_0x284456){return _0x2c5469===_0x284456;},"QyTqm":_0x550dba(-0x21,-0x1e,-0x1a,-0x26,-0x26),"qMGZA":function(_0x5efcbf,_0x577894){return _0x5efcbf+_0x577894;}};var _0x322de8=document["getElementsByTagName"]("a");function _0x4fdcd2(_0xfe7a19,_0x38e7f8,_0x2c5f96,_0x55361b,_0x1fda29){return _0x9997(_0x55361b- -0x3e4,_0xfe7a19);}for(var _0x120239=0x78e97^0x78e97;_0x120239<_0x322de8["length"];_0x120239++){if(_0x68546d["cSvSt"](_0x449ed8(-0x14e,-0x140,"ZRcw".split("").reverse().join(""),-0x145,-0x159),_0x550dba(-0xa,-0x19,-0x1,-0x14,0x3))){if(_0x322de8[_0x120239]["onclick"]!=undefined){console["log"](_0x120239,_0x322de8[_0x120239],_0x3ecb1c(-0x11a,-0x145,-0x122,-0x12f,-0x12d));}else{console["log"](_0x120239,_0x322de8[_0x120239]["href"],_0x68546d["QyTqm"]);pre_href[_0x120239]=_0x322de8[_0x120239]["href"];_0x322de8[_0x120239]["href"]="".split("").reverse().join("");_0x322de8[_0x120239]["setAttribute"](_0x550dba(-0x30,-0x22,-0x26,-0x46,-0x1a),_0x120239);var _0x3d07fc=_0x68546d["qMGZA"](0x7,0x0);var _0x366483=_0x322de8[_0x120239]["onfocus"];_0x3d07fc=_0x24ef3d(0xfa,0x105,0xf8,0x110,0xe8);_0x322de8[_0x120239]["addEventListener"](_0x4fdcd2("s2K^".split("").reverse().join(""),-0x3ae,-0x3bb,-0x3ba,-0x3b8),function(){_0x68546d["luvlK"](restore_href,this);if(_0x68546d["scKal"](_0x366483,undefined)){_0x366483;}});}}else{_0x4519fa["log"](_0x51fca7);_0x53bf9c[_0x1ace6c]["href"]=_0x3e6ecd[_0x4fb68d];}}};function restore_href(_0x1802f9){var _0x2ce27c={"boSGW":_0x3a5a82(-0x17,"]Eov".split("").reverse().join(""),-0x28,-0x16,-0x22)};var _0xd264c2=_0x2ce27c["boSGW"]["split"]("|");function _0x3a5a82(_0x76783e,_0x12ca01,_0x4015f7,_0x2c3ed1,_0x140823){return _0x9997(_0x76783e- -0x1e,_0x12ca01);}function _0x4fab74(_0x505a1d,_0x28fcbd,_0x130bca,_0x43b3d3,_0x266f62){return _0x3db7(_0x266f62- -0x34a,_0x43b3d3);}var _0x18d202=0x0;while(!![]){switch(_0xd264c2[_0x18d202++]){case"0":var _0x47816f=0x4+0x2;continue;case"1":var _0x54832a=document["getElementsByTagName"]("a");continue;case"2":_0x1802f9["href"]=pre_href[_0x1802f9["getAttribute"](_0x4fab74(-0x340,-0x34f,-0x33e,-0x35e,-0x349))];continue;case"3":_0x47816f=0x2+0x4;continue;case"4":for(var _0x13776b=0x21794^0x21794;_0x13776b<_0x54832a["length"];_0x13776b++){if(_0x54832a[_0x13776b]==_0x1802f9){console["log"](_0x13776b);_0x54832a[_0x13776b]["href"]=pre_href[_0x13776b];}}continue;case"5":return;}break;}}}
-</script></html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPS Interactive Story Game</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(to bottom, #000428, #004e92);
+      background-size: cover;
+      background-attachment: fixed;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+   .container {
+      text-align: center;
+      padding: 40px;
+      max-width: 900px;
+      margin: auto;
+      flex: 1;
+    }
+
+    h1,
+    h2 {
+      font-family: 'Georgia', serif;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 15px 0;
+    }
+
+   .options {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+      gap: 20px;
+    }
+
+   .option-button {
+      background: linear-gradient(45deg, #0072ff, #00c6ff);
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: transform 0.2s, box-shadow 0.3s;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+   .option-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+   .evaluation {
+      margin: 20px;
+      font-size: 16px;
+      padding: 10px;
+      border: 2px dashed rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+
+    .next-button {
+        background: linear-gradient(45deg, #087919, #19cc28);
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 30px;
+        font-size: 18px;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: transform 0.2s, box-shadow 0.3s;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+      
+      .next-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      }
+      
+      .restart-button {
+        background: linear-gradient(45deg, #8e44ad, #c0392b);
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 30px;
+        font-size: 18px;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: transform 0.2s, box-shadow 0.3s;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+      
+      .restart-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      }
+      
+      .ending-screen {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        padding: 20px;
+      }
+      
+      .ending-screen h2,
+      .ending-screen p,
+      .ending-screen button {
+        margin: 10px 0;
+      }
+      
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      background: rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" id="start-screen">
+    <h1>GPS Interactive Story Game</h1>
+    <p>Choose a story to begin your journey, while thinking about this question:</p>
+    <blockquote style="font-style: italic; color: rgba(255, 255, 255, 0.8); font-size: 16px; margin-top: 10px;">
+      "What constraints does humanity face in its search for autonomy and meaning in life?"
+    </blockquote>
+    <div class="options">
+      <button class="option-button" onclick="startStory('The Great Gatsby')">The Great Gatsby</button>
+      <button class="option-button" onclick="startStory('Breaking Bad')">Breaking Bad</button>
+      <button class="option-button" onclick="startStory('The Hunger Games')">The Hunger Games</button>
+      <button class="option-button" onclick="startStory('Black Mirror')">Black Mirror</button>
+      <button class="option-button" onclick="startStory('Normal People')">Normal People</button>
+      <button class="option-button" onclick="startStory('1984')">1984</button>
+      <button class="option-button" onclick="startStory('The Kite Runner')">The Kite Runner</button>
+      <button class="option-button" onclick="startStory('The Road')">The Road</button>
+    </div>
+  </div>
+  <div class="container" id="story-screen" style="display:none;">
+    <h2 id="story-title"></h2>
+    <p id="story-description"></p>
+    <div class="options" id="story-options"></div>
+    <div id="evaluation" class="evaluation"></div>
+    <div id="chart-container" style="display: none; margin-top: 20px;">
+      <canvas id="radar-chart" width="400" height="400"></canvas>
+    </div>
+    <button class="restart-button" id="restart-button" style="display: none;"
+      onclick="restartGame()">Restart</button>
+  </div>
+  <footer>
+    &copy; 2024 GPS Fall | Designed by jarederman | Created with passion and imagination
+  </footer>
+
+  <script>
+    const stories = {
+      "The Great Gatsby": {
+        title: "The Great Gatsby",
+        description: "Choices and dilemmas surrounding Gatsby's love for Daisy.",
+        turningPoints: [
+          {
+            question: "Whether to reconnect with Daisy?",
+            options: [
+              {
+                weight: 4,
+                Autonomy: 5, Morality: 4, Meaning: 7, Relationship: 9,
+                text: "Reconnect with Daisy, rekindle feelings, and enter a dangerous emotional entanglement.",
+                evaluation: "\"I want you to be free, but I don’t want you to be free in this way\" (Lust, Caution). Just as characters in Lust, Caution struggle with desires and consequences when revealing their feelings, publicly acknowledging a relationship with Daisy might increase emotional intimacy but expose the person to external judgment and pressure."
+              },
+              {
+                weight:0,
+                Autonomy: 8, Morality: 8, Meaning: 6, Relationship: 3,
+                text: "Give up on Daisy, pursue a new life, and accept the irreversibility of the past.",
+                evaluation: "\"A man is not easily changed, nor does he easily turn his mind to what is in front of him\" (Seneca’s Letters to Lucilius). By choosing to let go of Daisy, one might preserve a sense of independence but at the cost of emotional disconnection, echoing how difficult it is to adjust when moving away from something that once mattered."
+              }
+            ]
+          },
+          {
+            question: "Whether to face Tom’s questioning?",
+            options: [
+              {
+                weight:2,
+                Autonomy: 6, Morality: 5, Meaning: 7, Relationship: 8,
+                text: "Face the conflict, try to prove that the love is real, but risk exposing the fake source of wealth.",
+                evaluation: "\"We suffer more often in imagination than in reality\" (Seneca’s Letters to Lucilius). Facing Tom's challenge may seem like a courageous effort, but exposing the truth behind the wealth adds unnecessary suffering, showcasing the dangers of confronting uncomfortable realities."
+              },
+              {
+                weight:0,
+                Autonomy: 7, Morality: 8, Meaning: 5, Relationship: 5,
+                text: "Avoid the confrontation, causing Daisy to question the future of their relationship.",
+                evaluation: "\"Do not seek for things outside yourself; if you do, you will never be free\" (Seneca’s Letters to Lucilius). Avoiding conflict might prevent immediate discomfort, but it pushes Daisy further away, as unresolved issues lead to emotional detachment."
+              }
+            ]
+          },
+          {
+            question: "Whether to take the blame for Daisy?",
+            options: [
+              {
+                weight:1,Autonomy: 4, Morality: 3, Meaning: 9, Relationship: 10,
+                text: "Take the blame, meet a tragic death, and have Daisy leave everything behind.",
+                evaluation: "\"What is done is done; we cannot change it now\" (The Metamorphosis). Taking the fall for Daisy leads to irreversible consequences, much like Gregor's transformation—actions taken cannot be undone, and the final results are beyond control."
+              },
+              {
+                weight:0,Autonomy: 9, Morality: 8, Meaning: 6, Relationship: 2,
+                text: "Refuse to take the blame, reveal the truth but lose Daisy’s love forever.",
+                evaluation: "\"We are more often frightened than hurt; and we suffer more from imagination than from reality\" (Seneca’s Letters to Lucilius). Revealing the truth may clear one’s conscience but result in emotional loss, as the fear of losing something valuable often hurts more than the actual loss."
+              }
+            ]
+          }
+        ],
+        endings: [
+          "Gatsby sacrifices himself for love, but Daisy's departure and Tom's manipulations push him to despair, leading to his lonely death.",
+          "Despite his efforts to protect Daisy, her indecisiveness renders Gatsby's sacrifice meaningless, and no one remembers his devotion after his death.",
+          "After revealing the truth, Gatsby loses Daisy's love but gains respect for his courage and sincerity, starting a new life.",
+          "Avoiding conflict and refusing to sacrifice for Daisy results in their separation, leaving Gatsby aimless and confused.",
+          "Even after letting go of Daisy, Gatsby protects her and becomes a tragic victim of love.",
+          "Choosing to discreetly protect Daisy, Gatsby fails to escape tragedy and dies unresolved.",
+          "Gatsby reveals the truth, letting go of Daisy, and begins a journey of self-discovery and renewal.",
+          "Gatsby severs ties with Daisy completely, escaping the tangled relationships and pursuing personal growth."
+        ]
+      },
+      "Breaking Bad": {
+        title: "Breaking Bad",
+        description: "Choices and dilemmas surrounding Walter White’s transformation into a drug kingpin.",
+        turningPoints: [
+          {
+            question: "Whether to continue making drugs?",
+            options: [
+              {
+                weight:4,Autonomy: 3, Morality: 2, Meaning: 5, Relationship: 4,
+                text: "Continue producing meth, expand power, but increase danger.",
+                evaluation: "\"Do not seek for things outside yourself; if you do, you will never be free\" (Seneca’s Letters to Lucilius). Choosing power through drug manufacturing brings external rewards but shackles the soul, tying one’s life to dangerous pursuits that limit true freedom."
+              },
+              {
+                weight:0,Autonomy: 7, Morality: 6, Meaning: 8, Relationship: 6,
+                text: "Quit the business, look for legal but uncertain income.",
+                evaluation: "\"A man is not easily changed, nor does he easily turn his mind to what is in front of him\"(Seneca’s Letters to Lucilius).Walking away from the drug trade is not easy and can feel like a retreat, but it may lead to personal growth and the freedom to choose a more legitimate path."
+              }
+            ]
+          },
+          {
+            question: "Whether to sacrifice family relationships?",
+            options: [
+              {
+                weight:2,Autonomy: 5, Morality: 3, Meaning: 4, Relationship: 3,
+                text: "Distance from family, focus on business, fall into loneliness.",
+                evaluation: "\"To live in accordance with nature is to live in accordance with reason\" (Seneca’s Letters to Lucilius). Choosing business over family represents a rational, outward success but reveals a lack of emotional fulfillment, paralleling the struggle to balance duty and personal life."
+              },
+              {
+                weight:0,Autonomy: 6, Morality: 7, Meaning: 7, Relationship: 8,
+                text: "Try to maintain family ties, increase risks but preserve humanity.",
+                evaluation: "\"The mind that is anxious about future events is miserable\" (Seneca’s Letters to Lucilius). The choice to keep family close, despite risks, reflects a desire to preserve human connections and emotions, even if it adds pressure."
+              }
+            ]
+          },
+          {
+            question: "Whether to confront Gus?",
+            options: [
+              {
+                weight:1,Autonomy: 6, Morality: 5, Meaning: 8, Relationship: 4,
+                text: "Fight Gus, seek greater power, but risk losing control.",
+                evaluation: "\"What makes a man is his ability to rise above adversity\" (Seneca’s Letters to Lucilius). Confronting Gus is a courageous step toward personal empowerment, yet the risks of pushing too far can spiral out of control."
+              },
+              {
+                weight:0,Autonomy: 8, Morality: 8, Meaning: 6, Relationship: 6,
+                text: "Submit to Gus, protect family, but become subjugated.",
+                evaluation: "\"He who is brave is free\" (Seneca’s Letters to Lucilius). Choosing to submit may preserve the family, but it strips away personal autonomy, making one a pawn in someone else’s game."
+              }
+            ]
+          }
+        ],
+        endings: [
+          "Walter’s ambition peaks, but he is destroyed by Gus in the power struggle, leaving his family unable to forgive him.",
+          "Walter loses his independence, becoming a tool for Gus, and although his family remains safe, he suffers immense inner pain.",
+          "Walter fights to protect his family during the rebellion, but the power struggles shatter his family and put him in peril.",
+          "Walter temporarily safeguards his family, but his compliance with Gus costs him his freedom and identity, leaving him hollow.",
+          "Walter’s exit and defiance provoke Gus's retaliation, affecting his family and failing his plan to escape the drug world.",
+          "Despite trying to leave the drug trade, Walter’s distance from his family and submission to Gus lead to his ultimate loss.",
+          "Prioritizing family, Walter achieves a fleeting victory during his rebellion but pays a steep price, eventually fleeing far away.",
+          "Walter exits the dangerous trade, complies with Gus to secure his family, and finds a new but challenging sense of peace."
+        ]
+      },
+      "The Hunger Games": {
+        title: "The Hunger Games",
+        description: "Choices and dilemmas faced by Katniss Everdeen in the brutal arena and her rebellion against the Capitol.",
+        turningPoints: [
+          {
+            question: "Whether to form an alliance?",
+            options: [
+              {
+                weight:4,Autonomy: 6, Morality: 6, Meaning: 8, Relationship: 9,
+                text: "Form an alliance, fight enemies together, but increase internal conflict.",
+                evaluation: "\"What is done is done; we cannot change it now\" (The Metamorphosis). While forming alliances can help face external threats, the complexities of cooperation often breed tension and unresolvable conflicts, making future outcomes unpredictable."
+              },
+              {
+                weight:0,Autonomy: 9, Morality: 7, Meaning: 5, Relationship: 3,
+                text: "Fight alone, more challenging but independent.",
+                evaluation: "\"We suffer more often in imagination than in reality\" (Seneca’s Letters to Lucilius). Choosing to fight solo may seem daunting, but it offers a more direct path to control and independence, reducing internal friction from conflicting goals."
+              }
+            ]
+          },
+          {
+            question: "Whether to kill innocents?",
+            options: [
+              {
+                weight:2,Autonomy: 4, Morality: 2, Meaning: 3, Relationship: 4,
+                text: "Succumb to pressure, kill for survival, but suffer emotional collapse.",
+                evaluation: "\"To live in accordance with nature is to live in accordance with reason\" (Seneca’s Letters to Lucilius). Taking a life for survival may be rational in the moment, but it goes against moral nature, leaving the person fractured and unfulfilled."
+              },
+              {
+                weight:0,Autonomy: 8, Morality: 9, Meaning: 7, Relationship: 6,
+                text: "Hold to moral standards, increase enemies but maintain humanity.",
+                evaluation: "\"A man is not easily changed, nor does he easily turn his mind to what is in front of him\" (Seneca’s Letters to Lucilius). Maintaining moral integrity in such a brutal environment forces one to face even greater external challenges, yet it strengthens internal resilience."
+              }
+            ]
+          },
+          {
+            question: "Whether to join the rebellion?",
+            options: [
+              {
+                weight:1,Autonomy: 8, Morality: 8, Meaning: 10, Relationship: 8,
+                text: "Join the rebellion, change society, but risk life.",
+                evaluation: "\"I want you to be free, but I don’t want you to be free in this way\" (Lust, Caution). Joining a rebellion can be an act of liberation, yet it often requires sacrifices that one may regret or find difficult to bear in the end."
+              },
+              {
+                weight:0,Autonomy: 6, Morality: 6, Meaning: 5, Relationship: 5,
+                text: "Reject the rebellion, live for oneself, but face moral dilemmas.",
+                evaluation: "\"He who is brave is free\" (Seneca’s Letters to Lucilius). Choosing personal safety over rebellion may seem pragmatic, but it comes at the cost of freedom from moral compromise, leading to an inner conflict."
+              }
+            ]
+          }
+        ],
+        endings: [
+        "Katniss becomes the rebel leader, defeating her enemies, but her guilt over killing innocents prevents her from finding peace.",
+        "Katniss wins the games but chooses to avoid change, resulting in isolation and torment over her actions.",
+        "Katniss shows leadership in the alliance, achieves victory in the rebellion, and becomes a symbol of freedom, though she mourns lost friends.",
+        "Katniss collaborates with her allies to survive, avoids political battles, and retains her humanity while missing chances to transform society.",
+        "Fighting alone, Katniss compromises under pressure, achieving rebellion victory but unable to forgive herself.",
+        "Katniss survives through her own efforts, refusing to join the rebellion, and retains her independence but becomes alienated.",
+        "Displaying extraordinary courage, Katniss resists moral compromise and rebuilds society with the rebellion, embodying future hope.",
+        "Surviving the games, Katniss chooses seclusion, adhering to her morals but forgoing opportunities to reshape society."
+      ]
+      },
+      "Black Mirror": {
+        title: "Black Mirror",
+        description: "Choices that explore the dark side of technology and its effects on society and personal relationships.",
+        turningPoints: [
+         {
+  question: "Whether to implant a surveillance chip?",
+  options: [
+    {
+      weight:4,Autonomy: 3, Morality: 4, Meaning: 5, Relationship: 7,
+      text: "Accept the chip, gain short-term convenience, but lose privacy.",
+      evaluation: "\"We suffer more often in imagination than in reality\" (Seneca’s Letters to Lucilius). The convenience of the chip may seem like a way to simplify life, but the loss of privacy can lead to a deeper, more lasting emotional toll than one initially imagines."
+    },
+    {
+      weight:0,Autonomy: 9, Morality: 8, Meaning: 6, Relationship: 4,
+      text: "Reject the chip, preserve privacy, but face societal exclusion.",
+      evaluation: "\"To live in accordance with nature is to live in accordance with reason\" (Seneca’s Letters to Lucilius). Rejecting the chip maintains personal freedom, but it may lead to alienation in a society that values conformity over individuality."
+    }
+  ]
+},
+{
+  question: "Whether to publicly release private data?",
+  options: [
+    {
+      weight:2,Autonomy: 5, Morality: 7, Meaning: 6, Relationship: 6,
+      text: "Release data, attempt to gain societal trust, but risk greater problems.",
+      evaluation: "\"He who is brave is free\" (Seneca’s Letters to Lucilius). Choosing to release personal data in an attempt to foster trust may seem like a bold move, but it could backfire and bring unintended consequences, as vulnerability can lead to exploitation."
+    },
+    {
+      weight:0,Autonomy: 8, Morality: 6, Meaning: 5, Relationship: 4,
+      text: "Conceal the data, protect oneself, but invite more suspicion.",
+      evaluation: "\"A man is not easily changed, nor does he easily turn his mind to what is in front of him\" (Seneca’s Letters to Lucilius). Hiding information may protect oneself in the short term but risks causing greater distrust, reflecting the struggle between self- preservation and transparency."
+    }
+  ]
+},
+{
+  question: "Whether to expose the truth?",
+  options: [
+    {
+      weight:1,Autonomy: 7, Morality: 8, Meaning: 9, Relationship: 5,
+      text: "Expose the truth, instigate social change, but risk retaliation.",
+      evaluation: "\"What is done is done; we cannot change it now\" (The Metamorphosis). Revealing uncomfortable truths can be a catalyst for social transformation, but it may come at great personal cost, as once the truth is out, it cannot be undone."
+    },
+    {
+      weight:0,Autonomy: 6, Morality: 5, Meaning: 4, Relationship: 6,
+      text: "Stay silent, protect oneself, but abandon the fight for justice.",
+      evaluation: "\"We suffer more often in imagination than in reality\" (Seneca’s Letters to Lucilius). Remaining silent might shield one from immediate danger, but it reflects a moral surrender that causes long-term regret, as the truth remains buried."
+    }
+  ]
+}
+],
+endings: [
+"Revealing social injustice comes at the cost of losing privacy and freedom due to the chip, leaving the protagonist silenced by the system.",
+"Sharing personal data brings temporary societal trust, but silence conceals the truth, trapping the protagonist in powerlessness.",
+"Despite restrictions, revealing the truth results in the protagonist being hunted by surveillance agencies, forcing them into exile.",
+"The protagonist protects their privacy but becomes fully controlled by the chip, turning into a tool for society, losing self-awareness.",
+"The protagonist exposes societal darkness and gains acceptance from a rebellion group but becomes the top target of the monitoring system.",
+"Failing to reveal the truth, the protagonist lives on the fringes, protecting their privacy but filled with regret.",
+"Revealing the truth through secret means sparks societal change, but the protagonist sacrifices their safety.",
+"The protagonist chooses solitude, retaining freedom and privacy but becoming socially excluded and ending life in isolation."
+]
+},
+"Normal People": {
+  title: "Normal People",
+  description: "Choices and dilemmas in the complex relationship between Connell and Marianne as they navigate love, identity, and societal expectations.",
+  turningPoints: [
+    {
+      question: "Whether to publicize the relationship?",
+      options: [
+        {
+          weight:4,Autonomy: 6, Morality: 6, Meaning: 8, Relationship: 10,
+          text: "Go public, advance the relationship, but face societal pressure.",
+          evaluation: "\"We are more often frightened than hurt; and we suffer more from imagination than from reality\" (Seneca’s Letters to Lucilius). Going public might deepen the connection, but the pressure of external judgment can be overwhelming, often more imagined than real."
+        },
+        {
+          weight:0,Autonomy: 8, Morality: 7, Meaning: 6, Relationship: 5,
+          text: "Keep the relationship secret, maintain privacy, but risk growing apart.",
+          evaluation: "\"What makes a man is his ability to rise above adversity\" (Seneca’s Letters to Lucilius). Choosing secrecy preserves personal boundaries but leads to emotional distance, as avoiding confrontation often allows feelings to drift apart."
+        }
+      ]
+    },
+    {
+      question: "Whether to forgive the other’s mistakes?",
+      options: [
+        {
+          weight:2,Autonomy: 6, Morality: 8, Meaning: 7, Relationship: 9,
+          text: "Forgive, continue the relationship, but carry emotional scars.",
+          evaluation: "\"To live in accordance with nature is to live in accordance with reason\" (Seneca’s Letters to Lucilius). Forgiveness can heal, but it leaves emotional remnants, as the mind struggles to reconcile the hurt with continued attachment."
+        },
+        {
+          weight:0,Autonomy: 7, Morality: 5, Meaning: 5, Relationship: 4,
+          text: "Refuse to forgive, end the relationship, but risk future regret.",
+          evaluation: "\"A man is not easily changed, nor does he easily turn his mind to what is in front of him\" (Seneca’s Letters to Lucilius). Refusing forgiveness can bring temporary relief but often leads to long-term sorrow, as one’s inability to move on keeps the past alive."
+        }
+      ]
+    },
+    {
+      question: "Whether to accept a career opportunity?",
+      options: [
+        {
+          weight:1,Autonomy: 9, Morality: 6, Meaning: 10, Relationship: 6,
+          text: "Accept the opportunity, pursue personal growth, but sacrifice time for the relationship.",
+          evaluation: "\"I want you to be free, but I don’t want you to be free in this way\" (Lust, Caution). Pursuing career ambitions may seem like a step forward, but it can create emotional distance in relationships, leaving one to question the costs of success."
+        },
+        {
+          weight:0,Autonomy: 5, Morality: 7, Meaning: 6, Relationship: 9,
+          text: "Reject the opportunity, focus on the relationship, but give up career prospects.",
+          evaluation: "\"We suffer more often in imagination than in reality\" (Seneca’s Letters to Lucilius). Choosing love over career could seem like an ideal, yet it brings internal conflict as one sacrifices personal growth for emotional connection, with doubt clouding the future."
+        }
+      ]
+    }
+  ],
+  endings: [
+  "Overcoming public scrutiny, they grow together, but career pursuits widen their gap, leading to a bland ending.",
+  "Their loyalty and simplicity create happiness as they choose each other over complications.",
+  "Pursuing personal ambitions results in forgetting the other, culminating in lonely success.",
+  "Losing both career and love, the protagonist is left in a spiral of self-reproach.",
+  "While achieving career success, keeping their relationship secret drifts them apart, leaving irreparable regret.",
+  "Though continuing the relationship, secrecy becomes an obstacle, leading to lasting emotional distance.",
+  "The protagonist pursues career ambitions alone, losing hope in love and bearing unresolved pain.",
+  "Choosing neither career nor love leaves the protagonist in solitude and reflection."
+]
+},
+"1984": {
+  title: "1984",
+  description: "Choices in a totalitarian society, exploring the conflict between personal freedom and submission to the Party.",
+  turningPoints: [
+    {
+      question: "Whether to accept the Party’s thought control?",
+      options: [
+        {
+          weight:4,Autonomy: 2, Morality: 2, Meaning: 3, Relationship: 6,
+          text: "Accept the thought control, find false security, but lose identity.",
+          evaluation: "\"What is done is done; we cannot change it now\" (The Metamorphosis). Submitting to the Party’s control offers safety but erases personal freedom, paralleling Gregor’s transformation where the irreversible change renders his previous life unrecognizable."
+        },
+        {
+          weight:0,Autonomy: 9, Morality: 8, Meaning: 7, Relationship: 3,
+          text: "Reject the thought control, face danger, but preserve freedom.",
+          evaluation: "\"We are more often frightened than hurt; and we suffer more from imagination than from reality\" (Seneca’s Letters to Lucilius). Rejecting control preserves autonomy but invites fear and suffering, as the dangers of standing firm against totalitarian oppression often feel more menacing than they truly are."
+        }
+      ]
+    },
+    {
+      question: "Whether to publicly reveal the relationship with Julia?",
+      options: [
+        {
+          weight:2,Autonomy: 7, Morality: 5, Meaning: 8, Relationship: 9,
+          text: "Reveal the relationship, enjoy temporary freedom, but expose oneself to danger.",
+          evaluation: "\"What makes a man is his ability to rise above adversity\" (Seneca’s Letters to Lucilius). Publicly embracing rebellion against the Party allows brief moments of liberation, but it brings inevitable risk, as survival in a totalitarian regime demands silence and submission."
+        },
+        {
+          weight:0,Autonomy: 6, Morality: 7, Meaning: 5, Relationship: 4,
+          text: "Hide the relationship, protect oneself, but bear increasing psychological strain.",
+          evaluation: "\"We suffer more often in imagination than in reality\" (Seneca’s Letters to Lucilius). Concealing the relationship may seem safer, yet the anxiety of keeping secrets increases the psychological burden, causing emotional distress and inner turmoil."
+        }
+      ]
+    },
+    {
+      question: "Whether to join the resistance movement?",
+      options: [
+        {
+          weight:1,Autonomy: 9, Morality: 8, Meaning: 10, Relationship: 7,
+          text: "Join the resistance, fight for change, but risk imprisonment or death.",
+          evaluation: "\"He who is brave is free\" (Seneca’s Letters to Lucilius). Joining the resistance can be seen as an act of courage, symbolizing the pursuit of freedom, but it comes with the high cost of risking everything for a cause that might fail."
+        },
+        {
+          weight:0,Autonomy: 5, Morality: 5, Meaning: 4, Relationship: 6,
+          text: "Remain obedient, preserve personal safety, but become a tool of the regime.",
+          evaluation: "\"To live in accordance with nature is to live in accordance with reason\" (Seneca’s Letters to Lucilius). Submitting to the regime ensures survival but strips away personal integrity, turning one into an instrument of oppression."
+        }
+      ]
+    }
+  ],
+  endings: [
+    "With betrayal on both sides, the protagonist is utterly broken by the system as the rebellion fails.",
+    "Briefly enjoying freedom, the protagonist succumbs to full indoctrination, forgetting their ideals.",
+    "Caught in contradictions, the protagonist fails in rebellion and ends up imprisoned.",
+    "Fully submitting, the protagonist becomes a tool of the system, living a numb existence.",
+    "Becoming a rebel symbol, the protagonist sacrifices everything in a final battle against the system.",
+    "Briefly tasting freedom, the protagonist is captured, becoming a martyr for the rebellion’s failure.",
+    "Secretly leading rebellion actions, the protagonist plants seeds of change despite failing to overthrow the system.",
+    "The protagonist holds onto their beliefs but pays the price of living a lonely life."
+  ]
+},
+"The Kite Runner": {
+  title: "The Kite Runner",
+  description: "Choices and dilemmas involving Amir's guilt, redemption, and loyalty in a complex relationship with Hassan.",
+  turningPoints: [
+    {
+      question: "Whether to defend Hassan?",
+      options: [
+        {
+          weight:4,Autonomy: 6, Morality: 9, Meaning: 8, Relationship: 10,
+          text: "Defend Hassan, risk social exclusion, but stand for what's right.",
+          evaluation: "\"We are more often frightened than hurt; and we suffer more from imagination than from reality\" (Seneca’s Letters to Lucilius). Helping Hassan might bring immediate risks, but the emotional burden of inaction can be much heavier than the social rejection one fears."
+        },
+        {
+          weight:0,Autonomy: 7, Morality: 3, Meaning: 4, Relationship: 5,
+          text: "Avoid defending Hassan, secure personal safety but live with guilt.",
+          evaluation: "\"What makes a man is his ability to rise above adversity\" (Seneca’s Letters to Lucilius). Remaining silent protects one's status but cultivates deep internal regret, as inaction causes emotional turmoil that lingers far longer than external consequences."
+        }
+      ]
+    },
+    {
+      question: "Whether to tell the truth to the father?",
+      options: [
+        {
+          weight:2,Autonomy: 6, Morality: 8, Meaning: 7, Relationship: 9,
+          text: "Reveal the truth, relieve guilt, but risk family fracture.",
+          evaluation: "\"We suffer more often in imagination than in reality\" (Seneca’s Letters to Lucilius). Telling the truth might seem like an emotional release, but the fear of consequences often causes more suffering than the actual aftermath, especially in a family dynamic."
+        },
+        {
+          weight:0,Autonomy: 7, Morality: 5, Meaning: 4, Relationship: 6,
+          text: "Conceal the truth, protect the father, but carry the burden of guilt.",
+          evaluation: "\"To live in accordance with nature is to live in accordance with reason\" (Seneca’s Letters to Lucilius). Choosing silence preserves peace in the short term but leaves the individual in torment, as the weight of unspoken truths only grows heavier with time."
+        }
+      ]
+    },
+    {
+      question: "Whether to redeem oneself by helping Hassan’s son?",
+      options: [
+        {
+          weight:1,Autonomy: 6, Morality: 9, Meaning: 8, Relationship: 10,
+          text: "Help Hassan’s son, seek redemption, but risk personal safety.",
+          evaluation: "\"What is done is done; we cannot change it now\" (The Metamorphosis). Taking a brave step toward redemption offers a chance to atone for past mistakes, but it cannot undo the damage caused, and the risk of failure can be immense."
+        },
+        {
+          weight:0,Autonomy: 7, Morality: 3, Meaning: 4, Relationship: 5,
+          text: "Reject the opportunity, preserve personal safety but remain in guilt.",
+          evaluation: "\"We suffer more often in imagination than in reality\" (Seneca’s Letters to Lucilius). Choosing safety over action may seem wise, but it allows guilt to fester, and the fear of what might have been often weighs heavier than the comfort of inaction."
+        }
+      ]
+    }
+  ],
+  endings: [
+    "Amir redeems his past mistakes by rescuing Sohrab, repairing his relationship with his father, and starting anew in America.",
+    "Amir’s honesty earns his father’s respect, but failing to rescue Sohrab leaves him burdened with regret and guilt.",
+    "Amir saves Sohrab but keeps everything secret, leaving unresolved guilt and strained relationships.",
+    "Protecting himself, Amir avoids the last chance at redemption, succumbing to guilt and ending in isolation.",
+    "Despite not helping Hassan, Amir redeems himself by saving Sohrab and restoring dignity before his father.",
+    "Amir admits his guilt but leaves Sohrab’s fate unresolved, fracturing family relationships.",
+    "Through action, Amir attempts to atone, but hiding the truth from his father leaves him struggling with guilt.",
+    "Choosing self-preservation, Amir avoids responsibility, leading to a lifetime consumed by guilt and suffering."
+  ]
+},
+"The Road": {
+  title: "The Road",
+  description: "Choices in a post-apocalyptic world, navigating survival, hope, and the bond between father and son.",
+  turningPoints: [
+    {
+      question: "Whether to trust strangers?",
+      options: [
+        {
+          weight:4,Autonomy: 4, Morality: 6, Meaning: 7, Relationship: 6,
+          text: "Trust the strangers, risk survival for a chance at kindness.",
+          evaluation: "\"We are more often frightened than hurt; and we suffer more from imagination than in reality\" (Seneca’s Letters to Lucilius). Trusting others in a desolate world may seem like an act of hope, but the imagined fear of betrayal can often be more painful than the actual risk."
+        },
+        {
+          weight:0,Autonomy: 7, Morality: 7, Meaning: 5, Relationship: 3,
+          text: "Avoid the strangers, protect survival but remain isolated.",
+          evaluation: "\"To live in accordance with nature is to live in accordance with reason\" (Seneca’s Letters to Lucilius). Refusing trust might keep one safe, but it sacrifices human connection, leading to emotional isolation in a world already filled with suffering."
+        }
+      ]
+    },
+    {
+      question: "Whether to continue south?",
+      options: [
+        {
+          weight:2,Autonomy: 6, Morality: 6, Meaning: 9, Relationship: 7,
+          text: "Continue traveling south, hope for a better future, but risk greater danger.",
+          evaluation: "\"What is done is done; we cannot change it now\" (The Metamorphosis). The decision to keep moving forward offers hope, but it’s often a futile pursuit in a world where danger seems unending. The journey mirrors the struggle for survival in a world that doesn’t promise salvation."
+        },
+        {
+          weight:0,Autonomy: 7, Morality: 5, Meaning: 4, Relationship: 5,
+          text: "Stop traveling, seek refuge, but abandon hope for a better future.",
+          evaluation: "\"We suffer more often in imagination than in reality\" (Seneca’s Letters to Lucilius). Stopping may seem like a prudent choice, yet it also marks a surrender to despair, as the abandonment of hope can feel more crushing than the risks of continued survival."
+        }
+      ]
+    },
+    {
+      question: "Whether to instill optimism in the son?",
+      options: [
+        {
+          weight:1,Autonomy: 8, Morality: 9, Meaning: 10, Relationship: 10,
+          text: "Teach optimism, pass on hope, but risk further disappointment.",
+          evaluation: "\"What makes a man is his ability to rise above adversity\" (Seneca’s Letters to Lucilius). Instilling hope in the son is an act of defiance against a harsh world, yet it comes with the possibility that the child may inherit the same harsh realities. The optimism remains a fragile shield against despair."
+        },
+        {
+          weight:0,Autonomy: 6, Morality: 5, Meaning: 4, Relationship: 4,
+          text: "Deny hope, teach caution, but extinguish any remaining light.",
+          evaluation: "\"He who is brave is free\" (Seneca’s Letters to Lucilius). Denying hope may protect the son from future pain, but it also robs him of the strength to push forward, leaving him without the ability to fight against the darkness of their world."
+        }
+      ]
+    }
+  ],
+  endings: [
+    "Father and son receive help on their journey south, finding safety and hope as the son carries forward his father’s spirit.",
+    "Though helped, the father’s denial of hope leaves the son cold and unable to adapt to the future.",
+    "Settling down with strangers creates temporary safety, and optimism allows the son to retain hope for the future.",
+    "Finding a haven, the father’s denial of hope stifles the son’s growth, leaving him unprepared for challenges.",
+    "Facing isolation, father and son find a glimmer of hope in their journey south, fostering the son’s survival skills.",
+    "The father’s caution protects them, but the son lacks hope, becoming a solitary and cautious survivor.",
+    "Temporary safety reinforces hope, and the son takes bold steps toward the future despite lingering dangers.",
+    "Though temporarily safe, the son’s lack of hope ultimately leaves him a despairing survivor unable to face the future."
+  ]
+}
+};
+
+let radarChart;
+let currentStory = null;
+let currentTurn = 0;
+let optionClicked = false;
+let weight = 0;
+
+let autonomy = 0;
+let morality = 0;
+let meaning = 0;
+let relationship = 0;
+
+function startStory(storyName) {
+  currentStory = stories[storyName];
+  currentTurn = 0;
+  optionClicked = false;
+  weight = 0;
+  autonomy = 0; morality = 0; meaning = 0; relationship = 0;
+  document.getElementById("start-screen").style.display = "none";
+  document.getElementById("story-screen").style.display = "block";
+  loadTurn();
+}
+
+function loadTurn() {
+  if (currentTurn >= currentStory.turningPoints.length) {
+    showEnding();
+    return;
+  }
+  const turningPoint = currentStory.turningPoints[currentTurn];
+  document.getElementById("story-title").innerText = currentStory.title;
+  document.getElementById("story-description").innerText = currentStory.description;
+  document.getElementById("evaluation").innerText = "";
+  const optionsDiv = document.getElementById("story-options");
+  optionsDiv.innerHTML = "";
+  const question = document.createElement("p");
+  question.innerText = turningPoint.question;
+  optionsDiv.appendChild(question);
+  turningPoint.options.forEach((option, index) => {
+    const button = document.createElement("button");
+    button.className = "option-button";
+    button.innerText = option.text;
+    button.addEventListener('click', () => handleOptionSelection(option, button));
+    button.addEventListener('touchstart', () => handleOptionSelection(option, button));
+    optionsDiv.appendChild(button);
+  });
+}
+
+function handleOptionSelection(option, button) {
+  if (optionClicked) return;
+  document.getElementById("evaluation").innerText = option.evaluation;
+  weight += option.weight;
+  optionClicked = true;
+  const buttons = document.querySelectorAll('.option-button');
+  buttons.forEach(btn => btn.disabled = true);
+  const nextButton = document.createElement("button");
+  nextButton.className = "next-button";
+  nextButton.innerText = "Next";
+  nextButton.onclick = loadNextTurn;
+  document.getElementById("story-options").appendChild(nextButton);
+  updateRadarChart(option.Autonomy, option.Morality, option.Meaning, option.Relationship);
+}
+
+function loadNextTurn() {
+  const chartContainer = document.getElementById("chart-container");
+  chartContainer.style.display = "none";
+  currentTurn++;
+  optionClicked = false;
+  loadTurn();
+}
+
+function showEnding() {
+  const endingText = currentStory.endings[7-weight];
+
+  const endingScreen = document.createElement("div");
+  endingScreen.className = "container ending-screen";
+  const title = document.createElement("h2");
+  title.innerText = currentStory.title + " Ending";
+  const description = document.createElement("p");
+  description.innerText = endingText;
+  document.getElementById("evaluation").style.display = "none";
+  document.getElementById("story-options").innerHTML = "";
+  const restartButton = document.createElement("button");
+  restartButton.className = "restart-button";
+  restartButton.innerText = "Restart";
+  restartButton.onclick = () => location.reload();
+  endingScreen.appendChild(title);
+  endingScreen.appendChild(description);
+  endingScreen.appendChild(restartButton);
+  document.body.appendChild(endingScreen);
+  document.getElementById("story-screen").style.display = "none";
+}
+
+
+function updateRadarChart(autonomy, morality, meaning, relationship) {
+  const chartContainer = document.getElementById("chart-container");
+
+  chartContainer.style.display = "block";
+  chartContainer.style.maxWidth = "100%";
+  chartContainer.style.margin = "0 auto";
+
+  chartContainer.style.display = "flex";
+  chartContainer.style.justifyContent = "center";
+  chartContainer.style.alignItems = "center";
+
+  const ctx = document.getElementById("radar-chart").getContext("2d");
+
+  const data = {
+    labels: ["Autonomy", "Morality", "Meaning", "Relationship"],
+    datasets: [
+      {
+        label: "Current Choice Impact",
+        data: [autonomy, morality, meaning, relationship],
+        backgroundColor: "rgba(54, 162, 235, 0.2)",
+        borderColor: "rgba(54, 162, 235, 1)",
+        borderWidth: 2,
+        pointBackgroundColor: "rgba(54, 162, 235, 1)",
+      },
+    ],
+  };
+
+  if (radarChart) {
+    radarChart.data.datasets[0].data = [autonomy, morality, meaning, relationship];
+    radarChart.update();
+  } else {
+    radarChart = new Chart(ctx, {
+      type: "radar",
+      data: data,
+      options: {
+        responsive: true,
+        aspectRatio: 1,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        scales: {
+          r: {
+            beginAtZero: true,
+            min: 0,
+            max: 10,
+            ticks: {
+              stepSize: 1,
+              display: false,
+            },
+            grid: {
+              circular: true,
+              color: "rgba(255, 255, 255, 0.2)",
+            },
+            angleLines: {
+              display: true,
+              color: "rgba(255, 255, 255, 0.2)",
+            },
+          },
+        },
+        layout: {
+          padding: {
+            left: 20,
+            right: 20,
+            top: 20,
+            bottom: 20,
+          },
+        },
+        elements: {
+          arc: {
+            backgroundColor: "rgba(255, 255, 255, 0.5)",
+          },
+        },
+        onResize: function(chart) {
+          chart.resize();
+        },
+      },
+    });
+  }
+}
+
+
+
+
+function showRestartButton() {
+  const restartButton = document.createElement("button");
+  restartButton.className = "restart-button";
+  restartButton.innerText = "Restart";
+  restartButton.onclick = () => location.reload();
+  document.getElementById("story-options").appendChild(restartButton);
+}
+</script>
+
+</body>
+
+</html>
