@@ -21,7 +21,7 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-   .container {
+  .container {
       text-align: center;
       padding: 40px;
       max-width: 900px;
@@ -42,7 +42,7 @@
       margin: 15px 0;
     }
 
-   .options {
+  .options {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -50,7 +50,7 @@
       gap: 20px;
     }
 
-   .option-button {
+  .option-button {
       background: linear-gradient(45deg, #0072ff, #00c6ff);
       color: white;
       padding: 12px 20px;
@@ -62,12 +62,12 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
 
-   .option-button:hover {
+  .option-button:hover {
       transform: scale(1.1);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
     }
 
-   .evaluation {
+  .evaluation {
       margin: 20px;
       font-size: 16px;
       padding: 10px;
@@ -76,58 +76,57 @@
       border-radius: 10px;
     }
 
-    .next-button {
-        background: linear-gradient(45deg, #087919, #19cc28);
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 30px;
-        font-size: 18px;
-        cursor: pointer;
-        margin-top: 20px;
-        transition: transform 0.2s, box-shadow 0.3s;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      }
-      
-      .next-button:hover {
-        transform: scale(1.1);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-      }
-      
-      .restart-button {
-        background: linear-gradient(45deg, #8e44ad, #c0392b);
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 30px;
-        font-size: 18px;
-        cursor: pointer;
-        margin-top: 20px;
-        transition: transform 0.2s, box-shadow 0.3s;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      }
-      
-      .restart-button:hover {
-        transform: scale(1.1);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-      }
-      
-      .ending-screen {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        text-align: center;
-        padding: 20px;
-      }
-      
-      .ending-screen h2,
-      .ending-screen p,
-      .ending-screen button {
-        margin: 10px 0;
-      }
-      
+  .next-button {
+      background: linear-gradient(45deg, #087919, #19cc28);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: transform 0.2s, box-shadow 0.3s;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+  .next-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+  .restart-button {
+      background: linear-gradient(45deg, #8e44ad, #c0392b);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: transform 0.2s, box-shadow 0.3s;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+  .restart-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+  .ending-screen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+
+  .ending-screen h2,
+  .ending-screen p,
+  .ending-screen button {
+      margin: 10px 0;
+    }
 
     footer {
       text-align: center;
@@ -142,7 +141,7 @@
 <body>
   <div class="container" id="start-screen">
     <h1>GPS Interactive Story Game</h1>
-    <p>Choose a story to begin your journey, while thinking about this question:</p>
+    <p>Choose a story to begin your journey, while thinking about this question:</p >
     <blockquote style="font-style: italic; color: rgba(255, 255, 255, 0.8); font-size: 16px; margin-top: 10px;">
       "What constraints does humanity face in its search for autonomy and meaning in life?"
     </blockquote>
@@ -159,103 +158,17 @@
   </div>
   <div class="container" id="story-screen" style="display:none;">
     <h2 id="story-title"></h2>
-    <p id="story-description"></p>
+    <p id="story-description"></p >
     <div class="options" id="story-options"></div>
     <div id="evaluation" class="evaluation"></div>
     <div id="chart-container" style="display: none; margin-top: 20px;">
       <canvas id="radar-chart" width="400" height="400"></canvas>
     </div>
-    <button class="restart-button" id="restart-button" style="display: none;"
-      onclick="restartGame()">Restart</button>
+    <button class="restart-button" id="restart-button" style="display: none;" onclick="restartGame()">Restart</button>
   </div>
   <footer>
     &copy; 2024 GPS Fall | Designed by jarederman | Created with passion and imagination
   </footer>
-
-  <script>
-    const audioPlayer = new Audio();
-    
-    const storyMusic = {
-      "The Great Gatsby": "./Lana%20Del%20Rey%20-%20Young%20and%20Beautiful.mp3",
-      "Breaking Bad": "./Badfinger%20-%20Baby%20Blue%20(Breaking%20Bad%20Soundtrack)%20(HQ)%201080p.mp3",
-      "The Hunger Games": "./Safe%20&%20Sound%20feat.%20The%20Civil%20Wars%20(The%20Hunger%20Games_%20Songs%20From%20District%2012%20And%20Beyond).mp3",
-      "Black Mirror": "./Exit%20Music%20(For%20A%20Film).mp3",
-      "Normal People": "./Kodaline%20-%20All%20I%20Want%20(Lyrics).mp3",
-      "1984": "./Simon%20&%20Garfunkel%20-%20The%20Sounds%20of%20Silence%20(Audio).mp3",
-      "The Kite Runner": "./Opening%20Titles.mp3",
-      "The Road": "./Max%20Richter%20-%20On%20the%20Nature%20of%20Daylight.mp3"
-    };
-    
-    // 播放音乐函数
-    function startStory(storyName) {
-      console.log("Starting story:", storyName); // 调试信息
-    
-      currentStory = stories[storyName];
-      currentTurn = 0;
-      optionClicked = false;
-      weight = 0;
-      autonomy = 0; morality = 0; meaning = 0; relationship = 0;
-    
-      // 设置并播放背景音乐
-      audioPlayer.src = storyMusic[storyName];
-      console.log("Audio source set:", audioPlayer.src); // 调试信息
-    
-      // 等待用户点击时播放音乐
-      document.body.addEventListener('click', () => {
-        audioPlayer.play().catch(error => {
-          console.error("Playback failed:", error);
-        });
-      }, { once: true });
-    
-      document.getElementById("start-screen").style.display = "none";
-      document.getElementById("story-screen").style.display = "block";
-      loadTurn();
-    }
-    
-
-    audioPlayer.onerror = (e) => {
-        console.error("Error loading audio:", e); // 调试信息
-    };
-
-    document.getElementById("start-screen").style.display = "none";
-    document.getElementById("story-screen").style.display = "block";
-    loadTurn();
-    
-  
-    // 返回主界面时停止音乐
-    function restartGame() {
-      audioPlayer.pause();
-      audioPlayer.currentTime = 0;
-      location.reload();
-    }
-  
-    // 在结尾显示时也需要提供返回选项
-    function showEnding() {
-      const endingText = currentStory.endings[7 - weight];
-  
-      const endingScreen = document.createElement("div");
-      endingScreen.className = "container ending-screen";
-      const title = document.createElement("h2");
-      title.innerText = currentStory.title + " Ending";
-      const description = document.createElement("p");
-      description.innerText = endingText;
-  
-      const restartButton = document.createElement("button");
-      restartButton.className = "restart-button";
-      restartButton.innerText = "Back to Home";
-      restartButton.onclick = restartGame;
-  
-      endingScreen.appendChild(title);
-      endingScreen.appendChild(description);
-      endingScreen.appendChild(restartButton);
-      document.body.appendChild(endingScreen);
-  
-      document.getElementById("story-screen").style.display = "none";
-      audioPlayer.pause(); // 停止音乐播放
-    }
-  </script>
-
-
 
   <script>
     const stories = {
@@ -753,189 +666,209 @@ endings: [
 }
 };
 
-let radarChart;
-let currentStory = null;
-let currentTurn = 0;
-let optionClicked = false;
-let weight = 0;
+    let radarChart;
+    let currentStory = null;
+    let currentTurn = 0;
+    let optionClicked = false;
+    let weight = 0;
+    let autonomy = 0;
+    let morality = 0;
+    let meaning = 0;
+    let relationship = 0;
 
-let autonomy = 0;
-let morality = 0;
-let meaning = 0;
-let relationship = 0;
+    const storyMusic = {
+      "The Great Gatsby": "./Lana%20Del%20Rey%20-%20Young%20and%20Beautiful.mp3",
+      "Breaking Bad": "./Badfinger%20-%20Baby%20Blue%20(Breaking%20Bad%20Soundtrack)%20(HQ)%201080p.mp3",
+      "The Hunger Games": "./Safe%20&%20Sound%20feat.%20The%20Civil%20Wars%20(The%20Hunger%20Games_%20Songs%20From%20District%2012%20And%20Beyond).mp3",
+      "Black Mirror": "./Exit%20Music%20(For%20A%20Film).mp3",
+      "Normal People": "./Kodaline%20-%20All%20I%20Want%20(Lyrics).mp3",
+      "1984": "./Simon%20&%20Garfunkel%20-%20The%20Sounds%20of%20Silence%20(Audio).mp3",
+      "The Kite Runner": "./Opening%20Titles.mp3",
+      "The Road": "./Max%20Richter%20-%20On%20the%20Nature%20of%20Daylight.mp3"
+    };
 
-function startStory(storyName) {
-  currentStory = stories[storyName];
-  currentTurn = 0;
-  optionClicked = false;
-  weight = 0;
-  autonomy = 0; morality = 0; meaning = 0; relationship = 0;
-  document.getElementById("start-screen").style.display = "none";
-  document.getElementById("story-screen").style.display = "block";
-  loadTurn();
-}
+    function startStory(storyName) {
+      currentStory = stories[storyName];
+      currentTurn = 0;
+      optionClicked = false;
+      weight = 0;
+      autonomy = 0;
+      morality = 0;
+      meaning = 0;
+      relationship = 0;
+      document.getElementById("start-screen").style.display = "none";
+      document.getElementById("story-screen").style.display = "block";
+      loadTurn();
+      playMusic(storyMusic[storyName]);
+    }
 
-function loadTurn() {
-  if (currentTurn >= currentStory.turningPoints.length) {
-    showEnding();
-    return;
-  }
-  const turningPoint = currentStory.turningPoints[currentTurn];
-  document.getElementById("story-title").innerText = currentStory.title;
-  document.getElementById("story-description").innerText = currentStory.description;
-  document.getElementById("evaluation").innerText = "";
-  const optionsDiv = document.getElementById("story-options");
-  optionsDiv.innerHTML = "";
-  const question = document.createElement("p");
-  question.innerText = turningPoint.question;
-  optionsDiv.appendChild(question);
-  turningPoint.options.forEach((option, index) => {
-    const button = document.createElement("button");
-    button.className = "option-button";
-    button.innerText = option.text;
-    button.addEventListener('click', () => handleOptionSelection(option, button));
-    button.addEventListener('touchstart', () => handleOptionSelection(option, button));
-    optionsDiv.appendChild(button);
-  });
-}
+    function loadTurn() {
+      if (currentTurn >= currentStory.turningPoints.length) {
+        showEnding();
+        return;
+      }
+      const turningPoint = currentStory.turningPoints[currentTurn];
+      document.getElementById("story-title").innerText = currentStory.title;
+      document.getElementById("story-description").innerText = currentStory.description;
+      document.getElementById("evaluation").innerText = "";
+      const optionsDiv = document.getElementById("story-options");
+      optionsDiv.innerHTML = "";
+      const question = document.createElement("p");
+      question.innerText = turningPoint.question;
+      optionsDiv.appendChild(question);
+      turningPoint.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.className = "option-button";
+        button.innerText = option.text;
+        button.addEventListener('click', () => handleOptionSelection(option, button));
+        button.addEventListener('touchstart', () => handleOptionSelection(option, button));
+        optionsDiv.appendChild(button);
+      });
+    }
 
-function handleOptionSelection(option, button) {
-  if (optionClicked) return;
-  document.getElementById("evaluation").innerText = option.evaluation;
-  weight += option.weight;
-  optionClicked = true;
-  const buttons = document.querySelectorAll('.option-button');
-  buttons.forEach(btn => btn.disabled = true);
-  const nextButton = document.createElement("button");
-  nextButton.className = "next-button";
-  nextButton.innerText = "Next";
-  nextButton.onclick = loadNextTurn;
-  document.getElementById("story-options").appendChild(nextButton);
-  updateRadarChart(option.Autonomy, option.Morality, option.Meaning, option.Relationship);
-}
+    function handleOptionSelection(option, button) {
+      if (optionClicked) return;
+      document.getElementById("evaluation").innerText = option.evaluation;
+      weight += option.weight;
+      optionClicked = true;
+      const buttons = document.querySelectorAll('.option-button');
+      buttons.forEach(btn => btn.disabled = true);
+      const nextButton = document.createElement("button");
+      nextButton.className = "next-button";
+      nextButton.innerText = "Next";
+      nextButton.onclick = loadNextTurn;
+      document.getElementById("story-options").appendChild(nextButton);
+      updateRadarChart(option.Autonomy, option.Morality, option.Meaning, option.Relationship);
+    }
 
-function loadNextTurn() {
-  const chartContainer = document.getElementById("chart-container");
-  chartContainer.style.display = "none";
-  currentTurn++;
-  optionClicked = false;
-  loadTurn();
-}
+    function loadNextTurn() {
+      const chartContainer = document.getElementById("chart-container");
+      chartContainer.style.display = "none";
+      currentTurn++;
+      optionClicked = false;
+      loadTurn();
+    }
 
-function showEnding() {
-  const endingText = currentStory.endings[7-weight];
+    function showEnding() {
+      const endingText = currentStory.endings[7 - weight];
+      const endingScreen = document.createElement("div");
+      endingScreen.className = "container ending-screen";
+      const title = document.createElement("h2");
+      title.innerText = currentStory.title + " Ending";
+      const description = document.createElement("p");
+      description.innerText = endingText;
+      document.getElementById("evaluation").style.display = "none";
+      document.getElementById("story-options").innerHTML = "";
+      const restartButton = document.createElement("button");
+      restartButton.className = "restart-button";
+      restartButton.innerText = "Restart";
+      restartButton.onclick = () => location.reload();
+      endingScreen.appendChild(title);
+      endingScreen.appendChild(description);
+      endingScreen.appendChild(restartButton);
+      document.body.appendChild(endingScreen);
+      document.getElementById("story-screen").style.display = "none";
+      stopMusic();
+    }
 
-  const endingScreen = document.createElement("div");
-  endingScreen.className = "container ending-screen";
-  const title = document.createElement("h2");
-  title.innerText = currentStory.title + " Ending";
-  const description = document.createElement("p");
-  description.innerText = endingText;
-  document.getElementById("evaluation").style.display = "none";
-  document.getElementById("story-options").innerHTML = "";
-  const restartButton = document.createElement("button");
-  restartButton.className = "restart-button";
-  restartButton.innerText = "Restart";
-  restartButton.onclick = () => location.reload();
-  endingScreen.appendChild(title);
-  endingScreen.appendChild(description);
-  endingScreen.appendChild(restartButton);
-  document.body.appendChild(endingScreen);
-  document.getElementById("story-screen").style.display = "none";
-}
-
-
-function updateRadarChart(autonomy, morality, meaning, relationship) {
-  const chartContainer = document.getElementById("chart-container");
-
-  chartContainer.style.display = "block";
-  chartContainer.style.maxWidth = "90%";
-  chartContainer.style.margin = "0 auto";
-
-  chartContainer.style.display = "flex";
-  chartContainer.style.justifyContent = "center";
-  chartContainer.style.alignItems = "center";
-
-  const ctx = document.getElementById("radar-chart").getContext("2d");
-
-  const data = {
-    labels: ["Autonomy", "Morality", "Meaning", "Relationship"],
-    datasets: [
-      {
-        label: "Current Choice Impact",
-        data: [autonomy, morality, meaning, relationship],
-        backgroundColor: "rgba(54, 162, 235, 0.2)",
-        borderColor: "rgba(54, 162, 235, 1)",
-        borderWidth: 2,
-        pointBackgroundColor: "rgba(54, 162, 235, 1)",
-      },
-    ],
-  };
-
-  if (radarChart) {
-    radarChart.data.datasets[0].data = [autonomy, morality, meaning, relationship];
-    radarChart.update();
-  } else {
-    radarChart = new Chart(ctx, {
-      type: "radar",
-      data: data,
-      options: {
-        responsive: true,
-        aspectRatio: 1,
-        plugins: {
-          legend: {
-            display: false,
+    function updateRadarChart(autonomy, morality, meaning, relationship) {
+      const chartContainer = document.getElementById("chart-container");
+      chartContainer.style.display = "block";
+      chartContainer.style.maxWidth = "90%";
+      chartContainer.style.margin = "0 auto";
+      chartContainer.style.display = "flex";
+      chartContainer.style.justifyContent = "center";
+      chartContainer.style.alignItems = "center";
+      const ctx = document.getElementById("radar-chart").getContext("2d");
+      const data = {
+        labels: ["Autonomy", "Morality", "Meaning", "Relationship"],
+        datasets: [
+          {
+            label: "Current Choice Impact",
+            data: [autonomy, morality, meaning, relationship],
+            backgroundColor: "rgba(54, 162, 235, 0.2)",
+            borderColor: "rgba(54, 162, 235, 1)",
+            borderWidth: 2,
+            pointBackgroundColor: "rgba(54, 162, 235, 1)",
           },
-        },
-        scales: {
-          r: {
-            beginAtZero: true,
-            min: 0,
-            max: 10,
-            ticks: {
-              stepSize: 1,
-              display: false,
+        ],
+      };
+      if (radarChart) {
+        radarChart.data.datasets[0].data = [autonomy, morality, meaning, relationship];
+        radarChart.update();
+      } else {
+        radarChart = new Chart(ctx, {
+          type: "radar",
+          data: data,
+          options: {
+            responsive: true,
+            aspectRatio: 1,
+            plugins: {
+              legend: {
+                display: false,
+              },
             },
-            grid: {
-              circular: true,
-              color: "rgba(255, 255, 255, 0.2)",
+            scales: {
+              r: {
+                beginAtZero: true,
+                min: 0,
+                max: 10,
+                ticks: {
+                  stepSize: 1,
+                  display: false,
+                },
+                grid: {
+                  circular: true,
+                  color: "rgba(255, 255, 255, 0.2)",
+                },
+                angleLines: {
+                  display: true,
+                  color: "rgba(255, 255, 255, 0.2)",
+                },
+              },
             },
-            angleLines: {
-              display: true,
-              color: "rgba(255, 255, 255, 0.2)",
+            layout: {
+              padding: {
+                left: 20,
+                right: 20,
+                top: 20,
+                bottom: 20,
+              },
+            },
+            elements: {
+              arc: {
+                backgroundColor: "rgba(255, 255, 255, 0.5)",
+              },
+            },
+            onResize: function (chart) {
+              chart.resize();
             },
           },
-        },
-        layout: {
-          padding: {
-            left: 20,
-            right: 20,
-            top: 20,
-            bottom: 20,
-          },
-        },
-        elements: {
-          arc: {
-            backgroundColor: "rgba(255, 255, 255, 0.5)",
-          },
-        },
-        onResize: function(chart) {
-          chart.resize();
-        },
-      },
-    });
-  }
-}
+        });
+      }
+    }
 
-function showRestartButton() {
-  const restartButton = document.createElement("button");
-  restartButton.className = "restart-button";
-  restartButton.innerText = "Restart";
-  restartButton.onclick = () => location.reload();
-  document.getElementById("story-options").appendChild(restartButton);
-}
-</script>
+    function showRestartButton() {
+      const restartButton = document.createElement("button");
+      restartButton.className = "restart-button";
+      restartButton.innerText = "Restart";
+      restartButton.onclick = () => location.reload();
+      document.getElementById("story-options").appendChild(restartButton);
+    }
 
+    function playMusic(src) {
+      const audio = new Audio(src);
+      audio.play();
+    }
+
+    function stopMusic() {
+      const audio = document.querySelector('audio');
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    }
+  </script>
 </body>
 
 </html>
