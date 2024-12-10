@@ -739,11 +739,6 @@ endings: [
       nextButton.onclick = loadNextTurn;
       document.getElementById("story-options").appendChild(nextButton);
       updateRadarChart(option.Autonomy, option.Morality, option.Meaning, option.Relationship);
-
-      const audio = document.querySelector('audio');
-      if (audio){
-        audio.loop = true;
-      }
     }
 
     function loadNextTurn() {
@@ -863,6 +858,7 @@ endings: [
 
     function playMusic(src) {
       const audio = new Audio(src);
+      audio.loop = true;
       audio.play();
     }
 
