@@ -173,6 +173,84 @@
   </footer>
 
   <script>
+    const audioPlayer = new Audio();
+    const storyMusic = {
+      "The Great Gatsby": "music/Lana%20Del%20Rey%20-%20Young%20and%20Beautiful.mp3",
+      "Breaking Bad": "music/Badfinger%20-%20Baby%20Blue%20(Breaking Bad Soundtrack)%20(HQ)%201080p.mp3",
+      "The Hunger Games": "music/Safe%20&%20Sound%20feat.%20The%20Civil%20Wars%20(The%20Hunger%20Games_%20Songs%20From%20District%2012%20And%20Beyond).mp3",
+      "Black Mirror": "music/Exit%20Music%20(For%20A%20Film).mp3",
+      "Normal People": "music/Kodaline%20-%20All%20I%20Want%20(Lyrics).mp3",
+      "1984": "music/Simon%20&%20Garfunkel%20-%20The%20Sounds%20of%20Silence%20(Audio).mp3",
+      "The Kite Runner": "music/Opening%20Titles.mp3",
+      "The Road": "music/Max%20Richter%20-%20On%20the%20Nature%20of%20Daylight.mp3"
+    };
+  
+    // 开始故事时播放对应音乐
+    function startStory(storyName) {
+    console.log("Starting story:", storyName);  // 调试信息
+
+    currentStory = stories[storyName];
+    currentTurn = 0;
+    optionClicked = false;
+    weight = 0;
+    autonomy = 0; morality = 0; meaning = 0; relationship = 0;
+
+    // 设置并播放背景音乐
+    audioPlayer.src = storyMusic[storyName];
+    console.log("Audio source set:", audioPlayer.src); // 调试信息
+    audioPlayer.loop = true;
+
+    // 检查音频是否能加载
+    audioPlayer.oncanplaythrough = () => {
+        console.log("Audio loaded successfully.");
+        audioPlayer.play();
+    };
+
+    audioPlayer.onerror = (e) => {
+        console.error("Error loading audio:", e); // 调试信息
+    };
+
+    document.getElementById("start-screen").style.display = "none";
+    document.getElementById("story-screen").style.display = "block";
+    loadTurn();
+    }
+  
+    // 返回主界面时停止音乐
+    function restartGame() {
+      audioPlayer.pause();
+      audioPlayer.currentTime = 0;
+      location.reload();
+    }
+  
+    // 在结尾显示时也需要提供返回选项
+    function showEnding() {
+      const endingText = currentStory.endings[7 - weight];
+  
+      const endingScreen = document.createElement("div");
+      endingScreen.className = "container ending-screen";
+      const title = document.createElement("h2");
+      title.innerText = currentStory.title + " Ending";
+      const description = document.createElement("p");
+      description.innerText = endingText;
+  
+      const restartButton = document.createElement("button");
+      restartButton.className = "restart-button";
+      restartButton.innerText = "Back to Home";
+      restartButton.onclick = restartGame;
+  
+      endingScreen.appendChild(title);
+      endingScreen.appendChild(description);
+      endingScreen.appendChild(restartButton);
+      document.body.appendChild(endingScreen);
+  
+      document.getElementById("story-screen").style.display = "none";
+      audioPlayer.pause(); // 停止音乐播放
+    }
+  </script>
+
+
+
+  <script>
     const stories = {
       "The Great Gatsby": {
         title: "The Great Gatsby",
