@@ -135,6 +135,36 @@
       color: rgba(255, 255, 255, 0.6);
       background: rgba(0, 0, 0, 0.2);
     }
+
+  .easter-egg-screen {
+    text-align: center;
+    padding: 40px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .easter-egg-screen img {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+  }
+
+  .easter-egg-screen button {
+    background: linear-gradient(45deg, #ff6347, #ff4500);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 18px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .easter-egg-screen button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  }
+
   </style>
 </head>
 
@@ -154,8 +184,10 @@
       <button class="option-button" onclick="startStory('1984')">1984</button>
       <button class="option-button" onclick="startStory('The Kite Runner')">The Kite Runner</button>
       <button class="option-button" onclick="startStory('The Road')">The Road</button>
+      <p>Note that there's an Easter Egg in the game! Find it! Our board is 16-3.</p >
     </div>
   </div>
+
   <div class="container" id="story-screen" style="display:none;">
     <h2 id="story-title"></h2>
     <p id="story-description"></p >
@@ -666,237 +698,203 @@ endings: [
 }
 };
 
-    let radarChart;
-    let currentStory = null;
-    let currentTurn = 0;
-    let optionClicked = false;
-    let weight = 0;
-    let autonomy = 0;
-    let morality = 0;
-    let meaning = 0;
-    let relationship = 0;
+let radarChart;
+let currentStory = null;
+let currentTurn = 0;
+let optionClicked = false;
+let weight = 0;
+let autonomy = 0;
+let morality = 0;
+let meaning = 0;
+let relationship = 0;
+let endingsCompleted = 0;
+let completedEndings = [];
 
-    const storyMusic = {
-      "The Great Gatsby": "./Lana%20Del%20Rey%20-%20Young%20and%20Beautiful.mp3",
-      "Breaking Bad": "./Badfinger%20-%20Baby%20Blue%20(Breaking%20Bad%20Soundtrack)%20(HQ)%201080p.mp3",
-      "The Hunger Games": "./Safe%20&%20Sound%20feat.%20The%20Civil%20Wars%20(The%20Hunger%20Games_%20Songs%20From%20District%2012%20And%20Beyond).mp3",
-      "Black Mirror": "./Exit%20Music%20(For%20A%20Film).mp3",
-      "Normal People": "./Kodaline%20-%20All%20I%20Want%20(Lyrics).mp3",
-      "1984": "./Simon%20&%20Garfunkel%20-%20The%20Sounds%20of%20Silence%20(Audio).mp3",
-      "The Kite Runner": "./Opening%20Titles.mp3",
-      "The Road": "./Max%20Richter%20-%20On%20the%20Nature%20of%20Daylight.mp3"
-    };
+const storyMusic = {
+  "The Great Gatsby": "./Lana%20Del%20Rey%20-%20Young%20and%20Beautiful.mp3",
+  "Breaking Bad": "./Badfinger%20-%20Baby%20Blue%20(Breaking%20Bad%20Soundtrack)%20(HQ)%201080p.mp3",
+  "The Hunger Games": "./Safe%20&%20Sound%20feat.%20The%20Civil%20Wars%20(The%20Hunger%20Games_%20Songs%20From%20District%2012%20And%20Beyond).mp3",
+  "Black Mirror": "./Exit%20Music%20(For%20A%20Film).mp3",
+  "Normal People": "./Kodaline%20-%20All%20I%20Want%20(Lyrics).mp3",
+  "1984": "./Simon%20&%20Garfunkel%20-%20The%20Sounds%20of%20Silence%20(Audio).mp3",
+  "The Kite Runner": "./Opening%20Titles.mp3",
+  "The Road": "./Max%20Richter%20-%20On%20the%20Nature%20of%20Daylight.mp3"
+};
 
-    function startStory(storyName) {
-      currentStory = stories[storyName];
-      currentTurn = 0;
-      optionClicked = false;
-      weight = 0;
-      autonomy = 0;
-      morality = 0;
-      meaning = 0;
-      relationship = 0;
-      document.getElementById("start-screen").style.display = "none";
-      document.getElementById("story-screen").style.display = "block";
-      loadTurn();
-      playMusic(storyMusic[storyName]);
-    }
+function startStory(storyName) {
+  currentStory = stories[storyName];
+  currentTurn = 0;
+  optionClicked = false;
+  weight = 0;
+  autonomy = 0;
+  morality = 0;
+  meaning = 0;
+  relationship = 0;
+  document.getElementById("start-screen").style.display = "none";
+  document.getElementById("story-screen").style.display = "block";
+  loadTurn();
+  playMusic(storyMusic[storyName]);
+}
 
-    function loadTurn() {
-      if (currentTurn >= currentStory.turningPoints.length) {
-        showEnding();
-        return;
-      }
-      const turningPoint = currentStory.turningPoints[currentTurn];
-      document.getElementById("story-title").innerText = currentStory.title;
-      document.getElementById("story-description").innerText = currentStory.description;
-      document.getElementById("evaluation").innerText = "";
-      const optionsDiv = document.getElementById("story-options");
-      optionsDiv.innerHTML = "";
-      const question = document.createElement("p");
-      question.innerText = turningPoint.question;
-      optionsDiv.appendChild(question);
-      turningPoint.options.forEach((option, index) => {
-        const button = document.createElement("button");
-        button.className = "option-button";
-        button.innerText = option.text;
-        button.addEventListener('click', () => handleOptionSelection(option, button));
-        button.addEventListener('touchstart', () => handleOptionSelection(option, button));
-        optionsDiv.appendChild(button);
+function loadTurn() {
+  if (currentTurn >= currentStory.turningPoints.length) {
+      showEnding();
+      return;
+  }
+  const turningPoint = currentStory.turningPoints[currentTurn];
+  document.getElementById("story-title").innerText = currentStory.title;
+  document.getElementById("story-description").innerText = currentStory.description;
+  document.getElementById("evaluation").innerText = "";
+  const optionsDiv = document.getElementById("story-options");
+  optionsDiv.innerHTML = "";
+  const question = document.createElement("p");
+  question.innerText = turningPoint.question;
+  optionsDiv.appendChild(question);
+  turningPoint.options.forEach((option, index) => {
+      const button = document.createElement("button");
+      button.className = "option-button";
+      button.innerText = option.text;
+      button.addEventListener('click', () => handleOptionSelection(option, button));
+      button.addEventListener('touchstart', function (e) {
+          // 判断是否为拖动操作，如果是则阻止默认点击行为
+          if (e.touches.length > 1 || e.targetTouches.length > 1 || e.preventDefault) {
+              e.preventDefault();
+          }
       });
-    }
+      // 设置初始按钮无动态交互效果
+      button.style.transform = 'none';
+      button.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)'; 
+      optionsDiv.appendChild(button);
+  });
+}
 
-    function handleOptionSelection(option, button) {
-      if (optionClicked) return;
-      document.getElementById("evaluation").innerText = option.evaluation;
-      weight += option.weight;
-      optionClicked = true;
-      const buttons = document.querySelectorAll('.option-button');
-      buttons.forEach(btn => btn.disabled = true);
-      const nextButton = document.createElement("button");
-      nextButton.className = "next-button";
-      nextButton.innerText = "Next";
-      nextButton.onclick = loadNextTurn;
-      document.getElementById("story-options").appendChild(nextButton);
-      updateRadarChart(option.Autonomy, option.Morality, option.Meaning, option.Relationship);
-    }
 
-    function loadNextTurn() {
-      const chartContainer = document.getElementById("chart-container");
-      chartContainer.style.display = "none";
-      currentTurn++;
-      optionClicked = false;
-      loadTurn();
-    }
 
-    function showEnding() {
-      const endingText = currentStory.endings[7 - weight];
-      const endingScreen = document.createElement("div");
-      endingScreen.className = "container ending-screen";
-      const title = document.createElement("h2");
-      title.innerText = currentStory.title + " Ending";
-      const description = document.createElement("p");
-      description.innerText = endingText;
-      document.getElementById("evaluation").style.display = "none";
-      document.getElementById("story-options").innerHTML = "";
-      const replayButton = document.createElement("button");
-      replayButton.className = "next-button";
-      replayButton.innerText = "Replay story";
-      replayButton.onclick = replayStory;
-      const restartButton = document.createElement("button");
-      restartButton.className = "restart-button";
-      restartButton.innerText = "Restart";
-      restartButton.onclick = () => location.reload();
-      endingScreen.appendChild(title);
-      endingScreen.appendChild(description);
-      endingScreen.appendChild(replayButton);
-      endingScreen.appendChild(restartButton);
-      document.body.appendChild(endingScreen);
-      document.getElementById("story-screen").style.display = "none";
+function handleOptionSelection(option, button) {
+  if (optionClicked) return;
+  document.getElementById("evaluation").innerText = option.evaluation;
+  weight += option.weight;
+  optionClicked = true;
+
+  const buttons = document.querySelectorAll('.option-button');
+  buttons.forEach(btn => {
+      btn.disabled = true;
+      btn.removeEventListener('click', handleOptionSelection);
+      btn.classList.remove('option-button-hover');
+  });
+
+  const nextButton = document.createElement("button");
+  nextButton.className = "next-button";
+  nextButton.innerText = "Next";
+  nextButton.onclick = loadNextTurn;
+  document.getElementById("story-options").appendChild(nextButton);
+
+  updateRadarChart(option.Autonomy, option.Morality, option.Meaning, option.Relationship);
+}
+
+
+
+function loadNextTurn() {
+  const chartContainer = document.getElementById("chart-container");
+  chartContainer.style.display = "none";
+  currentTurn++;
+  optionClicked = false;
+  loadTurn();
+}
+
+function showEnding() {
+  const endingText = currentStory.endings[7 - weight];
+  const endingScreen = document.createElement("div");
+  endingScreen.className = "container ending-screen";
+  const title = document.createElement("h2");
+  title.innerText = currentStory.title + " Ending";
+  const description = document.createElement("p");
+  description.innerText = endingText;
+  document.getElementById("evaluation").style.display = "none";
+  document.getElementById("story-options").innerHTML = "";
+  const replayButton = document.createElement("button");
+  replayButton.className = "next-button";
+  replayButton.innerText = "Restart Journey";
+  replayButton.onclick = replayStory;
+  const restartButton = document.createElement("button");
+  restartButton.className = "restart-button";
+  restartButton.innerText = "Back to Menu";
+  restartButton.onclick = () => location.reload();
+  endingScreen.appendChild(title);
+  endingScreen.appendChild(description);
+  endingScreen.appendChild(replayButton);
+  endingScreen.appendChild(restartButton);
+
+  if (!completedEndings.includes(endingText)) {
+    completedEndings.push(endingText);
+    endingsCompleted++;
   }
 
-
-    function updateRadarChart(autonomy, morality, meaning, relationship) {
-      const chartContainer = document.getElementById("chart-container");
-      chartContainer.style.display = "block";
-      chartContainer.style.maxWidth = "90%";
-      chartContainer.style.margin = "0 auto";
-      chartContainer.style.display = "flex";
-      chartContainer.style.justifyContent = "center";
-      chartContainer.style.alignItems = "center";
-      const ctx = document.getElementById("radar-chart").getContext("2d");
-      const data = {
-        labels: ["Autonomy", "Morality", "Meaning", "Relationship"],
-        datasets: [
-          {
-            label: "Current Choice Impact",
-            data: [autonomy, morality, meaning, relationship],
-            backgroundColor: "rgba(54, 162, 235, 0.2)",
-            borderColor: "rgba(54, 162, 235, 1)",
-            borderWidth: 2,
-            pointBackgroundColor: "rgba(54, 162, 235, 1)",
-          },
-        ],
-      };
-      if (radarChart) {
-        radarChart.data.datasets[0].data = [autonomy, morality, meaning, relationship];
-        radarChart.update();
-      } else {
-        radarChart = new Chart(ctx, {
-          type: "radar",
-          data: data,
-          options: {
-            responsive: true,
-            aspectRatio: 1,
-            plugins: {
-              legend: {
-                display: false,
-              },
-            },
-            scales: {
-              r: {
-                beginAtZero: true,
-                min: 0,
-                max: 10,
-                ticks: {
-                  stepSize: 1,
-                  display: false,
-                },
-                grid: {
-                  circular: true,
-                  color: "rgba(255, 255, 255, 0.2)",
-                },
-                angleLines: {
-                  display: true,
-                  color: "rgba(255, 255, 255, 0.2)",
-                },
-              },
-            },
-            layout: {
-              padding: {
-                left: 20,
-                right: 20,
-                top: 20,
-                bottom: 20,
-              },
-            },
-            elements: {
-              arc: {
-                backgroundColor: "rgba(255, 255, 255, 0.5)",
-              },
-            },
-            onResize: function (chart) {
-              chart.resize();
-            },
-          },
-        });
-      }
-    }
-
-
-
-    function showRestartButton() {
-      const restartButton = document.createElement("button");
-      restartButton.className = "restart-button";
-      restartButton.innerText = "Restart";
-      restartButton.onclick = () => location.reload();
-      document.getElementById("story-options").appendChild(restartButton);
-    }
-
-    function playMusic(src) {
-      const audio = new Audio(src);
-      audio.loop = true;
-      audio.play();
-    }
-
-    function stopMusic() {
-      const audio = document.querySelector('audio');
-      if (audio) {
-        audio.pause();
-        audio.currentTime = 0;
-      }
-    }
-
-    function replayStory() {
-      currentTurn = 0;
-      optionClicked = false;
-      weight = 0;
-      autonomy = 0;
-      morality = 0;
-      meaning = 0;
-      relationship = 0;
-      document.getElementById("story-screen").style.display = "block";
-      document.getElementById("evaluation").style.display = "block";
-      document.getElementById("chart-container").style.display = "none";
-      const buttons = document.querySelectorAll('.option-button');
-      buttons.forEach(btn => btn.disabled = false);
-      loadTurn();
-      const endingScreen = document.querySelector('.ending-screen');
-      if (endingScreen) {
-          endingScreen.parentNode.removeChild(endingScreen);
-      }
+  if (endingsCompleted >= 8) {
+    const eggButton = document.createElement("button");
+    eggButton.className = "option-button";
+    eggButton.innerText = "Easter Egg";
+    eggButton.onclick = () => showEasterEgg();
+    endingScreen.appendChild(eggButton);
   }
 
+  document.body.appendChild(endingScreen);
+  document.getElementById("story-screen").style.display = "none";
+}
+
+function showEasterEgg() {
+  const eggScreen = document.createElement("div");
+  eggScreen.className = "container easter-egg-screen";
+  const congratulation = document.createElement("h2");
+  congratulation.innerText = "Congratulations! You've experienced all endings for this story!\nYou unlocked the Easter Egg!\nShare this game with your friends if you like it! Thank you!\nCome to 16-3 to claim your price and share your thoughts for the original question: \"What constraints does humanity face in its search for autonomy and meaning in life?\"!\nHope the game sparks your thought!\nDon't forget to take a screenshot!";
+  eggScreen.appendChild(congratulation);
+
+  const image = document.createElement("img");
+  image.src = "./19111733753635_.pic.jpg";
+  image.alt = "Share this game with others";
+  eggScreen.appendChild(image);
+
+  document.body.appendChild(eggScreen);
+}
+
+function playMusic(src) {
+  const audio = new Audio(src);
+  audio.loop = true;
+  audio.play();
+}
+
+function stopMusic() {
+  const audio = document.querySelector('audio');
+  if (audio) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+}
+
+function replayStory() {
+  currentTurn = 0;
+  optionClicked = false;
+  weight = 0;
+  autonomy = 0;
+  morality = 0;
+  meaning = 0;
+  relationship = 0;
+  document.getElementById("story-screen").style.display = "block";
+  document.getElementById("evaluation").style.display = "block";
+  document.getElementById("chart-container").style.display = "none";
+  const buttons = document.querySelectorAll('.option-button');
+  buttons.forEach(btn => {
+      btn.disabled = false;
+      btn.addEventListener('click', handleOptionSelection);
+      btn.style.transform = 'none';
+      btn.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)'; 
+  });
+  loadTurn();
+  const endingScreen = document.querySelector('.ending-screen');
+  if (endingScreen) {
+      endingScreen.parentNode.removeChild(endingScreen);
+  }
+}
   </script>
 </body>
 
