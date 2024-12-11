@@ -755,12 +755,7 @@ function loadTurn() {
     button.className = "option-button";
     button.innerText = option.text;
     button.addEventListener('click', () => handleOptionSelection(option, button));
-    button.addEventListener('touchstart', function (e) {
-      // 判断是否为拖动操作，如果是则阻止默认点击行为
-      if (e.touches.length > 1 || e.targetTouches.length > 1 || e.preventDefault) {
-          e.preventDefault();
-      }
-  });
+    button.addEventListener('touchstart', () => handleOptionSelection(option, button));
     optionsDiv.appendChild(button);
   });
 }
@@ -770,24 +765,15 @@ function handleOptionSelection(option, button) {
   document.getElementById("evaluation").innerText = option.evaluation;
   weight += option.weight;
   optionClicked = true;
-
   const buttons = document.querySelectorAll('.option-button');
-  buttons.forEach(btn => {
-      btn.disabled = true;
-      btn.removeEventListener('click', handleOptionSelection);
-      btn.classList.remove('option-button-hover');
-  });
-
+  buttons.forEach(btn => btn.disabled = true);
   const nextButton = document.createElement("button");
   nextButton.className = "next-button";
   nextButton.innerText = "Next";
   nextButton.onclick = loadNextTurn;
   document.getElementById("story-options").appendChild(nextButton);
-
   updateRadarChart(option.Autonomy, option.Morality, option.Meaning, option.Relationship);
 }
-
-
 
 function loadNextTurn() {
   const chartContainer = document.getElementById("chart-container");
@@ -882,7 +868,6 @@ function replayStory() {
     btn.disabled = false;
     btn.addEventListener('click', handleOptionSelection); 
   });
-
   loadTurn();
   const endingScreen = document.querySelector('.ending-screen');
   if (endingScreen) {
