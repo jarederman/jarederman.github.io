@@ -864,10 +864,7 @@ function replayStory() {
   document.getElementById("evaluation").style.display = "block";
   document.getElementById("chart-container").style.display = "none";
   const buttons = document.querySelectorAll('.option-button');
-  buttons.forEach(btn => {
-    btn.disabled = false;
-    btn.addEventListener('click', handleOptionSelection); 
-  });
+  buttons.forEach(btn => btn.disabled = false);
   loadTurn();
   const endingScreen = document.querySelector('.ending-screen');
   if (endingScreen) {
