@@ -738,8 +738,8 @@ function startStory(storyName) {
 
 function loadTurn() {
   if (currentTurn >= currentStory.turningPoints.length) {
-      showEnding();
-      return;
+    showEnding();
+    return;
   }
   const turningPoint = currentStory.turningPoints[currentTurn];
   document.getElementById("story-title").innerText = currentStory.title;
@@ -751,24 +751,19 @@ function loadTurn() {
   question.innerText = turningPoint.question;
   optionsDiv.appendChild(question);
   turningPoint.options.forEach((option, index) => {
-      const button = document.createElement("button");
-      button.className = "option-button";
-      button.innerText = option.text;
-      button.addEventListener('click', () => handleOptionSelection(option, button));
-      button.addEventListener('touchstart', function (e) {
-          // 判断是否为拖动操作，如果是则阻止默认点击行为
-          if (e.touches.length > 1 || e.targetTouches.length > 1 || e.preventDefault) {
-              e.preventDefault();
-          }
-      });
-      // 设置初始按钮无动态交互效果
-      button.style.transform = 'none';
-      button.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)'; 
-      optionsDiv.appendChild(button);
+    const button = document.createElement("button");
+    button.className = "option-button";
+    button.innerText = option.text;
+    button.addEventListener('click', () => handleOptionSelection(option, button));
+    button.addEventListener('touchstart', function (e) {
+      // 判断是否为拖动操作，如果是则阻止默认点击行为
+      if (e.touches.length > 1 || e.targetTouches.length > 1 || e.preventDefault) {
+          e.preventDefault();
+      }
+  });
+    optionsDiv.appendChild(button);
   });
 }
-
-
 
 function handleOptionSelection(option, button) {
   if (optionClicked) return;
@@ -884,11 +879,10 @@ function replayStory() {
   document.getElementById("chart-container").style.display = "none";
   const buttons = document.querySelectorAll('.option-button');
   buttons.forEach(btn => {
-      btn.disabled = false;
-      btn.addEventListener('click', handleOptionSelection);
-      btn.style.transform = 'none';
-      btn.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)'; 
+    btn.disabled = false;
+    btn.addEventListener('click', handleOptionSelection); 
   });
+
   loadTurn();
   const endingScreen = document.querySelector('.ending-screen');
   if (endingScreen) {
