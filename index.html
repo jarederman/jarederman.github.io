@@ -759,17 +759,22 @@ endings: [
       description.innerText = endingText;
       document.getElementById("evaluation").style.display = "none";
       document.getElementById("story-options").innerHTML = "";
+      const replayButton = document.createElement("button");
+      replayButton.className = "next-button";
+      replayButton.innerText = "Replay story";
+      replayButton.onclick = replayStory;
       const restartButton = document.createElement("button");
       restartButton.className = "restart-button";
       restartButton.innerText = "Restart";
       restartButton.onclick = () => location.reload();
       endingScreen.appendChild(title);
       endingScreen.appendChild(description);
+      endingScreen.appendChild(replayButton);
       endingScreen.appendChild(restartButton);
       document.body.appendChild(endingScreen);
       document.getElementById("story-screen").style.display = "none";
-      stopMusic();
-    }
+  }
+
 
     function updateRadarChart(autonomy, morality, meaning, relationship) {
       const chartContainer = document.getElementById("chart-container");
@@ -848,6 +853,8 @@ endings: [
       }
     }
 
+
+
     function showRestartButton() {
       const restartButton = document.createElement("button");
       restartButton.className = "restart-button";
@@ -869,6 +876,27 @@ endings: [
         audio.currentTime = 0;
       }
     }
+
+    function replayStory() {
+      currentTurn = 0;
+      optionClicked = false;
+      weight = 0;
+      autonomy = 0;
+      morality = 0;
+      meaning = 0;
+      relationship = 0;
+      document.getElementById("story-screen").style.display = "block";
+      document.getElementById("evaluation").style.display = "block";
+      document.getElementById("chart-container").style.display = "none";
+      const buttons = document.querySelectorAll('.option-button');
+      buttons.forEach(btn => btn.disabled = false);
+      loadTurn();
+      const endingScreen = document.querySelector('.ending-screen');
+      if (endingScreen) {
+          endingScreen.parentNode.removeChild(endingScreen);
+      }
+  }
+
   </script>
 </body>
 
