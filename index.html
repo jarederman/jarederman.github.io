@@ -825,6 +825,85 @@ function showEnding() {
   document.getElementById("story-screen").style.display = "none";
 }
 
+function updateRadarChart(autonomy, morality, meaning, relationship) {
+  const chartContainer = document.getElementById("chart-container");
+  chartContainer.style.display = "block";
+  chartContainer.style.maxWidth = "90%";
+  chartContainer.style.margin = "0 auto";
+  chartContainer.style.display = "flex";
+  chartContainer.style.justifyContent = "center";
+  chartContainer.style.alignItems = "center";
+  const ctx = document.getElementById("radar-chart").getContext("2d");
+  const data = {
+    labels: ["Autonomy", "Morality", "Meaning", "Relationship"],
+    datasets: [
+      {
+        label: "Current Choice Impact",
+        data: [autonomy, morality, meaning, relationship],
+        backgroundColor: "rgba(54, 162, 235, 0.2)",
+        borderColor: "rgba(54, 162, 235, 1)",
+        borderWidth: 2,
+        pointBackgroundColor: "rgba(54, 162, 235, 1)",
+      },
+    ],
+  };
+  if (radarChart) {
+    radarChart.data.datasets[0].data = [autonomy, morality, meaning, relationship];
+    radarChart.update();
+  } else {
+    radarChart = new Chart(ctx, {
+      type: "radar",
+      data: data,
+      options: {
+        responsive: true,
+        aspectRatio: 1,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        scales: {
+          r: {
+            beginAtZero: true,
+            min: 0,
+            max: 10,
+            ticks: {
+              stepSize: 1,
+              display: false,
+            },
+            grid: {
+              circular: true,
+              color: "rgba(255, 255, 255, 0.2)",
+            },
+            angleLines: {
+              display: true,
+              color: "rgba(255, 255, 255, 0.2)",
+            },
+          },
+        },
+        layout: {
+          padding: {
+            left: 20,
+            right: 20,
+            top: 20,
+            bottom: 20,
+          },
+        },
+        elements: {
+          arc: {
+            backgroundColor: "rgba(255, 255, 255, 0.5)",
+          },
+        },
+        onResize: function (chart) {
+          chart.resize();
+        },
+      },
+    });
+  }
+}
+
+
+
 function showEasterEgg() {
   const eggScreen = document.createElement("div");
   eggScreen.className = "container easter-egg-screen";
