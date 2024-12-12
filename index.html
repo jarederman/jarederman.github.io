@@ -907,13 +907,11 @@ function updateRadarChart(autonomy, morality, meaning, relationship) {
 function loadText() {
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-          const textContent = document.getElementById('text-content');
-          textContent.innerText = xhr.responseText;
-          textContent.style.display = 'block';
-      }
+      const textContent = document.getElementById('text-content');
+      textContent.innerText = xhr.responseText;
+      textContent.style.display = 'block';
   };
-  xhr.open('GET', 'text.txt', true);
+  xhr.open('GET', './text.txt', true);
   xhr.send();
 }
 
