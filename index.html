@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,6 +66,27 @@
   .option-button:hover {
       transform: scale(1.1);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+  .answer-container {
+      text-align: center;
+      padding: 20px;
+      margin-top: 20px;
+      border: 2px dashed rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+    
+  .answer-container h3 {
+      font-family: 'Georgia', serif;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+    
+  .answer-container p {
+      font-size: 16px;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.8);
     }
 
   .evaluation {
@@ -187,7 +209,6 @@
       <blockquote style="font-style: arial; color: rgba(255, 255, 255, 0.7); font-size: 16px; margin-top: 10px;">
       Note that there's an Easter Egg in the game! Find it! Our board is 16-3.
     </blockquote>
-    <div id="text-content" class="evaluation" style="display:none;"></div>
     </div>
   </div>
 
@@ -200,6 +221,10 @@
       <canvas id="radar-chart" width="400" height="400"></canvas>
     </div>
     <button class="restart-button" id="restart-button" style="display: none;" onclick="restartGame()">Restart</button>
+  </div>
+  <div class="answer-container">
+    <h3>Others' answer to the question</h3>
+    <p>The autonomy, the deeper self driven by desire and ideal.</p >
   </div>
   <footer>
     &copy; 2024 GPS Fall | Designed by jarederman | Created with passion and imagination
@@ -713,6 +738,15 @@ let relationship = 0;
 let endingsCompleted = 0;
 let completedEndings = [];
 
+function toggleAnswerContainer(show) {
+  const answerContainer = document.querySelector('.answer-container');
+  if (show) {
+      answerContainer.style.display = 'block';
+  } else {
+      answerContainer.style.display = 'none';
+  }
+}
+
 const storyMusic = {
   "The Great Gatsby": "./Lana%20Del%20Rey%20-%20Young%20and%20Beautiful.mp3",
   "Breaking Bad": "./Badfinger%20-%20Baby%20Blue%20(Breaking%20Bad%20Soundtrack)%20(HQ)%201080p.mp3",
@@ -737,7 +771,7 @@ function startStory(storyName) {
   document.getElementById("story-screen").style.display = "block";
   loadTurn();
   playMusic(storyMusic[storyName]);
-  loadText();
+  toggleAnswerContainer(false); 
 }
 
 function loadTurn() {
@@ -904,17 +938,6 @@ function updateRadarChart(autonomy, morality, meaning, relationship) {
   }
 }
 
-function loadText() {
-  const xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-      const textContent = document.getElementById('text-content');
-      textContent.innerText = xhr.responseText;
-      textContent.style.display = 'block';
-  };
-  xhr.open('GET', './text.txt', true);
-  xhr.send();
-}
-
 function showEasterEgg() {
   const eggScreen = document.createElement("div");
   eggScreen.className = "container easter-egg-screen";
@@ -929,6 +952,10 @@ function showEasterEgg() {
 
   document.body.appendChild(eggScreen);
 }
+
+window.onload = function() {
+  toggleAnswerContainer(true);
+};
 
 function playMusic(src) {
   const audio = new Audio(src);
